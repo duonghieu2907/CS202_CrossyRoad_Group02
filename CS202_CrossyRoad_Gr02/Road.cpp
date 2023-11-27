@@ -65,7 +65,7 @@ void Road::drawTo(sf::RenderWindow& target)
 	target.draw(getShape());
 	std::cout << car.size() << "\n";
 	for (int i = 0;i < car.size();i++) {
-		car[i].drawTo(target);
+		target.draw(car[i].getShape());
 		//std::cout << i << "\n" << car[i].getShape().getPosition().x << " " << car[i].getShape().getPosition().y << "\n";
 	}
 
