@@ -16,9 +16,8 @@ public:
 	~Road();
 
 	void addCar(truck tmp, sf::Vector2f pos);
-	void addLight(TrafficLight tmp);
+	void addLight(TrafficLight tmp, sf::Vector2f pos);
 	void setPosition(sf::Vector2f pos) override;
-
 	//
 	void printCarpos();
 	int getCarnum() {

@@ -24,16 +24,22 @@ sf::RectangleShape& truck::getShape()
 {
 	return this->car;
 }
-
+void truck::setState(bool x)
+{
+	isGo = x;
+}
 void truck::update(float deltaTime, bool faceRight)
 {
 	animation.update(row, deltaTime, faceRight);
 	car.setTextureRect(animation.uvRect);
-	if (faceRight) {
-		car.move(this->carSpeed * deltaTime, 0);
-	}
-	else {
-		car.move(-(this->carSpeed * deltaTime), 0);
+	if (isGo)
+	{
+		if (faceRight) {
+			car.move(this->carSpeed * deltaTime, 0);
+		}
+		else {
+			car.move(-(this->carSpeed * deltaTime), 0);
+		}
 	}
 }
 

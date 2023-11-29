@@ -10,13 +10,14 @@ public:
 	void setPosition(sf::Vector2f pos);// for the truck
 	bool getRight();
 	sf::RectangleShape& getShape();
-
+	void setState(bool x);
 	void update(float deltaTime, bool faceRight);
 	void drawTo(sf::RenderTarget& target);
 private:
 	sf::RectangleShape car;
 	Animation animation;
-	unsigned int row;
+	bool isGo = 1;
+	unsigned int row = 0;
 	float carSpeed;
 	bool faceRight; // truck may go from left and right
 };

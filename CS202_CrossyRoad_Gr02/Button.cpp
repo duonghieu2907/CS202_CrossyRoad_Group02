@@ -107,7 +107,7 @@ void Button::update(sf::RenderWindow& window)
 {
     sf::Color grey(0, 0, 0, 120);
     if (isMouseOver(window)) {
-        std::cout << 1;
+        //std::cout << 1;
 		button.setOutlineColor(grey);
 	}
     else {

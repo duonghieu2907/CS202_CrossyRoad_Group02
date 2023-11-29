@@ -19,9 +19,10 @@ public:
 	TrafficLight(float timeRed, float timeGreen, bool right);
 	~TrafficLight();
 
+	bool getRight();
 	bool canGo();
 	void setPosition(sf::Vector2f cur);
-	sf::RectangleShape getShape();
+	sf::RectangleShape& getShape();
 
 	void update();
 	void drawTo(sf::RenderTarget& target);

@@ -8,6 +8,7 @@
 class InGameScreen : public Screen
 {
 public:
+    sf::Text text;
     InGameScreen(sf::RenderWindow& window);
     ~InGameScreen() {}
     void handleEvent(sf::Event event, sf::RenderWindow& window, ScreenState& currentScreen, bool& endScreen) override;
@@ -18,6 +19,8 @@ private:
     std::vector<obstacle*> listObstacle;
     float deltaTime = 0;
     sf::Clock clock;
+    sf::Clock TimeDisplay;
+    	
 };
 
 #endif

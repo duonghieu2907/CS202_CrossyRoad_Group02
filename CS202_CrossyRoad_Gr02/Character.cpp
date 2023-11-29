@@ -88,15 +88,21 @@ void Character::update(float deltaTime, std::vector <obstacle*> listObstacle)
 			movement.y += speed * deltaTime * 2;
 
 	if (!movement.x && !movement.y)
-		row = 0;
+		row = 1;
+	else if (movement.x) row = 0;
+	else row = 2;
+	if (movement.x > 0.0f)
+		faceRight = true;
 	else
+		faceRight = false;
+	/*else
 	{
-		row = 0;
+		row = 2;
 		if (movement.x > 0.0f)
 			faceRight = true;
 		else
 			faceRight = false;
-	}
+	}*/
 
 	animation.update(row, deltaTime, faceRight);
 	body.setTextureRect(animation.uvRect);

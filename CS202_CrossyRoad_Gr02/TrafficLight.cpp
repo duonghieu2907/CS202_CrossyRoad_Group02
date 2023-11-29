@@ -3,22 +3,23 @@
 void TrafficLight::initTexture()
 {
 	sf::Texture* tmp1 = new sf::Texture();
-	if (!tmp1->loadFromFile("")) {
+	if (!tmp1->loadFromFile("Material/Animations/dendo.png")) {
 		std::cout << "ERROR::LOADING TRAFFIC LIGHT\n";
 	}
-	this->Red = tmp1;
+	Red = tmp1;
 
 	sf::Texture* tmp2 = new sf::Texture();
-	if (!tmp2->loadFromFile("")) {
+	if (!tmp2->loadFromFile("Material/Animations/denxanh.png")) {
 		std::cout << "ERROR::LOADING TRAFFIC LIGHT\n";
 	}
-	this->Green = tmp2;
+	Green = tmp2;
 }
 
 TrafficLight::TrafficLight(float timeRed, float timeGreen, bool right)
 {
 	initTexture();
 	this->box.setPosition(0.f, 0.f);
+	this->box.setSize(sf::Vector2f(60,60));
 	this->timeRed = timeRed; // time for Red line
 	this->timeGreen = timeGreen; // time for green line
 	this->current = 0.f; // check the current time of the light
@@ -29,12 +30,12 @@ TrafficLight::TrafficLight(float timeRed, float timeGreen, bool right)
 
 TrafficLight::~TrafficLight()
 {
-	if (Red) {
-		delete Red;
-	}
-	if (Green) {
-		delete Green;
-	}
+	//delete Red and Green cause Bug?
+}
+
+bool TrafficLight::getRight()
+{
+	return this -> faceRight;
 }
 
 bool TrafficLight::canGo()
@@ -52,7 +53,7 @@ void TrafficLight::setPosition(sf::Vector2f cur)
 	box.setPosition(cur);
 }
 
-sf::RectangleShape TrafficLight::getShape()
+sf::RectangleShape& TrafficLight::getShape()
 {
 	return this->box;
 }
@@ -60,14 +61,14 @@ sf::RectangleShape TrafficLight::getShape()
 void TrafficLight::update()
 {
 	if (state && current < timeGreen) {
-		current += 1.f;
+		current += 0.05f;
 	}
 	else if (state && current >= timeGreen) {
 		current = 0.f;
 		state = false;
 	}
 	else if (!state && current < timeRed) {
-		current += 1.f;
+		current += 0.05f;
 	}
 	else if (!state && current >= timeRed) {
 		current = 0.f;

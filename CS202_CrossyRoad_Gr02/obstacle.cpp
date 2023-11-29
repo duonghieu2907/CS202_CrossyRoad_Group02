@@ -73,5 +73,9 @@ sf::RectangleShape obstacle::getShape()
 
 void obstacle::update()
 {
-
+  /*  if (getPosition().y >= 81 + 810)
+    {
+        setPosition(sf::Vector2f(720, -81 ));
+    }
+*/
 }
