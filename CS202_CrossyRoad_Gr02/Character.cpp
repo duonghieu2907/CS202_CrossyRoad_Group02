@@ -9,9 +9,23 @@ Character::Character(sf::Texture* texture, sf::Vector2u imgCount, float switchTi
 	row(0),
 	faceRight(true)
 {
+	this->normal = texture;
+
+	sf::Texture* t = new sf::Texture;
+	if (!t->loadFromFile("Material/Animations/getDamage.png")) {
+		std::cout << "ERROR can't not load player get damage\n";
+	}
+	this->getDamageTex = t;
+
+	this->hpMax = 10000000;
+	this->hp = this->hpMax;
+
+	this->invisibleMax = 300.f;
+	this->invisible = this->invisibleMax;
+
 	body.setSize(sf::Vector2f(80.0f, 80.0f));
 	body.setPosition(sf::Vector2f(200.0f, 200.0f));
-	body.setTexture(texture);
+	body.setTexture(this->normal);
 	body.setOrigin(40.f, 40.f);
 }
 
@@ -21,9 +35,23 @@ Character::Character(sf::Texture* texture, sf::Vector2u imgCount, float switchTi
 	row(0),
 	faceRight(true)
 {
+	this->normal = texture;
+
+	sf::Texture* t = new sf::Texture;
+	if (!t->loadFromFile("Material/Animations/getDamage.png")) {
+		std::cout << "ERROR can't not load player get damage\n";
+	}
+	this->getDamageTex = t;
+
+	this->hpMax = 10000000;
+	this->hp = this->hpMax;
+
+	this->invisibleMax = 300.f;
+	this->invisible = this->invisibleMax;
+
 	body.setSize(sf::Vector2f(80.0f, 80.0f));
 	body.setPosition(sf::Vector2f(200.0f, 200.0f));
-	body.setTexture(texture);
+	body.setTexture(this->normal);
 	body.setOrigin(40.f, 40.f);
 	body.setPosition(pos);
 }
@@ -134,5 +162,44 @@ sf::Vector2f Character::getPosition()
 sf::RectangleShape Character::getBody()
 {
 	return body;
+}
+
+void Character::getDamage()
+{
+	this->hp -= 1;
+	if (this->hp <= 0) {
+		this->hp = 0;
+	}
+}
+
+int Character::getHp()
+{
+	return this->hp;
+}
+
+int Character::getHpMax()
+{
+	return this->hpMax;
+}
+
+void Character::loadgetDamage()
+{
+	if (this->invisible < this->invisibleMax) {
+		this->invisible += 1.f;
+	}
+	else {
+		getDamage();
+		body.setTexture(this->getDamageTex);
+		this->invisible = 0;
+	}
+}
+
+void Character::settoNormal()
+{
+	if (this->invisible < this->invisibleMax) {
+		this->invisible += 1.f;
+	} else if (this->invisible == this->invisibleMax) {
+		body.setTexture(this->normal);
+	}
 }
 
