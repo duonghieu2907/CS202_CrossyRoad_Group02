@@ -149,9 +149,11 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainScreen.cpp" />
     <ClCompile Include="obstacle.cpp" />
+    <ClCompile Include="Road.cpp" />
     <ClCompile Include="Screen.cpp" />
     <ClCompile Include="SettingScreen.cpp" />
     <ClCompile Include="Textbox.cpp" />
+    <ClCompile Include="TrafficLight.cpp" />
     <ClCompile Include="truck.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -166,9 +168,11 @@
     <ClInclude Include="MainScreen.h" />
     <ClInclude Include="obstacle.h" />
     <ClInclude Include="River.h" />
+    <ClInclude Include="Road.h" />
     <ClInclude Include="Screen.h" />
     <ClInclude Include="SettingScreen.h" />
     <ClInclude Include="Textbox.h" />
+    <ClInclude Include="TrafficLight.h" />
     <ClInclude Include="truck.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
