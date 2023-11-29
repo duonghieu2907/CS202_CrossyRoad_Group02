@@ -20,15 +20,15 @@ bool obstacle::charIsInside(Character player)
     sf::FloatRect obsBounds = rec.getGlobalBounds();
     sf::FloatRect playerBounds = player.getBounds();
 
-    if(obsBounds.contains(playerBounds.left, playerBounds.top) &&
-        obsBounds.contains(playerBounds.left + playerBounds.width, playerBounds.top + playerBounds.height)) 
+    if (obsBounds.contains(playerBounds.left, playerBounds.top) &&
+        obsBounds.contains(playerBounds.left + playerBounds.width, playerBounds.top + playerBounds.height))
     {
         // The object is entirely inside the target rectangle
         return true;
     }
-    else 
+    else
     {
-     // The object is partially or entirely outside the target rectangle
+        // The object is partially or entirely outside the target rectangle
         return false;
     }
     return false;
@@ -64,4 +64,18 @@ float obstacle::distaceToPlayer(Character player)
 void obstacle::drawTo(sf::RenderWindow& window)
 {
     window.draw(rec);
+}
+
+sf::RectangleShape obstacle::getShape()
+{
+    return this->rec;
+}
+
+void obstacle::update()
+{
+  /*  if (getPosition().y >= 81 + 810)
+    {
+        setPosition(sf::Vector2f(720, -81 ));
+    }
+*/
 }

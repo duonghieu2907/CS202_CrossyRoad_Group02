@@ -1,18 +1,23 @@
 #pragma once
-#include "truck.h"
-#include "Character.h"
-#include "obstacle.h"
-class truck: public obstacle
+#include"SFML/Graphics.hpp"
+#include"Animation.h"
+
+class truck
 {
 public:
-	truck(float OBSwidth, sf::Vector2f OBSspeed, sf::Texture *OBStext, sf::Vector2f sizeTruck, sf::Texture* truckPic,
-		sf::Vector2u imgCount, float switchTime, float speed);
+	truck(sf::Vector2f sizeTruck, sf::Texture* truckPic, sf::Vector2u imgCount, float switchTime, float speed, bool Right);
+
 	void setPosition(sf::Vector2f pos);// for the truck
-//	bool isCollision(Character player) override;
+	bool getRight();
+	sf::RectangleShape& getShape();
+	void setState(bool x);
+	void update(float deltaTime, bool faceRight);
+	void drawTo(sf::RenderTarget& target);
 private:
 	sf::RectangleShape car;
 	Animation animation;
-	unsigned int row;
+	bool isGo = 1;
+	unsigned int row = 0;
 	float carSpeed;
 	bool faceRight; // truck may go from left and right
 };

@@ -24,6 +24,7 @@ void Application::initWindow()
 	);
 	window.setPosition(centerWindow);
 	window.setKeyRepeatEnabled(true);
+	window.setFramerateLimit(120);
 }
 
 void Application::run()
