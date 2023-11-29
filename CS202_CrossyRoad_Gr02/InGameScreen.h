@@ -11,6 +11,9 @@ public:
     sf::Text text;
     sf::Text playerHp;
 
+    void initTex();
+    void getRoadRan();
+
     InGameScreen(sf::RenderWindow& window);
     ~InGameScreen() {}
     void handleEvent(sf::Event event, sf::RenderWindow& window, ScreenState& currentScreen, bool& endScreen) override;
@@ -22,7 +25,14 @@ private:
     float deltaTime = 0;
     sf::Clock clock;
     sf::Clock TimeDisplay;
-    	
+    
+    sf::Texture* car; // get the texture of car
+    sf::Texture* road; // get the texture of road
+
+    //float dis; // this is the distance
+
+    float addRoadTime; // time until adding new road
+    float addRoadTimeMax; // maximum time to add new road
 };
 
 #endif
