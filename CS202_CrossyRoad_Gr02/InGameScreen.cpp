@@ -11,6 +11,12 @@ InGameScreen::InGameScreen(sf::RenderWindow& window) :
 	
 	text.setPosition(1250, 0);
 
+	playerHp.setFont(font);
+	playerHp.setCharacterSize(30);
+	playerHp.setFillColor(sf::Color::White);
+	
+	playerHp.setPosition(0, 0);
+
 	sf::Texture* t = new sf::Texture;
 	if (!(t->loadFromFile("Material/Animations/lo.png")))
 	{
@@ -70,7 +76,19 @@ void InGameScreen::update(sf::RenderWindow& window)
 	{
 		listObstacle[i]->update();
 	}
+	
 	player.update(deltaTime, listObstacle);
+
+	for (int i = 0; i < listObstacle.size();i++)
+	{
+		if (listObstacle[i]->isCollision(player)) {
+			player.loadgetDamage();
+			std::cout << player.getHp() << "\n";
+		}
+	}
+	player.settoNormal();
+
+	playerHp.setString("PLayer Hp: " + std::to_string(player.getHp()) + " / " + std::to_string(player.getHpMax()));
 }
 
 void InGameScreen::render(sf::RenderWindow& window)
@@ -84,6 +102,7 @@ void InGameScreen::render(sf::RenderWindow& window)
 			listObstacle[i]->drawTo(window);
 		}
 		window.draw(text);
+		window.draw(playerHp);
 		player.drawTo(window);
 	}
 

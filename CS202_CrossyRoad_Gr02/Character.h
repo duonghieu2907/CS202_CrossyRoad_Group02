@@ -49,12 +49,27 @@ public:
 	void setPosition(sf::Vector2f coor);
 	sf::Vector2f getPosition();
 	sf::RectangleShape getBody();
+
+	void getDamage();
+	int getHp();
+	int getHpMax();
+	void loadgetDamage();
+	void settoNormal();
 private:
-	sf::Texture texture;
+	//sf::Texture texture;
 	sf::RectangleShape body;
 	Animation animation;
 	unsigned int row;
 	float speed;
 	bool faceRight;
+
+	int hp;
+	int hpMax;
+
+	float invisible; //this is for when the character get damage, he/she will be invisible for a short period of time 
+	float invisibleMax; // the maximum period of time the character in invisible state
+
+	sf::Texture* getDamageTex;
+	sf::Texture* normal;
 };
 #endif

@@ -42,6 +42,6 @@ Screen* ScreenControl::getScreen(ScreenState state)
 void Screen::initFont()
 {
 	// Load font from file
-	if (!font.loadFromFile("font/SF-Pro-Rounded-Regular.otf"))
+	if (!font.loadFromFile("font/SAIGON1985.ttf"))
 		std::cout << "Font not found!\n";
 }

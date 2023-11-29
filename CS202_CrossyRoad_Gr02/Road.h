@@ -18,6 +18,7 @@ public:
 	void addCar(truck tmp, sf::Vector2f pos);
 	void addLight(TrafficLight tmp, sf::Vector2f pos);
 	void setPosition(sf::Vector2f pos) override;
+	bool isCollision(Character& player);
 	//
 	void printCarpos();
 	int getCarnum() {
