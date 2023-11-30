@@ -2,25 +2,35 @@
 #define DATA_H
 #pragma once
 #include <iostream>
-#include <SFML/Graphics.hpp>
+#include <fstream>
+#include <string>
+#include <vector>
 
 class Data {
 public:
-	Data(sf::RenderWindow& window);
-	Data() {}
+	Data() : name(""), highscore(0) {}
+	Data(std::string name, int highscore) : name(name), highscore(highscore) {}
 	~Data() {}
 
-	void setFont() {}
-	virtual void setBackground() {}
-	virtual void setText() {}
-	
-	virtual void update(sf::RenderWindow& window) {}
-	virtual void drawTo(sf::RenderWindow& window) {}
+	void setName(std::string name);
+	void setHighscore(int highscore);
 
+	//friend std::ostream& operator<<(std::ostream& out, const Data& other);
+
+	std::string getName() const;
+	int getHighscore() const;
 private:
-	sf::Text text;
-	sf::RectangleShape background;
-
+	std::string name;
+	int highscore;
 };
+
+//class DataControl {
+//public:
+//	DataControl() {}
+//	~DataControl() {}
+//
+//private:
+//	std::vector<Data*> datas;
+//};
 
 #endif
