@@ -61,7 +61,7 @@ InGameScreen::InGameScreen(sf::RenderWindow& window) :
 	//dis = 0;
 	getRoadRan();
 
-	addRoadTimeMax = 600.f;
+	addRoadTimeMax = 1000.f;
 	addRoadTime = 0.f;
 
 	sf::Texture* t = new sf::Texture;
@@ -91,6 +91,7 @@ void InGameScreen::update(sf::RenderWindow& window)
 	for (int i = 0; i < listObstacle.size();i++)
 	{
 		listObstacle[i]->update();
+		//std::cout << i << " " << listObstacle[i]->getPosition().x << " " << listObstacle[i]->getPosition().y<<"\n";
 	}
 	
 	player.update(deltaTime, listObstacle);
@@ -98,26 +99,38 @@ void InGameScreen::update(sf::RenderWindow& window)
 	for (int i = 0; i < listObstacle.size();i++)
 	{
 		if (listObstacle[i]->isCollision(player)) {
-			player.loadgetDamage();
+			player.loadgetDamage(); // after intersect with the obstacle, being invisible
 			std::cout << player.getHp() << "\n";
 		}
 	}
+	// Return the normal state after the invisible
 	player.settoNormal();
 
+	// Player hp render
 	playerHp.setString("PLayer Hp: " + std::to_string(player.getHp()) + " / " + std::to_string(player.getHpMax()));
 
 	//Endless mode
 	///*
 	if (player.getHp() > 0) {
-		if (addRoadTime == addRoadTimeMax) {
-			getRoadRan();
-			addRoadTime = 0.f;
+		if (addRoadTime >= addRoadTimeMax) {
+			if (listObstacle.size() < 10) {
+				getRoadRan();
+				addRoadTime = 0.f;
+			}
 		}
 		else {
 			addRoadTime += 10.f;
 		}
 	}
 	//*/
+
+	for (int i = 0;i < listObstacle.size();i++) {
+		if (listObstacle[i]->getPosition().y - 81.f > 920.f) {
+			listObstacle.erase(listObstacle.begin() + i);
+		}
+	}
+
+	std::cout << listObstacle.size() << "\n";
 }
 
 void InGameScreen::render(sf::RenderWindow& window)

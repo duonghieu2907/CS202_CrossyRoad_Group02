@@ -84,7 +84,6 @@ void Road::update()
 		light[i].getShape().move(getSpeed());
 		light[i].update();
 	}
-
 }
 
 void Road::drawTo(sf::RenderWindow& target)
