@@ -3,25 +3,29 @@
 #pragma once
 #include <cstdlib>
 #include <iostream>
+#include <fstream>
 #include <time.h>
 #include <vector>
 #include "SFML/Graphics.hpp"
 #include "Textbox.h"
 #include "Button.h"
+#include "Data.h"
 
 
 enum class ScreenState {
     MainScreen, // 0
-    GamePlayScreen, // 1
+    LogInScreen, // 1
     SettingScreen, // 2
-    InGameScreen // 3
+    GamePlayScreen, // 3
+    InGameScreen // 4
 };
 
 //ANY screen will be inheritance from this abstract base screen.
 class Screen {
 public:
-    Screen(sf::RenderWindow& window) : isEndScreen(false) { initFont(); }
-    ~Screen() {}
+    Screen() : isEndScreen(false), data(nullptr) {}
+    Screen(sf::RenderWindow& window);
+    ~Screen() { saveData(); }
 
     virtual void handleEvent(sf::Event event, sf::RenderWindow& window, ScreenState& currentScreen, bool& endScreen) {}
     virtual void update(sf::RenderWindow& window) {}
@@ -32,14 +36,19 @@ protected:
     virtual void initBackground(sf::RenderWindow& window) {}
     void initFont();
 
+    void initData();
+    void saveData();
 protected: // my set to protected if need
     sf::Font font;
     bool isEndScreen;
 
+    std::vector<Data*> dataCtrl;
+    Data* data;
 };
 
 class ScreenControl {
 public:
+    ScreenControl() {}
     ScreenControl(sf::RenderWindow& window);
     ~ScreenControl();
 
