@@ -19,6 +19,8 @@ public:
     void handleEvent(sf::Event event, sf::RenderWindow& window, ScreenState& currentScreen, bool& endScreen) override;
     void update(sf::RenderWindow& window) override;
     void render(sf::RenderWindow& window) override;
+
+    const bool isEndGame();
 private:
     Character player;
     std::vector<obstacle*> listObstacle;

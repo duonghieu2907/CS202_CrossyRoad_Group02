@@ -59,10 +59,9 @@ InGameScreen::InGameScreen(sf::RenderWindow& window) :
 	
 	initTex();
 	//dis = 0;
-	getRoadRan();
-
-	addRoadTimeMax = 1000.f;
-	addRoadTime = 0.f;
+	for (int i = 0;i < 7;i++) {
+		getRoadRan();
+	}
 
 	sf::Texture* t = new sf::Texture;
 	if (!t->loadFromFile("Material/Animations/Human.png"))
@@ -111,22 +110,13 @@ void InGameScreen::update(sf::RenderWindow& window)
 
 	//Endless mode
 	///*
-	if (player.getHp() > 0) {
-		if (addRoadTime >= addRoadTimeMax) {
-			if (listObstacle.size() < 10) {
-				getRoadRan();
-				addRoadTime = 0.f;
-			}
-		}
-		else {
-			addRoadTime += 10.f;
-		}
-	}
+	
 	//*/
 
 	for (int i = 0;i < listObstacle.size();i++) {
 		if (listObstacle[i]->getPosition().y - 81.f > 920.f) {
 			listObstacle.erase(listObstacle.begin() + i);
+			getRoadRan();
 		}
 	}
 
