@@ -34,7 +34,6 @@ private:
 
     ScreenControl screenCtrl;
     Screen* curScreen;
-
 };
 
 #endif
