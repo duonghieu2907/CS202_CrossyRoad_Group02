@@ -10,8 +10,10 @@ class InGameScreen : public Screen
 public:
     sf::Text text;
     sf::Text playerHp;
+    sf::Text playerStamina;
 
     void initTex();
+    void initText();
     void getRoadRan();
 
     InGameScreen(sf::RenderWindow& window);
@@ -30,6 +32,9 @@ private:
     
     sf::Texture* car; // get the texture of car
     sf::Texture* road; // get the texture of road
+    sf::Texture* cat;
+    sf::Texture* chicken;
+    sf::Texture* duck;
 
     //float dis; // this is the distance
 
