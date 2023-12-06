@@ -169,6 +169,7 @@
     <ClInclude Include="main.h" />
     <ClInclude Include="MainScreen.h" />
     <ClInclude Include="obstacle.h" />
+    <ClInclude Include="rain.h" />
     <ClInclude Include="River.h" />
     <ClInclude Include="Road.h" />
     <ClInclude Include="Screen.h" />

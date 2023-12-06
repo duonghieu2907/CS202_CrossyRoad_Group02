@@ -3,6 +3,16 @@
 
 void InGameScreen::initTex()
 {
+
+	myRain;
+	myRain.setState(1);
+	text.setFont(font);
+	text.setCharacterSize(30);
+	text.setFillColor(sf::Color::White);
+	
+	text.setPosition(1250, 0);
+
+
 	sf::Texture* t = new sf::Texture;
 	if (!(t->loadFromFile("Material/Animations/lo.png")))
 	{
@@ -10,7 +20,7 @@ void InGameScreen::initTex()
 	}
 
 	sf::Texture* honda = new sf::Texture;
-	if (!(honda->loadFromFile("Material/Animations/Honda.png")))
+	if (!(honda->loadFromFile("Material/Animations/honda.png")))
 	{
 		std::cout << "Can not load honda! \n";
 	}
@@ -75,6 +85,7 @@ void InGameScreen::initText()
 void InGameScreen::getRoadRan()
 {
 	int i = static_cast<unsigned>(rand() % 10 + 1);
+
 
 	Road* tmp = new Road(162.0f, sf::Vector2f(0, 1), this->road);
 
@@ -163,6 +174,10 @@ void InGameScreen::update(sf::RenderWindow& window)
 	player.reduceStamina();
 	//std::cout << player.getStamina() << " / " << player.getStaminaMax() << "\n";
 
+
+	if(myRain.getState()) myRain.update(window);
+
+
 	for (int i = 0; i < listObstacle.size();i++)
 	{
 		if (listObstacle[i]->isCollision(player)) {
@@ -178,16 +193,13 @@ void InGameScreen::update(sf::RenderWindow& window)
 	playerStamina.setString("PLayer Stamina: " + std::to_string(player.getStamina()) + " / " + std::to_string(player.getStaminaMax()) + "\n");
 
 	//Endless mode
-	///*
 	for (int i = 0;i < listObstacle.size();i++) {
 		if (listObstacle[i]->getPosition().y - 81.f > 920.f) {
 			listObstacle.erase(listObstacle.begin() + i);
 			getRoadRan();
 		}
 	}
-	//*/
 
-	//std::cout << listObstacle.size() << "\n";
 }
 
 void InGameScreen::render(sf::RenderWindow& window)
@@ -195,7 +207,7 @@ void InGameScreen::render(sf::RenderWindow& window)
 	if (!isEndScreen)
 	{
 		window.clear();
-	
+		
 		for (int i = 0; i < listObstacle.size(); i++)
 		{
 			listObstacle[i]->drawTo(window);
@@ -204,6 +216,7 @@ void InGameScreen::render(sf::RenderWindow& window)
 		window.draw(playerHp);
 		window.draw(playerStamina);
 		player.drawTo(window);
+		if(myRain.getState())myRain.drawTo(window);
 	}
 
 }
