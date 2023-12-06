@@ -71,8 +71,9 @@ void InGameScreen::getRoadRan()
 	if (randObs == 1) {
 		truck tmp1(sf::Vector2f(100.f, 100.f), this->car, sf::Vector2u(10, 1), 0.1f, 10.f, true);
 		tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x - 720 - i * 100, tmp->getPosition().y));
+		tmp->addLight(TLight, tmp->getPosition() + sf::Vector2f(i * 50, 0));
 	}
-	else if (randObs == 2) {
+	else if (randObs == 2) { // the problem maybe from the switch time
 		truck tmp1(sf::Vector2f(100.f, 100.f), this->cat, sf::Vector2u(8, 5), 0.1f, 10.f, true);
 		tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x - 720 - i * 100, tmp->getPosition().y));
 	}
@@ -84,8 +85,6 @@ void InGameScreen::getRoadRan()
 		truck tmp1(sf::Vector2f(100.f, 100.f), this->duck, sf::Vector2u(4, 5), 0.1f, 10.f, true);
 		tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x - 720 - i * 100, tmp->getPosition().y));
 	}
-
-	tmp->addLight(TLight, tmp->getPosition() + sf::Vector2f(i * 50, 0));
 
 	listObstacle.push_back(tmp);
 	if (listObstacle.size() == 1) {
