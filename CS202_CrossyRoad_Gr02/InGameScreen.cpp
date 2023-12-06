@@ -28,19 +28,19 @@ void InGameScreen::initTex()
 	sf::Texture* tcat = new sf::Texture;
 	if (!(tcat->loadFromFile("Material/Animations/Human.png")))
 	{
-		std::cout << "Can not load honda! \n";
+		std::cout << "Can not load cat! \n";
 	}
 
 	sf::Texture* tchicken = new sf::Texture;
 	if (!(tchicken->loadFromFile("Material/Animations/Chicken.png")))
 	{
-		std::cout << "Can not load honda! \n";
+		std::cout << "Can not load chicken! \n";
 	}
 
 	sf::Texture* tduck = new sf::Texture;
 	if (!(tduck->loadFromFile("Material/Animations/Duck.png")))
 	{
-		std::cout << "Can not load honda! \n";
+		std::cout << "Can not load duck! \n";
 	}
 
 	sf::Texture* tdog = new sf::Texture;
@@ -173,12 +173,15 @@ void InGameScreen::update(sf::RenderWindow& window)
 	player.reduceStamina();
 
 
+	//Rain effect
 	if(myRain.getState()) myRain.update(window);
 
+	
+	
 
 	for (int i = 0; i < listObstacle.size();i++)
 	{
-		if (listObstacle[i]->isCollision(player)) {
+		if (listObstacle[i]->charIsInside(player) && listObstacle[i]->isCollision(player)) {
 			player.loadgetDamage(); // after intersect with the obstacle, being invisible
 		}
 	}
@@ -191,7 +194,7 @@ void InGameScreen::update(sf::RenderWindow& window)
 
 	//Endless mode
 	for (int i = 0;i < listObstacle.size();i++) {
-		if (listObstacle[i]->getPosition().y - 81.f > 920.f) {
+		if (listObstacle[i]->getPosition().y - 81.f > 810.f) {
 			listObstacle.erase(listObstacle.begin() + i);
 			getRoadRan();
 		}

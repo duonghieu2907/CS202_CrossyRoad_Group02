@@ -37,8 +37,13 @@ void Road::setPosition(sf::Vector2f pos)
 
 bool Road::isCollision(Character& player)
 {
+
 	for (int i = 0;i < car.size();i++) {
-		if (this->car[i].getShape().getGlobalBounds().intersects(player.getBounds())) {
+		//if (this->car[i].getShape().getGlobalBounds().intersects(player.getBounds())) {
+		//	return true;
+		//}
+		if (abs(this->car[i].getShape().getPosition().x - player.getBody().getPosition().x) <= 40)
+		{
 			return true;
 		}
 	}
