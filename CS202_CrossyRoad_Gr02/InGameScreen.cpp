@@ -3,6 +3,16 @@
 
 void InGameScreen::initTex()
 {
+
+	myRain;
+	myRain.setState(1);
+	text.setFont(font);
+	text.setCharacterSize(30);
+	text.setFillColor(sf::Color::White);
+	
+	text.setPosition(1250, 0);
+
+
 	sf::Texture* t = new sf::Texture;
 	if (!(t->loadFromFile("Material/Animations/lo.png")))
 	{
@@ -10,10 +20,13 @@ void InGameScreen::initTex()
 	}
 
 	sf::Texture* honda = new sf::Texture;
-	if (!(honda->loadFromFile("Material/Animations/Honda.png")))
+	if (!(honda->loadFromFile("Material/Animations/dog sheet.png")))
 	{
 		std::cout << "Can not load honda! \n";
 	}
+
+
+		truck tmp1(sf::Vector2f(100.f, 100.f), honda, sf::Vector2u(8, 1), 0.1f, 10.f, true);
 
 	this->car = honda;
 	this->road = t;
@@ -23,6 +36,7 @@ void InGameScreen::initTex()
 void InGameScreen::getRoadRan()
 {
 	int i = static_cast<unsigned>(rand() % 10 + 1);
+
 
 	Road* tmp = new Road(162.0f, sf::Vector2f(0, 1), this->road);
 
@@ -95,6 +109,10 @@ void InGameScreen::update(sf::RenderWindow& window)
 	
 	player.update(deltaTime, listObstacle);
 
+
+	if(myRain.getState()) myRain.update(window);
+
+
 	for (int i = 0; i < listObstacle.size();i++)
 	{
 		if (listObstacle[i]->isCollision(player)) {
@@ -121,6 +139,7 @@ void InGameScreen::update(sf::RenderWindow& window)
 	}
 
 	std::cout << listObstacle.size() << "\n";
+
 }
 
 void InGameScreen::render(sf::RenderWindow& window)
@@ -128,7 +147,7 @@ void InGameScreen::render(sf::RenderWindow& window)
 	if (!isEndScreen)
 	{
 		window.clear();
-	
+		
 		for (int i = 0; i < listObstacle.size(); i++)
 		{
 			listObstacle[i]->drawTo(window);
@@ -136,6 +155,7 @@ void InGameScreen::render(sf::RenderWindow& window)
 		window.draw(text);
 		window.draw(playerHp);
 		player.drawTo(window);
+		if(myRain.getState())myRain.drawTo(window);
 	}
 
 }

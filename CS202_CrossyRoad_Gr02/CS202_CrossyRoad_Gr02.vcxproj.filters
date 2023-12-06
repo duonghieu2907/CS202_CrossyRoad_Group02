@@ -140,5 +140,8 @@
     <ClInclude Include="LogInScreen.h">
       <Filter>Header Files\Screen</Filter>
     </ClInclude>
+    <ClInclude Include="rain.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
