@@ -20,10 +20,12 @@ enum class ScreenState {
     InGameScreen // 4
 };
 
+// struct DataControl dataCtrl;
+
 //ANY screen will be inheritance from this abstract base screen.
 class Screen {
 public:
-    Screen() : isEndScreen(false), data(nullptr) {}
+    Screen() : isEndScreen(false) { dataCtrl.data = nullptr; }
     Screen(sf::RenderWindow& window);
     ~Screen() { saveData(); }
 
@@ -42,8 +44,7 @@ protected: // my set to protected if need
     sf::Font font;
     bool isEndScreen;
 
-    std::vector<Data*> dataCtrl;
-    Data* data;
+    static DataControl dataCtrl;
 };
 
 class ScreenControl {

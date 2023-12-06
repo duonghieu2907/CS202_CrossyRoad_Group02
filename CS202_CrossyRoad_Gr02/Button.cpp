@@ -37,15 +37,15 @@ void Button::setPosition(const sf::Vector2f &point)
     //float xPos = (point.x + btnWidth / 2.0) - (text.getLocalBounds().width / 2);
     //float yPos = (point.y + btnHeight / 2.5) - (text.getLocalBounds().height / 2);
 
-    float xPos = (point.x + btnWidth * 0.05f); // - (text.getLocalBounds().width / 2);
-    float yPos = (point.y + btnHeight * 0.3f); //- (text.getLocalBounds().height / 2);
+    float xPos = (point.x + btnWidth * 0.1f); // - (text.getLocalBounds().width / 2);
+    float yPos = (point.y + btnHeight * 0.28f); //- (text.getLocalBounds().height / 2);
     text.setPosition(xPos, yPos);
 }
 
 void Button::setPosition(float x, float y)
 {
     button.setPosition(x, y);
-    float xPos = (x + btnWidth / 2.0) - (text.getLocalBounds().width / 2);
+    float xPos = (x + btnWidth / 2) - (text.getLocalBounds().width / 2);
     float yPos = (y + btnHeight / 2.5) - (text.getLocalBounds().height / 2);
     text.setPosition(xPos, yPos);
 }
@@ -189,8 +189,8 @@ void ButtonCustom::drawTo(sf::RenderWindow& window)
 // AccountButton
 
 AccountButton::AccountButton(std::string btnText, sf::Vector2f buttonSize, int charSize, sf::Color bgColor, sf::Color textColor, sf::Texture* buttonTex, std::string score)
-    : ButtonCustom(btnText, { buttonSize.x * 0.9f, buttonSize.y }, charSize, bgColor, textColor, buttonTex),
-    remove("", { buttonSize.x * 0.1f, buttonSize.y }, charSize, bgColor, textColor, &removeTex)
+    : ButtonCustom(btnText, { buttonSize.x * 0.85f, buttonSize.y }, charSize, bgColor, textColor, buttonTex),
+    remove("", { buttonSize.x * 0.15f, buttonSize.y }, charSize, bgColor, textColor, &removeTex)
 {
     initBackground();
     initScore(score, charSize, textColor);

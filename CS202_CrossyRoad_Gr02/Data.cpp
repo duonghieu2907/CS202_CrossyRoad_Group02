@@ -26,7 +26,7 @@ int Data::getHighscore() const
 	return highscore; 
 }
 
-
+// Data Control
 
 //DataControl::DataControl()
 //{
@@ -43,7 +43,10 @@ int Data::getHighscore() const
 //			std::string name;
 //			int highscore = 0;
 //			std::getline(fin, name, ' ');
+//			if (name.empty())
+//				break;
 //			fin >> highscore;
+//			fin.ignore(1000, '\n');
 //			Data* tmp = new Data(name, highscore);
 //			datas.push_back(tmp);
 //		}
@@ -61,8 +64,8 @@ int Data::getHighscore() const
 //	}
 //	else
 //	{
-//		for (auto data : datas)
-//			fout << data;
+//		for (auto dataT : datas)
+//			fout << dataT->getName() << " " << dataT->getHighscore() << std::endl;
 //		fout.close();
 //	}
 //}
