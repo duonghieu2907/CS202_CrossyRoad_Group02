@@ -30,6 +30,8 @@ Character::Character(sf::Texture* texture, sf::Vector2u imgCount, float switchTi
 	moveCounterMax = 10;
 	moveCounter = 0;
 
+	this->point = 0;
+
 	body.setSize(sf::Vector2f(80.0f, 80.0f));
 	body.setPosition(sf::Vector2f(200.0f, 200.0f));
 	body.setTexture(this->normal);
@@ -59,9 +61,11 @@ Character::Character(sf::Texture* texture, sf::Vector2u imgCount, float switchTi
 	this->invisibleMax = 300.f;
 	this->invisible = this->invisibleMax;
 
-	checkMove = 0;
-	moveCounterMax = 1000;
-	moveCounter = 0;
+	this->checkMove = 0;
+	this->moveCounterMax = 1000;
+	this->moveCounter = 0;
+	
+	this->point = 0;
 
 	body.setSize(sf::Vector2f(80.0f, 80.0f));
 	body.setPosition(sf::Vector2f(200.0f, 200.0f));
@@ -248,6 +252,29 @@ void Character::reduceStamina()
 	if (stamina <= 0) {
 		stamina = 0;
 	}
+}
+
+void Character::incStamina(int n)
+{
+	if (n == 2) {
+		this->stamina += 3;
+	}
+	else if (n == 3) {
+		this->stamina += 5;
+	}
+	if (this->stamina >= this->staminaMax) {
+		this->stamina = this->staminaMax;
+	}
+}
+
+void Character::incPoint()
+{
+	this->point += 1;
+}
+
+int Character::getPoint()
+{
+	return this->point;
 }
 
 
