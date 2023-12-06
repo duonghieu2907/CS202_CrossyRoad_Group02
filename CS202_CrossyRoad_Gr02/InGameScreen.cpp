@@ -20,13 +20,13 @@ void InGameScreen::initTex()
 	}
 
 	sf::Texture* honda = new sf::Texture;
-	if (!(honda->loadFromFile("Material/Animations/dog sheet.png")))
+	if (!(honda->loadFromFile("Material/Animations/honda.png")))
 	{
 		std::cout << "Can not load honda! \n";
 	}
 
 
-		truck tmp1(sf::Vector2f(100.f, 100.f), honda, sf::Vector2u(8, 1), 0.1f, 10.f, true);
+	truck tmp1(sf::Vector2f(100.f, 100.f), honda, sf::Vector2u(8, 1), 0.1f, 20.f, true);
 
 	this->car = honda;
 	this->road = t;

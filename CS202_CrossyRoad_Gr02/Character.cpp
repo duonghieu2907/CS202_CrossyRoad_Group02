@@ -137,6 +137,11 @@ void Character::update(float deltaTime, std::vector <obstacle*> listObstacle)
 	if (moveToOther == 0) {
 		body.move(movement + listObstacle[0]->getSpeed());
 	}
+	if (body.getPosition().y - 40 >= 820) this->hp = 0; //dead
+	if (body.getPosition().x + 40 >= 1440 || body.getPosition().x - 40 <= 0)
+	{
+		body.move(-movement - listObstacle[0]->getSpeed());
+	}
 }
 
 void Character::drawTo(sf::RenderWindow& window)
