@@ -4,6 +4,7 @@
 #include "Screen.h"
 #include "Character.h"
 #include "obstacle.h"
+#include "rain.h"
 
 class InGameScreen : public Screen
 {
@@ -20,6 +21,7 @@ private:
     float deltaTime = 0;
     sf::Clock clock;
     sf::Clock TimeDisplay;
+    rain myRain;
     	
 };
 
