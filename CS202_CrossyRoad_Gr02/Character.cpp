@@ -17,11 +17,18 @@ Character::Character(sf::Texture* texture, sf::Vector2u imgCount, float switchTi
 	}
 	this->getDamageTex = t;
 
-	this->hpMax = 10000000;
+	this->hpMax = 3;
 	this->hp = this->hpMax;
+
+	this->staminaMax = 10;
+	this->stamina = this->staminaMax;
 
 	this->invisibleMax = 300.f;
 	this->invisible = this->invisibleMax;
+
+	checkMove = 0;
+	moveCounterMax = 10;
+	moveCounter = 0;
 
 	body.setSize(sf::Vector2f(80.0f, 80.0f));
 	body.setPosition(sf::Vector2f(200.0f, 200.0f));
@@ -43,11 +50,18 @@ Character::Character(sf::Texture* texture, sf::Vector2u imgCount, float switchTi
 	}
 	this->getDamageTex = t;
 
-	this->hpMax = 10000000;
+	this->hpMax = 3;
 	this->hp = this->hpMax;
+
+	this->staminaMax = 10;
+	this->stamina = this->staminaMax;
 
 	this->invisibleMax = 300.f;
 	this->invisible = this->invisibleMax;
+
+	checkMove = 0;
+	moveCounterMax = 1000;
+	moveCounter = 0;
 
 	body.setSize(sf::Vector2f(80.0f, 80.0f));
 	body.setPosition(sf::Vector2f(200.0f, 200.0f));
@@ -84,10 +98,17 @@ void Character::update(float deltaTime, std::vector <obstacle*> listObstacle)
 	//std::cout << index;
 	sf::Vector2f movement(0.0f, 0.0f);
 	bool moveToOther = 0;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+
+	checkMove = 0;
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
 		movement.x -= speed * deltaTime * 2;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		checkMove = 1;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
 		movement.x += speed * deltaTime * 2;
+		checkMove = 1;
+	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 		if (inside)
 		{
@@ -101,6 +122,7 @@ void Character::update(float deltaTime, std::vector <obstacle*> listObstacle)
 		}
 		else
 			movement.y -= speed * deltaTime * 2;
+		checkMove = 1;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 		if (inside)
 		{
@@ -114,7 +136,7 @@ void Character::update(float deltaTime, std::vector <obstacle*> listObstacle)
 		}
 		else
 			movement.y += speed * deltaTime * 2;
-
+		checkMove = 1;
 	if (!movement.x && !movement.y)
 		row = 1;
 	else if (movement.x) row = 0;
@@ -123,14 +145,6 @@ void Character::update(float deltaTime, std::vector <obstacle*> listObstacle)
 		faceRight = true;
 	else
 		faceRight = false;
-	/*else
-	{
-		row = 2;
-		if (movement.x > 0.0f)
-			faceRight = true;
-		else
-			faceRight = false;
-	}*/
 
 	animation.update(row, deltaTime, faceRight);
 	body.setTextureRect(animation.uvRect);
@@ -207,4 +221,30 @@ void Character::settoNormal()
 		body.setTexture(this->normal);
 	}
 }
+
+int Character::getStamina()
+{
+	return this->stamina;
+}
+
+int Character::getStaminaMax()
+{
+	return this->staminaMax;
+}
+
+void Character::reduceStamina()
+{
+	if (checkMove == 1) {
+		moveCounter += 1;
+	}
+
+	if (moveCounter >= moveCounterMax) {
+		stamina -= 1;
+		moveCounter = 0;
+	}
+	if (stamina <= 0) {
+		stamina = 0;
+	}
+}
+
 

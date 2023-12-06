@@ -55,6 +55,13 @@ public:
 	int getHpMax();
 	void loadgetDamage();
 	void settoNormal();
+
+	
+	int getStamina();
+	int getStaminaMax();
+
+	void reduceStamina();
+
 private:
 	//sf::Texture texture;
 	sf::RectangleShape body;
@@ -71,5 +78,12 @@ private:
 
 	sf::Texture* getDamageTex;
 	sf::Texture* normal;
+
+	int checkMove;
+	int moveCounter;
+	int moveCounterMax;
+
+	int stamina;
+	int staminaMax;
 };
 #endif
