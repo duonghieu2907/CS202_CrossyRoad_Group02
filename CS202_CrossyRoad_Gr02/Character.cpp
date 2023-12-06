@@ -109,7 +109,7 @@ void Character::update(float deltaTime, std::vector <obstacle*> listObstacle)
 		movement.x += speed * deltaTime * 2;
 		checkMove = 1;
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
 		if (inside)
 		{
 			if (inside->getPosition().y - body.getPosition().y > 34)
@@ -123,7 +123,8 @@ void Character::update(float deltaTime, std::vector <obstacle*> listObstacle)
 		else
 			movement.y -= speed * deltaTime * 2;
 		checkMove = 1;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
 		if (inside)
 		{
 			if (body.getPosition().y - inside->getPosition().y > 34)
@@ -137,6 +138,7 @@ void Character::update(float deltaTime, std::vector <obstacle*> listObstacle)
 		else
 			movement.y += speed * deltaTime * 2;
 		checkMove = 1;
+	}
 	if (!movement.x && !movement.y)
 		row = 1;
 	else if (movement.x) row = 0;
@@ -231,6 +233,7 @@ void Character::reduceStamina()
 {
 	if (checkMove == 1) {
 		moveCounter += 1;
+		checkMove = 0;
 	}
 
 	if (moveCounter >= moveCounterMax) {

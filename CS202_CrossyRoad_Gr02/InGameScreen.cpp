@@ -33,12 +33,25 @@ void InGameScreen::initTex()
 		std::cout << "Can not load honda! \n";
 	}
 
+	sf::Texture* tdog = new sf::Texture;
+	if (!(tdog->loadFromFile("Material/Animations/Dog.png")))
+	{
+		std::cout << "Can not load honda! \n";
+	}
+
+	sf::Texture* tmonkey = new sf::Texture;
+	if (!(tmonkey->loadFromFile("Material/Animations/Monkey.png")))
+	{
+		std::cout << "Can not load honda! \n";
+	}
+
 	this->car = honda;
 	this->road = t;
 	this->cat = tcat;
 	this->chicken = tchicken;
 	this->duck = tduck;
-
+	this->dog = tdog;
+	this->monkey = tmonkey;
 }
 
 void InGameScreen::initText()
@@ -67,22 +80,30 @@ void InGameScreen::getRoadRan()
 
 	TrafficLight TLight(20.0f, 20.0f, 0);
 
-	int randObs = static_cast<int>(rand() % 5 + 1);
+	int randObs = static_cast<int>(rand() % 6 + 1);
 	if (randObs == 1) {
 		truck tmp1(sf::Vector2f(100.f, 100.f), this->car, sf::Vector2u(10, 1), 0.1f, 10.f, true);
 		tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x - 720 - i * 100, tmp->getPosition().y));
 		tmp->addLight(TLight, tmp->getPosition() + sf::Vector2f(i * 50, 0));
 	}
 	else if (randObs == 2) { // the problem maybe from the switch time
-		truck tmp1(sf::Vector2f(100.f, 100.f), this->cat, sf::Vector2u(8, 5), 0.1f, 10.f, true);
+		truck tmp1(sf::Vector2f(100.f, 100.f), this->cat, sf::Vector2u(4, 1), 0.00001f, 10.f, true);
 		tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x - 720 - i * 100, tmp->getPosition().y));
 	}
 	else if (randObs == 3) {
-		truck tmp1(sf::Vector2f(100.f, 100.f), this->chicken, sf::Vector2u(4, 5), 0.1f, 10.f, true);
+		truck tmp1(sf::Vector2f(100.f, 100.f), this->chicken, sf::Vector2u(12, 1), 0.00001f, 10.f, true);
 		tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x - 720 - i * 100, tmp->getPosition().y));
 	}
 	else if (randObs == 4) {
-		truck tmp1(sf::Vector2f(100.f, 100.f), this->duck, sf::Vector2u(4, 5), 0.1f, 10.f, true);
+		truck tmp1(sf::Vector2f(100.f, 100.f), this->duck, sf::Vector2u(6, 1), 0.00001f, 10.f, true);
+		tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x - 720 - i * 100, tmp->getPosition().y));
+	}
+	else if (randObs == 5) {
+		truck tmp1(sf::Vector2f(100.f, 100.f), this->dog, sf::Vector2u(8, 1), 0.00001f, 10.f, true);
+		tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x - 720 - i * 100, tmp->getPosition().y));
+	}
+	else if (randObs == 6) {
+		truck tmp1(sf::Vector2f(100.f, 100.f), this->monkey, sf::Vector2u(8, 1), 0.00001f, 10.f, true);
 		tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x - 720 - i * 100, tmp->getPosition().y));
 	}
 

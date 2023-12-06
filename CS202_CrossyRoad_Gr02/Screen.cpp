@@ -48,6 +48,7 @@ Screen::Screen(sf::RenderWindow& window) : isEndScreen(false), data(nullptr)
 { 
 	initFont(); 
 	initData();
+	window.setFramerateLimit(120);
 }
 
 void Screen::initFont()

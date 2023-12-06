@@ -35,6 +35,8 @@ private:
     sf::Texture* cat;
     sf::Texture* chicken;
     sf::Texture* duck;
+    sf::Texture* dog;
+    sf::Texture* monkey;
 
     //float dis; // this is the distance
 
