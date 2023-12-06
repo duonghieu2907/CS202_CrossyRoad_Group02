@@ -26,7 +26,7 @@ void InGameScreen::initTex()
 	}
 
 	sf::Texture* tcat = new sf::Texture;
-	if (!(tcat->loadFromFile("Material/Animations/Cat.png")))
+	if (!(tcat->loadFromFile("Material/Animations/Human.png")))
 	{
 		std::cout << "Can not load honda! \n";
 	}
@@ -98,11 +98,11 @@ void InGameScreen::getRoadRan()
 		tmp->addLight(TLight, tmp->getPosition() + sf::Vector2f(i * 50, 0));
 	}
 	else if (randObs == 2) { // the problem maybe from the switch time
-		truck tmp1(sf::Vector2f(100.f, 100.f), this->cat, sf::Vector2u(4, 1), 0.00001f, 10.f, true);
+		truck tmp1(sf::Vector2f(100.f, 100.f), this->cat, sf::Vector2u(4, 3), 0.00001f, 10.f, true);
 		tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x - 720 - i * 100, tmp->getPosition().y));
 	}
 	else if (randObs == 3) {
-		truck tmp1(sf::Vector2f(100.f, 100.f), this->chicken, sf::Vector2u(12, 1), 0.00001f, 10.f, true);
+		truck tmp1(sf::Vector2f(100.f, 100.f), this->chicken, sf::Vector2u(12, 1), 0.00001f, 10.f, 0);
 		tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x - 720 - i * 100, tmp->getPosition().y));
 	}
 	else if (randObs == 4) {
