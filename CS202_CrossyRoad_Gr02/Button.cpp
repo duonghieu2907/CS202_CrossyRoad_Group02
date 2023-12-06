@@ -72,7 +72,7 @@ const sf::Vector2f& Button::getSize()
 
 void Button::drawTo(sf::RenderWindow& window) 
 {
-    window.draw(button);
+    //window.draw(button);
     window.draw(text);
 }
 

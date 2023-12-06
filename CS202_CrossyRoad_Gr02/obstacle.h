@@ -13,7 +13,7 @@ public:
 
     float getWidth();
     bool charIsInside(Character player);
-    //virtual bool isCollision(Character player);
+    virtual bool isCollision(Character& player) { return false; }
     sf::Vector2f getPosition();
     virtual void setPosition(sf::Vector2f pos);
     void setSpeed(sf::Vector2f v);

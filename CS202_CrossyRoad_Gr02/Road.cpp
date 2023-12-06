@@ -35,6 +35,16 @@ void Road::setPosition(sf::Vector2f pos)
 	}
 }
 
+bool Road::isCollision(Character& player)
+{
+	for (int i = 0;i < car.size();i++) {
+		if (this->car[i].getShape().getGlobalBounds().intersects(player.getBounds())) {
+			return true;
+		}
+	}
+	return false;
+}
+
 void Road::printCarpos()
 {
 	for (int i = 0;i < car.size();i++) {
@@ -74,7 +84,6 @@ void Road::update()
 		light[i].getShape().move(getSpeed());
 		light[i].update();
 	}
-
 }
 
 void Road::drawTo(sf::RenderWindow& target)

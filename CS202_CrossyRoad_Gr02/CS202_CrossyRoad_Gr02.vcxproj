@@ -146,6 +146,7 @@
     <ClCompile Include="Data.cpp" />
     <ClCompile Include="GamePlayScreen.cpp" />
     <ClCompile Include="InGameScreen.cpp" />
+    <ClCompile Include="LogInScreen.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainScreen.cpp" />
     <ClCompile Include="obstacle.cpp" />
@@ -164,6 +165,7 @@
     <ClInclude Include="GamePlayScreen.h" />
     <ClInclude Include="Header.h" />
     <ClInclude Include="InGameScreen.h" />
+    <ClInclude Include="LogInScreen.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="MainScreen.h" />
     <ClInclude Include="obstacle.h" />

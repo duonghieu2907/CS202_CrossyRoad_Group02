@@ -89,7 +89,7 @@ void GamePlayScreen::handleEvent(sf::Event event, sf::RenderWindow& window, Scre
 		}
 		else if (backButton.isMouseOver(window))
 		{
-			currentScreen = ScreenState::MainScreen;
+			currentScreen = ScreenState::LogInScreen;
 			endScreen = true;
 			isEndScreen = endScreen;
 		}

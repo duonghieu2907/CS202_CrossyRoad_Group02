@@ -30,15 +30,17 @@ void truck::setState(bool x)
 }
 void truck::update(float deltaTime, bool faceRight)
 {
-	animation.update(row, deltaTime, faceRight);
-	car.setTextureRect(animation.uvRect);
-	if (isGo)
-	{
-		if (faceRight) {
-			car.move(this->carSpeed * deltaTime, 0);
-		}
-		else {
-			car.move(-(this->carSpeed * deltaTime), 0);
+	if (getShape().getGlobalBounds().top + 90.f >=0) { // at the close enough the screen, the car now move
+		animation.update(row, deltaTime, faceRight);
+		car.setTextureRect(animation.uvRect);
+		if (isGo)
+		{
+			if (faceRight) {
+				car.move(this->carSpeed * deltaTime, 0);
+			}
+			else {
+				car.move(-(this->carSpeed * deltaTime), 0);
+			}
 		}
 	}
 }
