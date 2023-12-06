@@ -98,23 +98,23 @@ void InGameScreen::getRoadRan()
 		tmp->addLight(TLight, tmp->getPosition() + sf::Vector2f(i * 50, 0));
 	}
 	else if (randObs == 2) { // the problem maybe from the switch time
-		truck tmp1(sf::Vector2f(100.f, 100.f), this->cat, sf::Vector2u(4, 3), 0.00001f, 10.f, true);
+		truck tmp1(sf::Vector2f(100.f, 100.f), this->cat, sf::Vector2u(4, 3), 0.1f, 10.f, true);
 		tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x - 720 - i * 100, tmp->getPosition().y));
 	}
 	else if (randObs == 3) {
-		truck tmp1(sf::Vector2f(100.f, 100.f), this->chicken, sf::Vector2u(12, 1), 0.00001f, 10.f, 0);
+		truck tmp1(sf::Vector2f(100.f, 100.f), this->chicken, sf::Vector2u(12, 1), 0.1f, 10.f, 0);
 		tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x - 720 - i * 100, tmp->getPosition().y));
 	}
 	else if (randObs == 4) {
-		truck tmp1(sf::Vector2f(100.f, 100.f), this->duck, sf::Vector2u(6, 1), 0.00001f, 10.f, true);
+		truck tmp1(sf::Vector2f(100.f, 100.f), this->duck, sf::Vector2u(6, 1), 0.1f, 10.f, true);
 		tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x - 720 - i * 100, tmp->getPosition().y));
 	}
 	else if (randObs == 5) {
-		truck tmp1(sf::Vector2f(100.f, 100.f), this->dog, sf::Vector2u(8, 1), 0.00001f, 10.f, true);
+		truck tmp1(sf::Vector2f(100.f, 100.f), this->dog, sf::Vector2u(8, 1), 0.1f, 10.f, true);
 		tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x - 720 - i * 100, tmp->getPosition().y));
 	}
 	else if (randObs == 6) {
-		truck tmp1(sf::Vector2f(100.f, 100.f), this->monkey, sf::Vector2u(8, 1), 0.00001f, 10.f, true);
+		truck tmp1(sf::Vector2f(100.f, 100.f), this->monkey, sf::Vector2u(8, 1), 0.1f, 10.f, true);
 		tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x - 720 - i * 100, tmp->getPosition().y));
 	}
 
@@ -165,14 +165,12 @@ void InGameScreen::update(sf::RenderWindow& window)
 	for (int i = 0; i < listObstacle.size();i++)
 	{
 		listObstacle[i]->update();
-		//std::cout << i << " " << listObstacle[i]->getPosition().x << " " << listObstacle[i]->getPosition().y<<"\n";
 	}
 	
 	player.update(deltaTime, listObstacle);
 
 	// Stamina
 	player.reduceStamina();
-	//std::cout << player.getStamina() << " / " << player.getStaminaMax() << "\n";
 
 
 	if(myRain.getState()) myRain.update(window);
@@ -182,7 +180,6 @@ void InGameScreen::update(sf::RenderWindow& window)
 	{
 		if (listObstacle[i]->isCollision(player)) {
 			player.loadgetDamage(); // after intersect with the obstacle, being invisible
-			//std::cout << player.getHp() << "\n";
 		}
 	}
 	// Return the normal state after the invisible
@@ -199,7 +196,6 @@ void InGameScreen::update(sf::RenderWindow& window)
 			getRoadRan();
 		}
 	}
-
 }
 
 void InGameScreen::render(sf::RenderWindow& window)
