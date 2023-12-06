@@ -24,6 +24,15 @@ private:
 	int highscore;
 };
 
+struct DataControl {
+	std::vector<Data*> datas;
+	Data* data = nullptr;
+};
+
+//extern struct DataControl dataCtrl;
+
+//extern DataControl dataCtrl;
+
 //class DataControl {
 //public:
 //	DataControl() {}
@@ -31,6 +40,7 @@ private:
 //
 //private:
 //	std::vector<Data*> datas;
+//	Data* data;
 //};
 
 #endif

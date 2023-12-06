@@ -44,8 +44,11 @@ Screen* ScreenControl::getScreen(ScreenState state)
 
 // SCREEN
 
-Screen::Screen(sf::RenderWindow& window) : isEndScreen(false), data(nullptr) 
+DataControl Screen::dataCtrl;
+
+Screen::Screen(sf::RenderWindow& window) : isEndScreen(false)
 { 
+	dataCtrl.data = nullptr;
 	initFont(); 
 	initData();
 }
@@ -77,7 +80,7 @@ void Screen::initData()
 			fin >> highscore;
 			fin.ignore(1000, '\n');
 			Data* tmp = new Data(name, highscore);
-			dataCtrl.push_back(tmp);
+			dataCtrl.datas.push_back(tmp);
 		}
 		fin.close();
 	}
@@ -93,7 +96,7 @@ void Screen::saveData()
 	}
 	else
 	{
-		for (auto dataT : dataCtrl)
+		for (auto dataT : dataCtrl.datas)
 			fout << dataT->getName() << " " << dataT->getHighscore() << std::endl;
 		fout.close();
 	}
