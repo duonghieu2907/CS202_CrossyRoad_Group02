@@ -46,6 +46,8 @@ private:
     float addRoadTimeMax; // maximum time to add new road
 
     sf::Texture* star;
+    sf::Texture* water;
+    sf::Texture* cola;
 };
 
 #endif
