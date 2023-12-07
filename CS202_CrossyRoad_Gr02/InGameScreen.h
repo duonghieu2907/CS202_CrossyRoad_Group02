@@ -12,6 +12,7 @@ public:
     sf::Text text;
     sf::Text playerHp;
     sf::Text playerStamina;
+    sf::Text playerPoint;
 
     void initTex();
     void initText();
@@ -32,20 +33,21 @@ private:
     sf::Clock TimeDisplay;
 
     rain myRain;
-    	
-
     
     sf::Texture* car; // get the texture of car
     sf::Texture* road; // get the texture of road
     sf::Texture* cat;
     sf::Texture* chicken;
     sf::Texture* duck;
-
-    //float dis; // this is the distance
+    sf::Texture* dog;
+    sf::Texture* monkey;
 
     float addRoadTime; // time until adding new road
     float addRoadTimeMax; // maximum time to add new road
 
+    sf::Texture* star;
+    sf::Texture* water;
+    sf::Texture* cola;
 };
 
 #endif

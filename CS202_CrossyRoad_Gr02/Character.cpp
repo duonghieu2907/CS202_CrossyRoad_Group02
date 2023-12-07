@@ -30,6 +30,8 @@ Character::Character(sf::Texture* texture, sf::Vector2u imgCount, float switchTi
 	moveCounterMax = 10;
 	moveCounter = 0;
 
+	this->point = 0;
+
 	body.setSize(sf::Vector2f(80.0f, 80.0f));
 	body.setPosition(sf::Vector2f(200.0f, 200.0f));
 	body.setTexture(this->normal);
@@ -59,9 +61,11 @@ Character::Character(sf::Texture* texture, sf::Vector2u imgCount, float switchTi
 	this->invisibleMax = 300.f;
 	this->invisible = this->invisibleMax;
 
-	checkMove = 0;
-	moveCounterMax = 1000;
-	moveCounter = 0;
+	this->checkMove = 0;
+	this->moveCounterMax = 1000;
+	this->moveCounter = 0;
+	
+	this->point = 0;
 
 	body.setSize(sf::Vector2f(80.0f, 80.0f));
 	body.setPosition(sf::Vector2f(200.0f, 200.0f));
@@ -109,7 +113,7 @@ void Character::update(float deltaTime, std::vector <obstacle*> listObstacle)
 		movement.x += speed * deltaTime * 2;
 		checkMove = 1;
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
 		if (inside)
 		{
 			if (inside->getPosition().y - body.getPosition().y > 34)
@@ -123,7 +127,8 @@ void Character::update(float deltaTime, std::vector <obstacle*> listObstacle)
 		else
 			movement.y -= speed * deltaTime * 2;
 		checkMove = 1;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
 		if (inside)
 		{
 			if (body.getPosition().y - inside->getPosition().y > 34)
@@ -137,6 +142,7 @@ void Character::update(float deltaTime, std::vector <obstacle*> listObstacle)
 		else
 			movement.y += speed * deltaTime * 2;
 		checkMove = 1;
+	}
 	if (!movement.x && !movement.y)
 		row = 1;
 	else if (movement.x) row = 0;
@@ -236,6 +242,7 @@ void Character::reduceStamina()
 {
 	if (checkMove == 1) {
 		moveCounter += 1;
+		checkMove = 0;
 	}
 
 	if (moveCounter >= moveCounterMax) {
@@ -245,6 +252,29 @@ void Character::reduceStamina()
 	if (stamina <= 0) {
 		stamina = 0;
 	}
+}
+
+void Character::incStamina(int n)
+{
+	if (n == 2) {
+		this->stamina += 3;
+	}
+	else if (n == 3) {
+		this->stamina += 5;
+	}
+	if (this->stamina >= this->staminaMax) {
+		this->stamina = this->staminaMax;
+	}
+}
+
+void Character::incPoint()
+{
+	this->point += 1;
+}
+
+int Character::getPoint()
+{
+	return this->point;
 }
 
 

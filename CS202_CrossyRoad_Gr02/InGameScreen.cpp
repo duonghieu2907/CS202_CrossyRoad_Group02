@@ -43,12 +43,46 @@ void InGameScreen::initTex()
 		std::cout << "Can not load duck! \n";
 	}
 
+	sf::Texture* tdog = new sf::Texture;
+	if (!(tdog->loadFromFile("Material/Animations/Dog.png")))
+	{
+		std::cout << "Can not load dog! \n";
+	}
+
+	sf::Texture* tmonkey = new sf::Texture;
+	if (!(tmonkey->loadFromFile("Material/Animations/Monkey.png")))
+	{
+		std::cout << "Can not load monkey! \n";
+	}
+
+	sf::Texture* tstar = new sf::Texture;
+	if (!(tstar->loadFromFile("Material/Others/Star.png")))
+	{
+		std::cout << "Can not load star! \n";
+	}
+
+	sf::Texture* twater = new sf::Texture;
+	if (!(twater->loadFromFile("Material/Others/Water.png")))
+	{
+		std::cout << "Can not load star! \n";
+	}
+
+	sf::Texture* tcola = new sf::Texture;
+	if (!(tcola->loadFromFile("Material/Others/Cola.png")))
+	{
+		std::cout << "Can not load star! \n";
+	}
+
 	this->car = honda;
 	this->road = t;
 	this->cat = tcat;
 	this->chicken = tchicken;
 	this->duck = tduck;
-
+	this->dog = tdog;
+	this->monkey = tmonkey;
+	this->star = tstar;
+	this->water = twater;
+	this->cola = tcola;
 }
 
 void InGameScreen::initText()
@@ -67,33 +101,70 @@ void InGameScreen::initText()
 	playerStamina.setCharacterSize(30);
 	playerStamina.setFillColor(sf::Color::White);
 	playerStamina.setPosition(0, 31);
+
+	playerPoint.setFont(font);
+	playerPoint.setCharacterSize(30);
+	playerPoint.setFillColor(sf::Color::White);
+	playerPoint.setPosition(0, 62);
 }
 
 void InGameScreen::getRoadRan()
 {
 	int i = static_cast<unsigned>(rand() % 10 + 1);
-
+	int randItem = static_cast<unsigned>(rand() % 4 + 1); // 1,2,3. 4 for the star ( increase the rating of the star)
+	int itemRate = static_cast<unsigned>(rand() % 20 + 1); // this is how frequently the item appear
+	int randObs = static_cast<int>(rand() % 6 + 1);
 
 	Road* tmp = new Road(162.0f, sf::Vector2f(0, 1), this->road);
 
-	TrafficLight TLight(20.0f, 20.0f, 0);
+	// Random Item
+	if (itemRate >= 12) {
+		if (randItem == 2) {
+			Item tmp0(sf::Vector2f(100.f, 100.f), this->water, sf::Vector2u(1, 1), 0.1f, 2); //
+			float randCoor = static_cast<float>(rand() % 600 + 50);
+			tmp->addItem(tmp0, tmp->getPosition() + sf::Vector2f(randCoor, 0));
+		}
+		else if (randItem == 3) {
+			Item tmp0(sf::Vector2f(40.f, 40.f), this->cola, sf::Vector2u(1, 1), 0.1f, 3); //
+			float randCoor = static_cast<float>(rand() % 600 + 50);
+			tmp->addItem(tmp0, tmp->getPosition() + sf::Vector2f(randCoor, 0));
+		}
+	}
+	else if (itemRate < 12 && itemRate >= 1) {
+		if (randItem == 1 || randItem == 4) {
+			Item tmp0(sf::Vector2f(100.f, 100.f), this->star, sf::Vector2u(1, 1), 0.1f, 1); //
+			float randCoor = static_cast<float>(rand() % 600 + 50);
+			tmp->addItem(tmp0, tmp->getPosition() + sf::Vector2f(randCoor, 0));
+		}
+	}
 
-	int randObs = static_cast<int>(rand() % 5 + 1);
+	TrafficLight TLight(20.0f, 20.0f, 0);
+	
+	//Random obstacles
 	if (randObs == 1) {
 		truck tmp1(sf::Vector2f(100.f, 100.f), this->car, sf::Vector2u(10, 1), 0.1f, 10.f, true);
+
 		tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x - 720 - i * 100, tmp->getPosition().y));
 		tmp->addLight(TLight, tmp->getPosition() + sf::Vector2f(i * 50, 0));
 	}
-	else if (randObs == 2) { // the problem maybe from the switch time
-		truck tmp1(sf::Vector2f(100.f, 100.f), this->cat, sf::Vector2u(8, 5), 0.1f, 10.f, true);
+	else if (randObs == 2) { // the cat is so big!!!! 
+		truck tmp1(sf::Vector2f(100.f, 100.f), this->cat, sf::Vector2u(4, 1), 0.1f, 10.f, true);
 		tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x - 720 - i * 100, tmp->getPosition().y));
 	}
 	else if (randObs == 3) {
-		truck tmp1(sf::Vector2f(100.f, 100.f), this->chicken, sf::Vector2u(4, 5), 0.1f, 10.f, true);
+		truck tmp1(sf::Vector2f(100.f, 100.f), this->chicken, sf::Vector2u(12, 1), 0.1f, 15.f, true);
 		tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x - 720 - i * 100, tmp->getPosition().y));
 	}
 	else if (randObs == 4) {
-		truck tmp1(sf::Vector2f(100.f, 100.f), this->duck, sf::Vector2u(4, 5), 0.1f, 10.f, true);
+		truck tmp1(sf::Vector2f(100.f, 100.f), this->duck, sf::Vector2u(6, 1), 0.1f, 10.f, true);
+		tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x - 720 - i * 100, tmp->getPosition().y));
+	}
+	else if (randObs == 5) {
+		truck tmp1(sf::Vector2f(100.f, 100.f), this->dog, sf::Vector2u(8, 1), 0.1f, 20.f, true);
+		tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x - 720 - i * 100, tmp->getPosition().y));
+	}
+	else if (randObs == 6) {
+		truck tmp1(sf::Vector2f(100.f, 100.f), this->monkey, sf::Vector2u(8, 1), 0.1f, 10.f, true);
 		tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x - 720 - i * 100, tmp->getPosition().y));
 	}
 
@@ -134,54 +205,53 @@ void InGameScreen::handleEvent(sf::Event event, sf::RenderWindow& window, Screen
 
 void InGameScreen::update(sf::RenderWindow& window)
 {
-	sf::Time elapsed = TimeDisplay.getElapsedTime();
-	int minutes = static_cast<int>(elapsed.asSeconds()) / 60;
-	int seconds = static_cast<int>(elapsed.asSeconds()) % 60;
-	text.setString("Time: " + std::to_string(minutes) + "m " +
-		std::to_string(seconds) + "s");
+	if (player.getHp() > 0) { //update when playerHp is bigger than 0
+		sf::Time elapsed = TimeDisplay.getElapsedTime();
+		int minutes = static_cast<int>(elapsed.asSeconds()) / 60;
+		int seconds = static_cast<int>(elapsed.asSeconds()) % 60;
+		text.setString("Time: " + std::to_string(minutes) + "m " +
+			std::to_string(seconds) + "s");
 
-	deltaTime = clock.restart().asSeconds();
-	for (int i = 0; i < listObstacle.size();i++)
-	{
-		listObstacle[i]->update();
-		//std::cout << i << " " << listObstacle[i]->getPosition().x << " " << listObstacle[i]->getPosition().y<<"\n";
-	}
-	
-	player.update(deltaTime, listObstacle);
+		deltaTime = clock.restart().asSeconds();
+		for (int i = 0; i < listObstacle.size();i++)
+		{
+			listObstacle[i]->update();
+		}
 
-	// Stamina
-	player.reduceStamina();
-	//std::cout << player.getStamina() << " / " << player.getStaminaMax() << "\n";
+		player.update(deltaTime, listObstacle);
+
+		// Stamina
+		player.reduceStamina();
 
 
-	//Rain effect
-	if(myRain.getState()) myRain.update(window);
+		//Rain effect
+		if (myRain.getState()) myRain.update(window);
 
-	
-	
 
-	for (int i = 0; i < listObstacle.size();i++)
-	{
-		if (listObstacle[i]->charIsInside(player) && listObstacle[i]->isCollision(player)) {
-			player.loadgetDamage(); // after intersect with the obstacle, being invisible
-			//std::cout << player.getHp() << "\n";
+		//Intersect with the object
+		for (int i = 0; i < listObstacle.size();i++)
+		{
+			if (listObstacle[i]->charIsInside(player) && listObstacle[i]->isCollision(player)) {
+				player.loadgetDamage(); // after intersect with the obstacle, being invisible
+			}
+			listObstacle[i]->isGetItem(player);
+		}
+		// Return the normal state after the invisible
+		player.settoNormal();
+
+		// Player hp render
+		playerHp.setString("PLayer Hp: " + std::to_string(player.getHp()) + " / " + std::to_string(player.getHpMax()));
+		playerStamina.setString("PLayer Stamina: " + std::to_string(player.getStamina()) + " / " + std::to_string(player.getStaminaMax()));
+		playerPoint.setString("PLayer Point: " + std::to_string(player.getPoint()));
+
+		//Endless mode
+		for (int i = 0;i < listObstacle.size();i++) {
+			if (listObstacle[i]->getPosition().y - 81.f > 810.f) {
+				listObstacle.erase(listObstacle.begin() + i);
+				getRoadRan();
+			}
 		}
 	}
-	// Return the normal state after the invisible
-	player.settoNormal();
-
-	// Player hp render
-	playerHp.setString("PLayer Hp: " + std::to_string(player.getHp()) + " / " + std::to_string(player.getHpMax()) + "\n");
-	playerStamina.setString("PLayer Stamina: " + std::to_string(player.getStamina()) + " / " + std::to_string(player.getStaminaMax()) + "\n");
-
-	//Endless mode
-	for (int i = 0;i < listObstacle.size();i++) {
-		if (listObstacle[i]->getPosition().y - 81.f > 810.f) {
-			listObstacle.erase(listObstacle.begin() + i);
-			getRoadRan();
-		}
-	}
-
 }
 
 void InGameScreen::render(sf::RenderWindow& window)
@@ -197,8 +267,19 @@ void InGameScreen::render(sf::RenderWindow& window)
 		window.draw(text);
 		window.draw(playerHp);
 		window.draw(playerStamina);
+		window.draw(playerPoint);
 		player.drawTo(window);
 		if(myRain.getState())myRain.drawTo(window);
 	}
 
+}
+
+const bool InGameScreen::isEndGame()
+{
+	if (player.getHp() == 0) {
+		return true;
+	}
+	else {
+		return false;
+	}
 }

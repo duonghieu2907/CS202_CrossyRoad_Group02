@@ -81,8 +81,13 @@
     <ClCompile Include="LogInScreen.cpp">
       <Filter>Source Files\Screen</Filter>
     </ClCompile>
+
+    <ClCompile Include="Item.cpp">
+      <Filter>Source Files</Filter>
+
     <ClCompile Include="TrafficLight.cpp">
       <Filter>Source Files\Animation</Filter>
+
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -141,6 +146,9 @@
       <Filter>Header Files\Screen</Filter>
     </ClInclude>
     <ClInclude Include="rain.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
