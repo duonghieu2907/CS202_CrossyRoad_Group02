@@ -14,6 +14,7 @@ public:
 
 private:
     void initBackground(sf::RenderWindow& window) override;
+    void initUsername();
     void initContinueButton();
     void initNewGameButton();
     void initBackButton();
@@ -22,6 +23,8 @@ private:
     sf::Texture gamePlayScreen1Tex;
     sf::Texture gamePlayScreen2Tex;
     sf::Sprite gamePlayScreen;
+
+    sf::Text username;
 
     sf::Texture continueButtonTex;
     ButtonCustom continueButton;

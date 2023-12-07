@@ -1,4 +1,5 @@
 #include "LogInScreen.h"
+#include "Data.h"
 
 LogInScreen::LogInScreen(sf::RenderWindow& window) :
 	Screen(window),
@@ -91,7 +92,7 @@ void LogInScreen::initRightButton()
 
 void LogInScreen::initCheckOver5()
 {
-	if (dataCtrl.size() > size_t(5))
+	if (dataCtrl.datas.size() > size_t(5))
 		over5Acc = true;
 	else
 		over5Acc = false;
@@ -100,9 +101,9 @@ void LogInScreen::initCheckOver5()
 void LogInScreen::initAccount()
 {
 	int i = 0;
-	for (auto dataT : dataCtrl)
+	for (auto dataT : dataCtrl.datas)
 	{
-		AccountButton* tmp = new AccountButton(dataT->getName(), {612.75f, 92.625f}, 30, sf::Color::Transparent, sf::Color::Black, &accountTex, std::to_string(dataT->getHighscore()));
+		AccountButton* tmp = new AccountButton(dataT->getName(), {612.75f, 87.625f}, 30, sf::Color::Transparent, sf::Color::Black, &accountTex, std::to_string(dataT->getHighscore()));
 		tmp->setPosition({ 440.f, 100.f + i * 100.f });
 		tmp->setOutlineThickness(2.f);
 		tmp->setFont(font);
@@ -124,7 +125,7 @@ void LogInScreen::switchAccUI()
 	if (left)
 	{
 		int i = 0;
-		for (auto dataT : dataCtrl)
+		for (auto dataT : dataCtrl.datas)
 		{
 			AccountButton* tmp = new AccountButton(dataT->getName(), { 612.75f, 92.625f }, 30, sf::Color::Transparent, sf::Color::Black, &accountTex, std::to_string(dataT->getHighscore()));
 			tmp->setPosition({ 440.f, 100.f + i * 100.f });
@@ -139,16 +140,16 @@ void LogInScreen::switchAccUI()
 	else
 	{
 		int i = 0;
-		for (auto dataT : dataCtrl)
+		for (auto dataT : dataCtrl.datas)
 		{
-			if (i < 5) continue;
+			++i;
+			if (i < 6) continue;
 			AccountButton* tmp = new AccountButton(dataT->getName(), { 612.75f, 92.625f }, 30, sf::Color::Transparent, sf::Color::Black, &accountTex, std::to_string(dataT->getHighscore()));
-			tmp->setPosition({ 440.f, 100.f + i * 100.f });
+			tmp->setPosition({ 440.f, 100.f + (i - 6) * 100.f });
 			tmp->setOutlineThickness(2.f);
 			tmp->setFont(font);
 			tmp->setBackgroundAnimation(&accountTex);
 			accounts.push_back(tmp);
-			++i;
 		}
 	}
 
@@ -159,6 +160,28 @@ void LogInScreen::handleEvent(sf::Event event, sf::RenderWindow& window, ScreenS
 {
 	if (event.type == sf::Event::MouseButtonReleased)
 	{
+		int i = 0;
+		for (auto account : accounts)
+		{
+			if (account->isMouseOver(window))
+			{
+				if (left)
+				{
+					dataCtrl.data = dataCtrl.datas[i + 5];
+					std::cout << dataCtrl.data->getName() << " " << dataCtrl.data->getHighscore() << std::endl;
+
+				}
+				else
+				{
+					dataCtrl.data = dataCtrl.datas[i];
+					std::cout << dataCtrl.data->getName() << " " << dataCtrl.data->getHighscore() << std::endl;
+				}
+				currentScreen = ScreenState::GamePlayScreen;
+				endScreen = true;
+				isEndScreen = endScreen;
+			}
+			i++;
+		}
 		if (newButton.isMouseOver(window))
 		{
 			currentScreen = ScreenState::GamePlayScreen;

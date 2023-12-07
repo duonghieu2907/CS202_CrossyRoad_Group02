@@ -7,6 +7,7 @@ GamePlayScreen::GamePlayScreen(sf::RenderWindow& window) :
 	backButton("", { 170, 55 }, 25, sf::Color::Transparent, sf::Color::Transparent, & backButtonTex)
 {
 	initBackground(window);
+	initUsername();
 	initContinueButton();
 	initNewGameButton();
 	initBackButton();
@@ -49,10 +50,17 @@ void GamePlayScreen::initBackground(sf::RenderWindow& window)
 
 }
 
+void GamePlayScreen::initUsername()
+{
+	username.setFont(font);
+	username.setCharacterSize(80);
+	username.setFillColor(sf::Color::Black);
+}
+
 void GamePlayScreen::initContinueButton()
 {
 	continueButton.setFont(font);
-	continueButton.setPosition({ 610, 300 });
+	continueButton.setPosition({ 610, 350 });
 	continueButton.setOutlineThickness(2);
 	continueButton.setBackgroundAnimation(&continueButtonTex);
 }
@@ -60,7 +68,7 @@ void GamePlayScreen::initContinueButton()
 void GamePlayScreen::initNewGameButton()
 {
 	newGameButton.setFont(font);
-	newGameButton.setPosition({ 590, 400 });
+	newGameButton.setPosition({ 590, 450 });
 	newGameButton.setOutlineThickness(2);
 	newGameButton.setBackgroundAnimation(&newGameButtonTex);
 }
@@ -68,7 +76,7 @@ void GamePlayScreen::initNewGameButton()
 void GamePlayScreen::initBackButton()
 {
 	backButton.setFont(font);
-	backButton.setPosition({ 680, 500 });
+	backButton.setPosition({ 680, 550 });
 	backButton.setOutlineThickness(2);
 	backButton.setBackgroundAnimation(&backButtonTex);
 }
@@ -100,6 +108,13 @@ void GamePlayScreen::update(sf::RenderWindow& window)
 {
 	if (!isEndScreen)
 	{
+		if (dataCtrl.data)
+		{
+			username.setString("Welcome, " + dataCtrl.data->getName() + "!");
+			username.setPosition({ 720.f - username.getGlobalBounds().width / 2.2f, 160.f});
+		}
+		else
+			std::cout << "data is null\n";
 		continueButton.update(window);
 		newGameButton.update(window);
 		backButton.update(window);
@@ -111,6 +126,7 @@ void GamePlayScreen::render(sf::RenderWindow& window)
 	if (!isEndScreen)
 	{
 		window.draw(gamePlayScreen);
+		window.draw(username);
 		continueButton.drawTo(window);
 		newGameButton.drawTo(window);
 		backButton.drawTo(window);

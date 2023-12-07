@@ -75,17 +75,19 @@
     <ClCompile Include="Textbox.cpp">
       <Filter>Source Files\Base</Filter>
     </ClCompile>
-    <ClCompile Include="TrafficLight.cpp">
-      <Filter>Source Files\Screen</Filter>
-    </ClCompile>
     <ClCompile Include="truck.cpp">
       <Filter>Source Files\Animation</Filter>
     </ClCompile>
     <ClCompile Include="LogInScreen.cpp">
       <Filter>Source Files\Screen</Filter>
     </ClCompile>
+
     <ClCompile Include="Item.cpp">
       <Filter>Source Files</Filter>
+
+    <ClCompile Include="TrafficLight.cpp">
+      <Filter>Source Files\Animation</Filter>
+
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
