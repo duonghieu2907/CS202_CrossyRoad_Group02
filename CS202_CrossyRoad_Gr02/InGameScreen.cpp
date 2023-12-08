@@ -44,13 +44,47 @@ void InGameScreen::initTex()
 	}
 
 
+	sf::Texture* tdog = new sf::Texture;
+	if (!(tdog->loadFromFile("Material/Animations/Dog.png")))
+	{
+		std::cout << "Can not load dog! \n";
+	}
+
+	sf::Texture* tmonkey = new sf::Texture;
+	if (!(tmonkey->loadFromFile("Material/Animations/Monkey.png")))
+	{
+		std::cout << "Can not load monkey! \n";
+	}
+
+	sf::Texture* tstar = new sf::Texture;
+	if (!(tstar->loadFromFile("Material/Others/Star.png")))
+	{
+		std::cout << "Can not load star! \n";
+	}
+
+	sf::Texture* twater = new sf::Texture;
+	if (!(twater->loadFromFile("Material/Others/Water.png")))
+	{
+		std::cout << "Can not load star! \n";
+	}
+
+	sf::Texture* tcola = new sf::Texture;
+	if (!(tcola->loadFromFile("Material/Others/Cola.png")))
+	{
+		std::cout << "Can not load star! \n";
+	}
+
 
 	this->car = honda;
 	this->road = t;
 	this->cat = tcat;
 	this->chicken = tchicken;
 	this->duck = tduck;
-
+	this->dog = tdog;
+	this->monkey = tmonkey;
+	this->star = tstar;
+	this->water = twater;
+	this->cola = tcola;
 }
 
 void InGameScreen::initText()
@@ -69,34 +103,75 @@ void InGameScreen::initText()
 	playerStamina.setCharacterSize(30);
 	playerStamina.setFillColor(sf::Color::White);
 	playerStamina.setPosition(0, 31);
+
+	playerPoint.setFont(font);
+	playerPoint.setCharacterSize(30);
+	playerPoint.setFillColor(sf::Color::White);
+	playerPoint.setPosition(0, 62);
 }
 
 void InGameScreen::getRoadRan()
 {
-	int i = static_cast<unsigned>(rand() % 5 + 2);
+
+	int i = static_cast<unsigned>(rand() % 10 + 1);
+	int randItem = static_cast<unsigned>(rand() % 4 + 1); // 1,2,3. 4 for the star ( increase the rating of the star)
+	int itemRate = static_cast<unsigned>(rand() % 20 + 1); // this is how frequently the item appear
+	int randObs = static_cast<int>(rand() % 6 + 1);
 
 
 	Road* tmp = new Road(162.0f, sf::Vector2f(0, 1), this->road);
 
-	TrafficLight TLight(20.0f, 20.0f, 0);
+	// Random Item
+	if (itemRate >= 12) {
+		if (randItem == 2) {
+			Item tmp0(sf::Vector2f(100.f, 100.f), this->water, sf::Vector2u(1, 1), 0.1f, 2); //
+			float randCoor = static_cast<float>(rand() % 600 + 50);
+			tmp->addItem(tmp0, tmp->getPosition() + sf::Vector2f(randCoor, 0));
+		}
+		else if (randItem == 3) {
+			Item tmp0(sf::Vector2f(40.f, 40.f), this->cola, sf::Vector2u(1, 1), 0.1f, 3); //
+			float randCoor = static_cast<float>(rand() % 600 + 50);
+			tmp->addItem(tmp0, tmp->getPosition() + sf::Vector2f(randCoor, 0));
+		}
+	}
+	else if (itemRate < 12 && itemRate >= 1) {
+		if (randItem == 1 || randItem == 4) {
+			Item tmp0(sf::Vector2f(100.f, 100.f), this->star, sf::Vector2u(1, 1), 0.1f, 1); //
+			float randCoor = static_cast<float>(rand() % 600 + 50);
+			tmp->addItem(tmp0, tmp->getPosition() + sf::Vector2f(randCoor, 0));
+		}
+	}
 
+	TrafficLight TLight(20.0f, 20.0f, 0);
 	int randObs = static_cast<int>(rand() % 5 + 1);
 	if (randObs == 1 && playing) {
 		truck tmp1(sf::Vector2f(100.f, 100.f), this->car, sf::Vector2u(10, 1), 0.1f, 10.f, true);
 		tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x - 720 - i*40 , tmp->getPosition().y));
 		tmp->addLight(TLight, tmp->getPosition() + sf::Vector2f(i * 50, 0));
 	}
-	else if (randObs==2) { // the problem maybe from the switch time
+
+	
+	//Random obstacle
+	else if (randObs == 2) { // the cat is so big!!!! 
 		truck tmp1(sf::Vector2f(100.f, 100.f), this->cat, sf::Vector2u(4, 1), 0.1f, 10.f, true);
-		tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x - 720 - i * 40, tmp->getPosition().y));
+		tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x - 720 - i * 100, tmp->getPosition().y));
 	}
 	else if (randObs == 3) {
-		truck tmp1(sf::Vector2f(100.f, 100.f), this->chicken, sf::Vector2u(12, 1), 0.1f, -10.f, 0);
-		tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x - 720 - i * 40, tmp->getPosition().y));
+		truck tmp1(sf::Vector2f(100.f, 100.f), this->chicken, sf::Vector2u(12, 1), 0.1f, 15.f, true);
+		tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x - 720 - i * 100, tmp->getPosition().y));
 	}
 	else if (randObs == 4) {
 		truck tmp1(sf::Vector2f(100.f, 100.f), this->duck, sf::Vector2u(6, 1), 0.1f, 10.f, true);
-		tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x - 720 - i * 40, tmp->getPosition().y));
+		tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x - 720 - i * 100, tmp->getPosition().y));
+	}
+	else if (randObs == 5) {
+		truck tmp1(sf::Vector2f(100.f, 100.f), this->dog, sf::Vector2u(8, 1), 0.1f, 20.f, true);
+		tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x - 720 - i * 100, tmp->getPosition().y));
+	}
+	else if (randObs == 6) {
+		truck tmp1(sf::Vector2f(100.f, 100.f), this->monkey, sf::Vector2u(8, 1), 0.1f, 10.f, true);
+		tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x - 720 - i * 100, tmp->getPosition().y));
+
 	}
 
 	listObstacle.push_back(tmp);
@@ -153,6 +228,7 @@ void InGameScreen::handleEvent(sf::Event event, sf::RenderWindow& window, Screen
 
 void InGameScreen::update(sf::RenderWindow& window)
 {
+
 	if (playing == 0 && player.getHp() == player.getHpMax())
 	{
 		TimeDisplay.restart();
@@ -212,9 +288,9 @@ void InGameScreen::update(sf::RenderWindow& window)
 		}
 
 		if (player.getHp() <= 0) playing = 0;
+
 	}
 }
-
 void InGameScreen::render(sf::RenderWindow& window)
 {
 	if (!isEndScreen)
@@ -228,9 +304,20 @@ void InGameScreen::render(sf::RenderWindow& window)
 		window.draw(text);
 		window.draw(playerHp);
 		window.draw(playerStamina);
+		window.draw(playerPoint);
 		player.drawTo(window);
 		devil.drawTo(window);
 		if(myRain.getState())myRain.drawTo(window);
 	}
 
+}
+
+const bool InGameScreen::isEndGame()
+{
+	if (player.getHp() == 0) {
+		return true;
+	}
+	else {
+		return false;
+	}
 }

@@ -55,13 +55,16 @@ public:
 	int getHpMax();
 	void loadgetDamage();
 	void settoNormal();
-
 	
 	int getStamina();
 	int getStaminaMax();
 
 	void reduceStamina();
 
+	void incStamina(int n);
+	void incPoint();
+
+	int getPoint();
 private:
 	//sf::Texture texture;
 	sf::RectangleShape body;
@@ -85,5 +88,7 @@ private:
 
 	int stamina;
 	int staminaMax;
+
+	unsigned point;
 };
 #endif

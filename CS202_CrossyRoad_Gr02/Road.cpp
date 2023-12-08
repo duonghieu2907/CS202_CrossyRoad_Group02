@@ -22,6 +22,12 @@ void Road::addLight(TrafficLight tmp, sf::Vector2f pos)
 	light.push_back(tmp);
 }
 
+void Road::addItem(Item tmp, sf::Vector2f pos)
+{
+	tmp.setPosition(pos);
+	item.push_back(tmp);
+}
+
 void Road::setPosition(sf::Vector2f pos)
 {
 	sf::Vector2f distance = pos - getShape().getPosition();
@@ -32,6 +38,10 @@ void Road::setPosition(sf::Vector2f pos)
 	}
 	for (int i = 0;i < light.size();i++) {
 		light[i].getShape().move(distance);
+	}
+
+	for (int i = 0;i < item.size();i++) {
+		item[i].getShape().move(distance);
 	}
 }
 
@@ -48,6 +58,29 @@ bool Road::isCollision(Character& player)
 		}
 	}
 	return false;
+}
+
+void Road::isGetItem(Character& player)
+{
+	if (item.size() == 0) {
+		return;
+	}
+	else {
+		for (int i = 0;i < item.size();i++) {
+			if (item[i].getShape().getGlobalBounds().intersects(player.getBounds())) {
+				if (item[i].getType() == 1) {
+					player.incPoint();
+				}
+				else if (item[i].getType() == 2) {
+					player.incStamina(2);
+				}
+				else if (item[i].getType() == 3) {
+					player.incStamina(3);
+				}
+				item.erase(item.begin() + i);
+			}
+		}
+	}
 }
 
 void Road::printCarpos()
@@ -90,6 +123,11 @@ void Road::update()
 		light[i].getShape().move(getSpeed());
 		light[i].update();
 	}
+
+	for (int i = 0;i < item.size();i++) {
+		item[i].getShape().move(getSpeed());
+		item[i].update();
+	}
 }
 
 void Road::drawTo(sf::RenderWindow& target)
@@ -102,6 +140,10 @@ void Road::drawTo(sf::RenderWindow& target)
 
 	for (int i = 0;i < light.size();i++) {
 		target.draw(light[i].getShape());
+	}
+
+	for (int i = 0;i < item.size();i++) {
+		target.draw(item[i].getShape());
 	}
 }
 

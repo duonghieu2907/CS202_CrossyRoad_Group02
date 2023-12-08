@@ -147,6 +147,7 @@
     <ClCompile Include="GamePlayScreen.cpp" />
     <ClCompile Include="ghost.cpp" />
     <ClCompile Include="InGameScreen.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="LogInScreen.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainScreen.cpp" />
@@ -167,6 +168,7 @@
     <ClInclude Include="ghost.h" />
     <ClInclude Include="Header.h" />
     <ClInclude Include="InGameScreen.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="LogInScreen.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="MainScreen.h" />
