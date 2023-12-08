@@ -145,6 +145,7 @@
     <ClCompile Include="CS202_Gr02.cpp" />
     <ClCompile Include="Data.cpp" />
     <ClCompile Include="GamePlayScreen.cpp" />
+    <ClCompile Include="ghost.cpp" />
     <ClCompile Include="InGameScreen.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="LogInScreen.cpp" />
@@ -166,6 +167,7 @@
     <ClInclude Include="Character.h" />
     <ClInclude Include="Data.h" />
     <ClInclude Include="GamePlayScreen.h" />
+    <ClInclude Include="ghost.h" />
     <ClInclude Include="Header.h" />
     <ClInclude Include="InGameScreen.h" />
     <ClInclude Include="Item.h" />

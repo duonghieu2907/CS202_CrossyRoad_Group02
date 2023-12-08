@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="CS202_Gr02.cpp">
@@ -60,6 +60,12 @@
     </ClCompile>
     <ClCompile Include="RemovePopMenu.cpp">
       <Filter>Source\PopMenu</Filter>
+    <ClCompile Include="ghost.cpp">
+      <Filter>Source Files\Animation</Filter>
+    <ClCompile Include="Item.cpp">
+      <Filter>Source Files</Filter>
+    <ClCompile Include="TrafficLight.cpp">
+      <Filter>Source Files\Animation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -128,6 +134,10 @@
     </ClInclude>
     <ClInclude Include="RemovePopMenu.h">
       <Filter>Header\PopMenu</Filter>
+    <ClInclude Include="ghost.h">
+      <Filter>Header Files\Animation</Filter>
+    <ClInclude Include="Item.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
