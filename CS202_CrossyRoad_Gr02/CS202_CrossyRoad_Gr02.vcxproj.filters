@@ -82,11 +82,15 @@
       <Filter>Source Files\Screen</Filter>
     </ClCompile>
 
+    <ClCompile Include="ghost.cpp">
+      <Filter>Source Files\Animation</Filter>
+
     <ClCompile Include="Item.cpp">
       <Filter>Source Files</Filter>
 
     <ClCompile Include="TrafficLight.cpp">
       <Filter>Source Files\Animation</Filter>
+
 
     </ClCompile>
   </ItemGroup>
@@ -148,8 +152,13 @@
     <ClInclude Include="rain.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+
+    <ClInclude Include="ghost.h">
+      <Filter>Header Files\Animation</Filter>
+
     <ClInclude Include="Item.h">
       <Filter>Header Files</Filter>
+
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -5,6 +5,7 @@
 #include "Character.h"
 #include "obstacle.h"
 #include "rain.h"
+#include "ghost.h"
 
 class InGameScreen : public Screen
 {
@@ -31,11 +32,18 @@ private:
     float deltaTime = 0;
     sf::Clock clock;
     sf::Clock TimeDisplay;
+    sf::Time elapsed; //save time player have play
 
     rain myRain;
-    
+
+
+    ghost devil;
+    	
+   
+
     sf::Texture* car; // get the texture of car
     sf::Texture* road; // get the texture of road
+
     sf::Texture* cat;
     sf::Texture* chicken;
     sf::Texture* duck;
@@ -45,9 +53,14 @@ private:
     float addRoadTime; // time until adding new road
     float addRoadTimeMax; // maximum time to add new road
 
+
+    bool playing;
+
+
     sf::Texture* star;
     sf::Texture* water;
     sf::Texture* cola;
+
 };
 
 #endif
