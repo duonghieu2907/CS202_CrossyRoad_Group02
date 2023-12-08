@@ -64,7 +64,7 @@ Character::Character(sf::Texture* texture, sf::Vector2u imgCount, float switchTi
 	moveCounter = 0;
 
 	body.setSize(sf::Vector2f(80.0f, 80.0f));
-	body.setPosition(sf::Vector2f(200.0f, 200.0f));
+	//body.setPosition(sf::Vector2f(200.0f, 200.0f));
 	body.setTexture(this->normal);
 	body.setOrigin(40.f, 40.f);
 	body.setPosition(pos);

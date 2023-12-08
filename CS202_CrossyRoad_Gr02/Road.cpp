@@ -66,7 +66,8 @@ void Road::update()
 {
 	obstacle::update();
 	obstacle::setPosition(getShape().getPosition() + getSpeed());
-	for (int i = 0;i < car.size();i++) {
+	for (int i = 0;i < car.size();i++) 
+	{
 		car[i].getShape().move(getSpeed());
 		for (int j = 0; j < light.size();j++)
 		{
@@ -82,7 +83,7 @@ void Road::update()
 				car[i].setState(1);
 			}
 		}
-		car[i].update(0.1f, car[i].getRight());
+		car[i].update(0.01f, car[i].getRight());
 	}
 
 	for (int i = 0;i < light.size();i++) {
