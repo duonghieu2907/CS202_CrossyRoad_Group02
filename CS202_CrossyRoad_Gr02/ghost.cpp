@@ -57,7 +57,7 @@ ghost::ghost(sf::Vector2f sizeTruck, sf::Texture* truckPic, sf::Vector2u imgCoun
 
 	 if (!isGo)
 	 {
-		 std::cout << i << std::endl;
+		 //std::cout << i << std::endl;
 		 if (i == 1) { //  see a ghost
 			 isGo = 1;
 			 timing.restart();

@@ -143,7 +143,7 @@ void InGameScreen::getRoadRan()
 	}
 
 	TrafficLight TLight(20.0f, 20.0f, 0);
-	int randObs = static_cast<int>(rand() % 5 + 1);
+	//int randObs = static_cast<int>(rand() % 5 + 1);
 	if (randObs == 1 && playing) {
 		truck tmp1(sf::Vector2f(100.f, 100.f), this->car, sf::Vector2u(10, 1), 0.1f, 10.f, true);
 		tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x - 720 - i*40 , tmp->getPosition().y));
@@ -218,7 +218,7 @@ void InGameScreen::handleEvent(sf::Event event, sf::RenderWindow& window, Screen
 	}
 	else if (event.type == sf::Event::KeyReleased)
 	{
-		if (playing == 0 && player.getHp() >= 0)
+		if (playing == 0 && player.getHp() > 0)
 		{
 			playing = 1;
 			//clock.restart();
