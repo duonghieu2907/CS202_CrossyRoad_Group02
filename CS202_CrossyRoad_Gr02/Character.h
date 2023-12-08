@@ -19,7 +19,7 @@ public:
 	{
 		sf::Vector2f movement(0.0f, 0.0f);
 		bool moveToOther = 0;
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+		/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 			movement.x -= speed * deltaTime;
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 			movement.x += speed * deltaTime;
@@ -37,9 +37,9 @@ public:
 				faceRight = true;
 			else
 				faceRight = false;
-		}
+		}*/
 
-		animation.update(row, deltaTime, faceRight);
+		animation.update(1, deltaTime, faceRight);
 		body.setTextureRect(animation.uvRect);
 		if (moveToOther == 0) body.move(movement);
 	}

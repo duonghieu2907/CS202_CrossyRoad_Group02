@@ -60,6 +60,17 @@
     </ClCompile>
     <ClCompile Include="RemovePopMenu.cpp">
       <Filter>Source\PopMenu</Filter>
+
+    <ClCompile Include="ghost.cpp">
+      <Filter>Source Files\Animation</Filter>
+
+    <ClCompile Include="Item.cpp">
+      <Filter>Source Files</Filter>
+
+    <ClCompile Include="TrafficLight.cpp">
+      <Filter>Source Files\Animation</Filter>
+
+
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -75,6 +86,10 @@
     <ClInclude Include="Character.h">
       <Filter>Header\Game Play</Filter>
     </ClInclude>
+
+    <ClInclude Include="ghost.h">
+      <Filter>Header Files\Animation</Filter>
+
     <ClInclude Include="Item.h">
       <Filter>Header\Game Play</Filter>
     </ClInclude>
@@ -128,6 +143,8 @@
     </ClInclude>
     <ClInclude Include="RemovePopMenu.h">
       <Filter>Header\PopMenu</Filter>
+      <Filter>Header Files</Filter>
+
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
