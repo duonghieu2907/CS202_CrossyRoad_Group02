@@ -1,164 +1,175 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Header Files\Animation">
-      <UniqueIdentifier>{7bce3230-7497-4e03-80cc-cdcb9863b506}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Screen">
-      <UniqueIdentifier>{3a363889-06c7-49ef-9e38-54def882bd33}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Base">
-      <UniqueIdentifier>{0fb9d7f5-1857-4b4c-aeb9-d574d28545e5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Animation">
-      <UniqueIdentifier>{4d13a0b6-2c15-4a10-91cc-f101b576f84d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Base">
-      <UniqueIdentifier>{d2f1f874-044a-44ed-9b5c-3aac98d8dd4c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Screen">
-      <UniqueIdentifier>{f746b70a-daff-442e-a79a-b675e355ba38}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="CS202_Gr02.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Animation.cpp">
-      <Filter>Source Files\Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="Character.cpp">
-      <Filter>Source Files\Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="Button.cpp">
-      <Filter>Source Files\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="Data.cpp">
-      <Filter>Source Files\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="GamePlayScreen.cpp">
-      <Filter>Source Files\Screen</Filter>
-    </ClCompile>
-    <ClCompile Include="InGameScreen.cpp">
-      <Filter>Source Files\Screen</Filter>
-    </ClCompile>
-    <ClCompile Include="MainScreen.cpp">
-      <Filter>Source Files\Screen</Filter>
-    </ClCompile>
-    <ClCompile Include="obstacle.cpp">
-      <Filter>Source Files\Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="Road.cpp">
-      <Filter>Source Files\Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="Screen.cpp">
-      <Filter>Source Files\Screen</Filter>
-    </ClCompile>
-    <ClCompile Include="SettingScreen.cpp">
-      <Filter>Source Files\Screen</Filter>
+      <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Textbox.cpp">
-      <Filter>Source Files\Base</Filter>
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Source\Game Play</Filter>
+    </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>Source\Game Play</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Source\Game Play</Filter>
+    </ClCompile>
+    <ClCompile Include="obstacle.cpp">
+      <Filter>Source\Game Play</Filter>
+    </ClCompile>
+    <ClCompile Include="Road.cpp">
+      <Filter>Source\Game Play</Filter>
+    </ClCompile>
+    <ClCompile Include="TrafficLight.cpp">
+      <Filter>Source\Game Play</Filter>
     </ClCompile>
     <ClCompile Include="truck.cpp">
-      <Filter>Source Files\Animation</Filter>
+      <Filter>Source\Game Play</Filter>
+    </ClCompile>
+    <ClCompile Include="GamePlayScreen.cpp">
+      <Filter>Source\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="InGameScreen.cpp">
+      <Filter>Source\Screen</Filter>
     </ClCompile>
     <ClCompile Include="LogInScreen.cpp">
-      <Filter>Source Files\Screen</Filter>
+      <Filter>Source\Screen</Filter>
     </ClCompile>
-
+    <ClCompile Include="MainScreen.cpp">
+      <Filter>Source\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="Screen.cpp">
+      <Filter>Source\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="SettingScreen.cpp">
+      <Filter>Source\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Source\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="Data.cpp">
+      <Filter>Source\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="PopMenu.cpp">
+      <Filter>Source\PopMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="RemovePopMenu.cpp">
+      <Filter>Source\PopMenu</Filter>
     <ClCompile Include="ghost.cpp">
       <Filter>Source Files\Animation</Filter>
-
     <ClCompile Include="Item.cpp">
       <Filter>Source Files</Filter>
-
     <ClCompile Include="TrafficLight.cpp">
       <Filter>Source Files\Animation</Filter>
-
-
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="main.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="Animation.h">
-      <Filter>Header Files\Animation</Filter>
+      <Filter>Header\Game Play</Filter>
     </ClInclude>
     <ClInclude Include="Character.h">
-      <Filter>Header Files\Animation</Filter>
+      <Filter>Header\Game Play</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Header\Game Play</Filter>
     </ClInclude>
     <ClInclude Include="obstacle.h">
-      <Filter>Header Files\Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="GamePlayScreen.h">
-      <Filter>Header Files\Screen</Filter>
-    </ClInclude>
-    <ClInclude Include="InGameScreen.h">
-      <Filter>Header Files\Screen</Filter>
-    </ClInclude>
-    <ClInclude Include="MainScreen.h">
-      <Filter>Header Files\Screen</Filter>
-    </ClInclude>
-    <ClInclude Include="Screen.h">
-      <Filter>Header Files\Screen</Filter>
-    </ClInclude>
-    <ClInclude Include="SettingScreen.h">
-      <Filter>Header Files\Screen</Filter>
-    </ClInclude>
-    <ClInclude Include="TrafficLight.h">
-      <Filter>Header Files\Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="truck.h">
-      <Filter>Header Files\Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="Road.h">
-      <Filter>Header Files\Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="River.h">
-      <Filter>Header Files\Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="Data.h">
-      <Filter>Header Files\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Button.h">
-      <Filter>Header Files\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Textbox.h">
-      <Filter>Header Files\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="LogInScreen.h">
-      <Filter>Header Files\Screen</Filter>
+      <Filter>Header\Game Play</Filter>
     </ClInclude>
     <ClInclude Include="rain.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header\Game Play</Filter>
     </ClInclude>
-
+    <ClInclude Include="River.h">
+      <Filter>Header\Game Play</Filter>
+    </ClInclude>
+    <ClInclude Include="Road.h">
+      <Filter>Header\Game Play</Filter>
+    </ClInclude>
+    <ClInclude Include="TrafficLight.h">
+      <Filter>Header\Game Play</Filter>
+    </ClInclude>
+    <ClInclude Include="truck.h">
+      <Filter>Header\Game Play</Filter>
+    </ClInclude>
+    <ClInclude Include="GamePlayScreen.h">
+      <Filter>Header\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="InGameScreen.h">
+      <Filter>Header\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="LogInScreen.h">
+      <Filter>Header\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="MainScreen.h">
+      <Filter>Header\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen.h">
+      <Filter>Header\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="SettingScreen.h">
+      <Filter>Header\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Header\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Data.h">
+      <Filter>Header\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Textbox.h">
+      <Filter>Header\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="PopMenu.h">
+      <Filter>Header\PopMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="RemovePopMenu.h">
+      <Filter>Header\PopMenu</Filter>
     <ClInclude Include="ghost.h">
       <Filter>Header Files\Animation</Filter>
-
     <ClInclude Include="Item.h">
       <Filter>Header Files</Filter>
-
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header">
+      <UniqueIdentifier>{4ce91a1a-766a-43dc-9d1a-d58b69807d54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{9a44f8d3-10f3-4954-b3f5-5c5ba08b4f0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header\Game Play">
+      <UniqueIdentifier>{b736f1cd-7116-4f5b-8419-e73e7382201a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header\Screen">
+      <UniqueIdentifier>{8d85e4a4-d24d-4ac6-bf1f-bd12898abc88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header\Material">
+      <UniqueIdentifier>{c50ad59d-cae7-40b7-a233-a3f4bec512c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Game Play">
+      <UniqueIdentifier>{91282d50-1b52-4b70-be4e-ad5e517fe62a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Screen">
+      <UniqueIdentifier>{6e6854fb-86c5-43cc-a866-bb6de62b74fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Material">
+      <UniqueIdentifier>{3d122e2b-838f-4f26-8c79-8530ee07ff0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header\PopMenu">
+      <UniqueIdentifier>{e260b195-6ca8-459e-8fdb-b8a78f0b8d41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\PopMenu">
+      <UniqueIdentifier>{55435ff5-9f9c-4a71-a854-92d31806ed5b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

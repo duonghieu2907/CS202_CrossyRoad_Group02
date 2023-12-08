@@ -83,6 +83,8 @@ public:
 
 	void setScoreString(std::string score);
 
+	// Check if the mouse is within the bounds of the remove button:
+	bool isMouseOverRemove(sf::RenderWindow& window);
 private:
 	void initBackground();
 	void initScore(std::string score, int charSize, sf::Color textColor);
