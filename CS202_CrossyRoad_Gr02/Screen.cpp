@@ -63,36 +63,39 @@ void Screen::initFont()
 
 void Screen::initData()
 {
-	std::ifstream fin("Data/Data.txt");
-	if (!fin.is_open())
+	if (dataCtrl.datas.empty())
 	{
-		std::cout << "Data not found!\n";
-		fin.close();
-	}
-	else
-	{
-		while (!fin.eof())
+		std::ifstream fin("Data/Data.txt");
+		if (!fin.is_open())
 		{
-			std::string name;
-			int highscore = 0;
-			std::getline(fin, name, ' ');
-			if (name.empty())
-				break;
-			fin >> highscore;
-			fin.ignore(1000, '\n');
-			Data* tmp = new Data(name, highscore);
-			dataCtrl.datas.push_back(tmp);
+			std::cout << "Data not found!\n";
+			fin.close();
 		}
-		fin.close();
+		else
+		{
+			while (!fin.eof())
+			{
+				std::string name;
+				int highscore = 0;
+				std::getline(fin, name, ' ');
+				if (name.empty())
+					break;
+				fin >> highscore;
+				fin.ignore(1000, '\n');
+				Data* tmp = new Data(name, highscore);
+				dataCtrl.datas.push_back(tmp);
+			}
+			fin.close();
+		}
 	}
 }
 
 void Screen::saveData()
 {
-	std::ofstream fout("Data/Data.txt");
+	std::ofstream fout("Data/DataSave.txt");
 	if (!fout.is_open())
 	{
-		std::cout << "Data not found!\n";
+		std::cout << "DataSave not found!\n";
 		fout.close();
 	}
 	else

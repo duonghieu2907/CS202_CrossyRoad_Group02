@@ -145,12 +145,15 @@
     <ClCompile Include="CS202_Gr02.cpp" />
     <ClCompile Include="Data.cpp" />
     <ClCompile Include="GamePlayScreen.cpp" />
+    <ClCompile Include="ghost.cpp" />
     <ClCompile Include="InGameScreen.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="LogInScreen.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainScreen.cpp" />
     <ClCompile Include="obstacle.cpp" />
+    <ClCompile Include="PopMenu.cpp" />
+    <ClCompile Include="RemovePopMenu.cpp" />
     <ClCompile Include="Road.cpp" />
     <ClCompile Include="Screen.cpp" />
     <ClCompile Include="SettingScreen.cpp" />
@@ -164,6 +167,7 @@
     <ClInclude Include="Character.h" />
     <ClInclude Include="Data.h" />
     <ClInclude Include="GamePlayScreen.h" />
+    <ClInclude Include="ghost.h" />
     <ClInclude Include="Header.h" />
     <ClInclude Include="InGameScreen.h" />
     <ClInclude Include="Item.h" />
@@ -171,7 +175,9 @@
     <ClInclude Include="main.h" />
     <ClInclude Include="MainScreen.h" />
     <ClInclude Include="obstacle.h" />
+    <ClInclude Include="PopMenu.h" />
     <ClInclude Include="rain.h" />
+    <ClInclude Include="RemovePopMenu.h" />
     <ClInclude Include="River.h" />
     <ClInclude Include="Road.h" />
     <ClInclude Include="Screen.h" />

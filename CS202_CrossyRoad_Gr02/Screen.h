@@ -27,7 +27,7 @@ class Screen {
 public:
     Screen() : isEndScreen(false) { dataCtrl.data = nullptr; }
     Screen(sf::RenderWindow& window);
-    ~Screen() { saveData(); }
+    virtual ~Screen() { saveData(); }
 
     virtual void handleEvent(sf::Event event, sf::RenderWindow& window, ScreenState& currentScreen, bool& endScreen) {}
     virtual void update(sf::RenderWindow& window) {}

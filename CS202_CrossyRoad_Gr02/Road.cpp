@@ -114,7 +114,8 @@ void Road::update()
 {
 	obstacle::update();
 	obstacle::setPosition(getShape().getPosition() + getSpeed());
-	for (int i = 0;i < car.size();i++) {
+	for (int i = 0;i < car.size();i++) 
+	{
 		car[i].getShape().move(getSpeed());
 		for (int j = 0; j < light.size();j++)
 		{

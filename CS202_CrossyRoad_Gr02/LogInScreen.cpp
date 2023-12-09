@@ -1,5 +1,6 @@
 #include "LogInScreen.h"
 #include "Data.h"
+#include <algorithm>
 
 LogInScreen::LogInScreen(sf::RenderWindow& window) :
 	Screen(window),
@@ -7,14 +8,18 @@ LogInScreen::LogInScreen(sf::RenderWindow& window) :
 	backButton("", { 170, 55 }, 25, sf::Color::Transparent, sf::Color::Transparent, & backButtonTex),
 	leftButton("", { 55, 55 }, 25, sf::Color::Transparent, sf::Color::Transparent, & leftButtonTex),
 	rightButton("", { 55, 55 }, 25, sf::Color::Transparent, sf::Color::Transparent, & rightButtonTex),
-	left(false)
+	left(false),
+	counter(0),
+	add(false),
+	removeMenu(window),
+	remove(false)
 {
 	initBackground(window);
 	initNewButton();
 	initBackButton();
 	initLeftButton();
 	initRightButton();
-	initCheckOver5();
+	checkOver5();
 	initAccount();
 }
 
@@ -90,7 +95,7 @@ void LogInScreen::initRightButton()
 	rightButton.setBackgroundAnimation(&rightButtonTex);
 }
 
-void LogInScreen::initCheckOver5()
+void LogInScreen::checkOver5()
 {
 	if (dataCtrl.datas.size() > size_t(5))
 		over5Acc = true;
@@ -114,7 +119,7 @@ void LogInScreen::initAccount()
 	}
 }
 
-void LogInScreen::switchAccUI()
+void LogInScreen::updateUI()
 {
 	for (auto account : accounts)
 	{
@@ -122,22 +127,9 @@ void LogInScreen::switchAccUI()
 		accounts.pop_back();
 		delete tmp;
 	}
+	checkOver5();
+	if (!over5Acc) left = false;
 	if (left)
-	{
-		int i = 0;
-		for (auto dataT : dataCtrl.datas)
-		{
-			AccountButton* tmp = new AccountButton(dataT->getName(), { 612.75f, 92.625f }, 30, sf::Color::Transparent, sf::Color::Black, &accountTex, std::to_string(dataT->getHighscore()));
-			tmp->setPosition({ 440.f, 100.f + i * 100.f });
-			tmp->setOutlineThickness(2.f);
-			tmp->setFont(font);
-			tmp->setBackgroundAnimation(&accountTex);
-			accounts.push_back(tmp);
-			++i;
-			if (i == 5) break;
-		}
-	}
-	else
 	{
 		int i = 0;
 		for (auto dataT : dataCtrl.datas)
@@ -152,55 +144,106 @@ void LogInScreen::switchAccUI()
 			accounts.push_back(tmp);
 		}
 	}
+	else
+	{
+		int i = 0;
+		for (auto dataT : dataCtrl.datas)
+		{
+			AccountButton* tmp = new AccountButton(dataT->getName(), { 612.75f, 92.625f }, 30, sf::Color::Transparent, sf::Color::Black, &accountTex, std::to_string(dataT->getHighscore()));
+			tmp->setPosition({ 440.f, 100.f + i * 100.f });
+			tmp->setOutlineThickness(2.f);
+			tmp->setFont(font);
+			tmp->setBackgroundAnimation(&accountTex);
+			accounts.push_back(tmp);
+			++i;
+			if (i == 5) break;
+		}
+	}
 
-	left = !left;
 }
 
 void LogInScreen::handleEvent(sf::Event event, sf::RenderWindow& window, ScreenState& currentScreen, bool& endScreen)
 {
 	if (event.type == sf::Event::MouseButtonReleased)
 	{
-		int i = 0;
-		for (auto account : accounts)
+		if (!remove && !add)
 		{
-			if (account->isMouseOver(window))
+			counter = 0;
+			for (auto account : accounts)
 			{
-				if (left)
+				if (account->isMouseOver(window))
 				{
-					dataCtrl.data = dataCtrl.datas[i + 5];
-					std::cout << dataCtrl.data->getName() << " " << dataCtrl.data->getHighscore() << std::endl;
+					if (left)
+					{
+						dataCtrl.data = dataCtrl.datas[counter + 5];
+						std::cout << dataCtrl.data->getName() << " " << dataCtrl.data->getHighscore() << std::endl;
 
+					}
+					else
+					{
+						dataCtrl.data = dataCtrl.datas[counter];
+						std::cout << dataCtrl.data->getName() << " " << dataCtrl.data->getHighscore() << std::endl;
+					}
+					currentScreen = ScreenState::GamePlayScreen;
+					endScreen = true;
+					isEndScreen = endScreen;
 				}
-				else
+				counter++;
+			}
+			counter = 0;
+			for (auto account : accounts)
+			{
+				if (account->isMouseOverRemove(window))
 				{
-					dataCtrl.data = dataCtrl.datas[i];
-					std::cout << dataCtrl.data->getName() << " " << dataCtrl.data->getHighscore() << std::endl;
+					if (left)
+					{
+						dataCtrl.data = dataCtrl.datas[counter + 5];
+						std::cout << dataCtrl.data->getName() << " " << dataCtrl.data->getHighscore() << std::endl;
+					}
+					else
+					{
+						dataCtrl.data = dataCtrl.datas[counter];
+						std::cout << dataCtrl.data->getName() << " " << dataCtrl.data->getHighscore() << std::endl;
+					}
+					remove = true;
+					break;
 				}
+				counter++;
+			}
+			if (newButton.isMouseOver(window))
+			{
 				currentScreen = ScreenState::GamePlayScreen;
 				endScreen = true;
 				isEndScreen = endScreen;
 			}
-			i++;
+			else if (backButton.isMouseOver(window))
+			{
+				currentScreen = ScreenState::MainScreen;
+				endScreen = true;
+				isEndScreen = endScreen;
+			}
+			else if (over5Acc && (rightButton.isMouseOver(window) || leftButton.isMouseOver(window)))
+			{
+				left = !left;
+				updateUI();
+			}
 		}
-		if (newButton.isMouseOver(window))
+		else if (remove)
 		{
-			currentScreen = ScreenState::GamePlayScreen;
-			endScreen = true;
-			isEndScreen = endScreen;
+			if (removeMenu.isMouseOverConfirmButton(window))
+			{
+				dataCtrl.datas.erase(dataCtrl.datas.begin() + counter);
+				updateUI();
+				remove = false;
+			}
+			else if (removeMenu.isMouseOverCancelButton(window))
+			{
+				remove = false;
+			}
 		}
-		else if (backButton.isMouseOver(window))
+		else
 		{
-			currentScreen = ScreenState::MainScreen;
-			endScreen = true;
-			isEndScreen = endScreen;
-		}
-		/*else if (left && leftButton.isMouseOver(window))
-		{
-			switchAccUI();
-		}*/
-		else if (over5Acc && (rightButton.isMouseOver(window) || leftButton.isMouseOver(window)))
-		{
-			switchAccUI();
+
 		}
 	}
 }
@@ -209,16 +252,23 @@ void LogInScreen::update(sf::RenderWindow& window)
 {
 	if (!isEndScreen)
 	{
-		for (auto account : accounts)
+		if (!remove && !add)
 		{
-			account->update(window);
+			for (auto account : accounts)
+			{
+				account->update(window);
+			}
+			newButton.update(window);
+			backButton.update(window);
+			if (left)
+				leftButton.update(window);
+			else if (over5Acc)
+				rightButton.update(window);
 		}
-		newButton.update(window);
-		backButton.update(window);
-		if (left)
-			leftButton.update(window);
-		else if (over5Acc)
-			rightButton.update(window);
+		else if (remove)
+		{
+			removeMenu.update(window);
+		}
 	}
 }
 
@@ -237,5 +287,13 @@ void LogInScreen::render(sf::RenderWindow& window)
 			leftButton.drawTo(window);
 		else if (over5Acc)
 			rightButton.drawTo(window);
+		if (remove)
+		{
+			removeMenu.render(window);
+		}
+		else if (add)
+		{
+
+		}
 	}
 }
