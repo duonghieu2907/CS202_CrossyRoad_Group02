@@ -61,14 +61,14 @@ void InGameScreen::initTex()
 		std::cout << "Can not load star! \n";
 	}
 
-	sf::Texture* twater = new sf::Texture;
-	if (!(twater->loadFromFile("Material/Others/Water.png")))
+	sf::Texture* tsugarcane = new sf::Texture;
+	if (!(tsugarcane->loadFromFile("Material/Others/sugarcane.png")))
 	{
 		std::cout << "Can not load star! \n";
 	}
 
-	sf::Texture* tcola = new sf::Texture;
-	if (!(tcola->loadFromFile("Material/Others/Cola.png")))
+	sf::Texture* txaxi = new sf::Texture;
+	if (!(txaxi->loadFromFile("Material/Others/xaxi.png")))
 	{
 		std::cout << "Can not load star! \n";
 	}
@@ -81,8 +81,8 @@ void InGameScreen::initTex()
 	this->dog = tdog;
 	this->monkey = tmonkey;
 	this->star = tstar;
-	this->water = twater;
-	this->cola = tcola;
+	this->sugarcane = tsugarcane;
+	this->xaxi = txaxi;
 }
 
 void InGameScreen::initText()
@@ -120,12 +120,12 @@ void InGameScreen::getRoadRan()
 	// Random Item
 	if (itemRate >= 12) {
 		if (randItem == 2) {
-			Item tmp0(sf::Vector2f(100.f, 100.f), this->water, sf::Vector2u(1, 1), 0.1f, 2); //
+			Item tmp0(sf::Vector2f(100.f, 100.f), this->sugarcane, sf::Vector2u(1, 1), 0.1f, 2); //
 			float randCoor = static_cast<float>(rand() % 600 + 50);
 			tmp->addItem(tmp0, tmp->getPosition() + sf::Vector2f(randCoor, 0));
 		}
 		else if (randItem == 3) {
-			Item tmp0(sf::Vector2f(40.f, 40.f), this->cola, sf::Vector2u(1, 1), 0.1f, 3); //
+			Item tmp0(sf::Vector2f(30.f, 45.f), this->xaxi, sf::Vector2u(1, 1), 0.1f, 3); //
 			float randCoor = static_cast<float>(rand() % 600 + 50);
 			tmp->addItem(tmp0, tmp->getPosition() + sf::Vector2f(randCoor, 0));
 		}
@@ -236,6 +236,7 @@ void InGameScreen::update(sf::RenderWindow& window)
 			}
 			listObstacle[i]->isGetItem(player);
 		}
+
 		// Return the normal state after the invisible
 		player.settoNormal();
 
