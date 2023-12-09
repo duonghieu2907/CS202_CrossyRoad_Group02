@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AddPopMenu.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Character.cpp" />
@@ -162,6 +163,7 @@
     <ClCompile Include="truck.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AddPopMenu.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Character.h" />
