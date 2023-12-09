@@ -91,8 +91,9 @@ ghost::ghost(sf::Vector2f sizeTruck, sf::Texture* truckPic, sf::Vector2u imgCoun
 
 	 if (isGo)
 	 {
-		 if (abs(body.getPosition().x - player.getPosition().x) <= 30
-			 && abs(body.getPosition().y - player.getPosition().y) <= 30)
+		 if (abs(body.getPosition().x - player.getPosition().x) <= body.getSize().x/2.5
+			 && abs(body.getPosition().y - player.getPosition().y) <= body.getSize().y/2.5
+			 && timing.getElapsedTime().asSeconds() < 8)
 			 player.loadgetDamage();
 	 }
  }
