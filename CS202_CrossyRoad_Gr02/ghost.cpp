@@ -53,7 +53,7 @@ ghost::ghost(sf::Vector2f sizeTruck, sf::Texture* truckPic, sf::Vector2u imgCoun
  }// appear or not
  void  ghost::update(float deltaTime, bool faceRight, Character& player)
  {
-	 int i = static_cast<unsigned>(rand() % 100 + 1); // alter percentage see ghost at here
+	 int i = static_cast<unsigned>(rand() % 1000 + 1); // alter percentage see ghost at here
 
 	 if (!isGo)
 	 {

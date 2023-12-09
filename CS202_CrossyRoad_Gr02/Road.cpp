@@ -67,22 +67,7 @@ void Road::isGetItem(Character& player)
 	}
 	else {
 		for (int i = 0;i < item.size();i++) {
-			/*
 			if (abs(player.getPosition().x - item[i].getPos().x) < 40.f && abs(player.getPosition().y - item[i].getPos().y) < 40.f) {
-				if (item[i].getType() == 1) {
-					player.incPoint();
-				}
-				else if (item[i].getType() == 2) {
-					player.incStamina(2);
-				}
-				else if (item[i].getType() == 3) {
-					player.incStamina(3);
-				}
-				item.erase(item.begin() + i);
-			}
-			*/
-			if (player.getBounds().intersects(item[i].getShape().getGlobalBounds())) {
-				std::cout << 1 << "\n";
 				if (item[i].getType() == 1) {
 					player.incPoint();
 				}

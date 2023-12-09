@@ -63,13 +63,13 @@ void InGameScreen::initTex()
 	}
 
 	sf::Texture* tsugarcane = new sf::Texture;
-	if (!(tsugarcane->loadFromFile("Material/Others/sugarcane.png")))
+	if (!(tsugarcane->loadFromFile("Material/Others/Item/sugarcane.png")))
 	{
 		std::cout << "Can not load star! \n";
 	}
 
 	sf::Texture* txaxi = new sf::Texture;
-	if (!(txaxi->loadFromFile("Material/Others/xaxi.png")))
+	if (!(txaxi->loadFromFile("Material/Others/Item/xaxi.png")))
 	{
 		std::cout << "Can not load star! \n";
 	}
@@ -243,6 +243,7 @@ void InGameScreen::update(sf::RenderWindow& window)
 
 	playerHp.setString("PLayer Hp: " + std::to_string(player.getHp()) + " / " + std::to_string(player.getHpMax()) + "\n");
 	playerStamina.setString("PLayer Stamina: " + std::to_string(player.getStamina()) + " / " + std::to_string(player.getStaminaMax()) + "\n");
+	playerPoint.setString("Player Point: " + std::to_string(player.getPoint()));
 	if(playing == 0) player.update(deltaTime);
 	if (playing)
 	{
@@ -272,13 +273,11 @@ void InGameScreen::update(sf::RenderWindow& window)
 				player.loadgetDamage(); // after intersect with the obstacle, being invisible
 				//std::cout << player.getHp() << "\n";
 			}
+			listObstacle[i]->isGetItem(player);
 		}
 
 		// Return the normal state after the invisible
 		player.settoNormal();
-
-		// Player hp render
-	
 
 		//Endless mode
 		for (int i = 0;i < listObstacle.size();i++) {
