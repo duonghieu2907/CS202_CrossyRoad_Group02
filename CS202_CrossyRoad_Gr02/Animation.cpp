@@ -11,7 +11,9 @@ Animation::Animation(sf::Texture* texture, sf::Vector2u imgCount, float switchTi
 }
 
 Animation::Animation()
-{}
+{
+
+}
 
 Animation::~Animation()
 {
