@@ -1,6 +1,7 @@
 #pragma once
 #include"SFML/Graphics.hpp"
 #include"Animation.h"
+#include<math.h>
 
 class truck
 {
@@ -12,6 +13,15 @@ public:
 	sf::RectangleShape& getShape();
 	void setState(bool x);
 	void update(float deltaTime, bool faceRight);
+	void refelect()
+	{
+		faceRight = !faceRight;
+		sf::Vector2f distance;
+		distance.y = 0;
+		distance.x = abs(car.getPosition().x) + 1440;
+		car.move(distance);
+
+	}
 	void drawTo(sf::RenderTarget& target);
 private:
 	sf::RectangleShape car;

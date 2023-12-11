@@ -130,6 +130,17 @@ void Road::update()
 	}
 }
 
+void Road::reflect()
+{
+	for (int i = 0;i < car.size();i++) {
+		car[i].refelect();
+	}
+	for (int i = 0; i < light.size(); i++)
+	{
+		light[i].reflect();
+	}
+}
+
 void Road::drawTo(sf::RenderWindow& target)
 {
 	target.draw(getShape());

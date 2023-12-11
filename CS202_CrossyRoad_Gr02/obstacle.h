@@ -30,6 +30,8 @@ public:
 
     virtual int getCarnum() { return 0; }
     virtual void printCarpos(){}
+    virtual void clear()
+    {}
 private:
     sf::RectangleShape rec;
 
