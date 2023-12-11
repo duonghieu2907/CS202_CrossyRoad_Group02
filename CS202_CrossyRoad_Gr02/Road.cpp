@@ -67,7 +67,7 @@ void Road::isGetItem(Character& player)
 	}
 	else {
 		for (int i = 0;i < item.size();i++) {
-			if (item[i].getShape().getGlobalBounds().intersects(player.getBounds())) {
+			if (abs(player.getPosition().x - item[i].getPos().x) < 40.f && abs(player.getPosition().y - item[i].getPos().y) < 40.f) {
 				if (item[i].getType() == 1) {
 					player.incPoint();
 				}
@@ -101,22 +101,33 @@ void Road::update()
 	obstacle::setPosition(getShape().getPosition() + getSpeed());
 	for (int i = 0;i < car.size();i++) 
 	{
-		car[i].getShape().move(getSpeed());
-		for (int j = 0; j < light.size();j++)
+		if (i == 0)
 		{
-			if (abs(car[i].getShape().getPosition().x - light[j].getShape().getPosition().x) < 70 && light[i].canGo() == 0
-				&& (car[i].getRight() xor light[i].getRight()))
+			car[i].getShape().move(getSpeed());
+			for (int j = 0; j < light.size();j++)
 			{
-				car[i].setState(0);
-			}
-			else if
-				(abs(car[i].getShape().getPosition().x - light[j].getShape().getPosition().x) < 70 && light[i].canGo() == 1
+				if (abs(car[i].getShape().getPosition().x - light[j].getShape().getPosition().x) < car[i].getShape().getSize().x * 0.7 && light[i].canGo() == 0
 					&& (car[i].getRight() xor light[i].getRight()))
-			{
-				car[i].setState(1);
+				{
+					car[i].setState(0);
+				}
+				else if
+					(abs(car[i].getShape().getPosition().x - light[j].getShape().getPosition().x) < car[i].getShape().getSize().x * 0.7 && light[i].canGo() == 1
+						&& (car[i].getRight() xor light[i].getRight()))
+				{
+					car[i].setState(1);
+				}
 			}
+			car[i].update(0.01f, car[i].getRight());
 		}
-		car[i].update(0.01f, car[i].getRight());
+		else
+		{
+			car[i].getShape().move(getSpeed());
+			if (car[0].getState() == 0) car[i].setState(0);
+			else if (car[0].getState() == 1) car[i].setState(1);
+			car[i].update(0.01f, car[i].getRight());
+			//if(car[i - 1])
+		}
 	}
 
 	for (int i = 0;i < light.size();i++) {

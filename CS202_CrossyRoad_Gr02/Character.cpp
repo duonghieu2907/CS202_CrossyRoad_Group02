@@ -105,17 +105,18 @@ void Character::update(float deltaTime, std::vector <obstacle*> listObstacle)
 
 	checkMove = 0;
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-		movement.x -= speed * deltaTime * 2;
-		checkMove = 1;
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-		movement.x += speed * deltaTime * 2;
-		checkMove = 1;
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) 
-	{
-		if (inside)
+	if (this->stamina > 0) 
+  {
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+			movement.x -= speed * deltaTime * 2;
+			checkMove = 1;
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+			movement.x += speed * deltaTime * 2;
+			checkMove = 1;
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+			if (inside)
 		{
 			if (inside->getPosition().y - body.getPosition().y > 34)
 			{
@@ -126,12 +127,12 @@ void Character::update(float deltaTime, std::vector <obstacle*> listObstacle)
 				else  movement.y -= speed * deltaTime * 2;
 			}
 			else movement.y -= speed * deltaTime * 2;
-		}
-		else
-			movement.y -= speed * deltaTime * 2;
-		checkMove = 1;
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+			}
+			else
+				movement.y -= speed * deltaTime * 2;
+			checkMove = 1;
+}
+else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
 		if (inside)
 		{
 			if (body.getPosition().y - inside->getPosition().y > 34)
