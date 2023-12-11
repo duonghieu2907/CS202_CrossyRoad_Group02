@@ -41,7 +41,8 @@ public:
 
 	void incStamina(int n);
 	void incPoint();
-
+	void setSpeed(float x);
+	float getSpeed();
 	int getPoint();
 private:
 	//sf::Texture texture;

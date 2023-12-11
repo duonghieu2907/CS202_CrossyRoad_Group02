@@ -284,4 +284,14 @@ int Character::getPoint()
 	return this->point;
 }
 
+float Character::getSpeed()
+{
+	return speed;
+}
+
+void Character::setSpeed( float x)
+{
+	speed = x;
+}
+
 

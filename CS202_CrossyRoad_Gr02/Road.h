@@ -29,9 +29,13 @@ public:
 	int getCarnum() {
 		return car.size();
 	}
-
+	void clear() override
+	{
+		car.clear();
+		light.clear();
+	}
 	truck getCar(int index);
-
+	void reflect();
 	void update() override;
 	void drawTo(sf::RenderWindow& target) override;
 };
