@@ -105,44 +105,47 @@ void Character::update(float deltaTime, std::vector <obstacle*> listObstacle)
 
 	checkMove = 0;
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-		movement.x -= speed * deltaTime * 2;
-		checkMove = 1;
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-		movement.x += speed * deltaTime * 2;
-		checkMove = 1;
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-		if (inside)
-		{
-			if (inside->getPosition().y - body.getPosition().y > 34)
-			{
-				//std::cout << "Jump next\n";
-				if (index + 1 < listObstacle.size())
-					body.setPosition(body.getPosition().x, listObstacle[index + 1]->getPosition().y - speed * deltaTime * 2 + 70);
-			}
-			else movement.y -= speed * deltaTime * 2;
+	if (this->stamina > 0) {
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+			movement.x -= speed * deltaTime * 2;
+			checkMove = 1;
 		}
-		else
-			movement.y -= speed * deltaTime * 2;
-		checkMove = 1;
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-		if (inside)
-		{
-			if (body.getPosition().y - inside->getPosition().y > 34)
-			{
-				//std::cout << "Jump previous\n";
-				if (index - 1 >= 0)
-					body.setPosition(body.getPosition().x, listObstacle[index - 1]->getPosition().y + speed * deltaTime * 2 - 70);
-			}
-			else movement.y += speed * deltaTime * 2;
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+			movement.x += speed * deltaTime * 2;
+			checkMove = 1;
 		}
-		else
-			movement.y += speed * deltaTime * 2;
-		checkMove = 1;
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+			if (inside)
+			{
+				if (inside->getPosition().y - body.getPosition().y > 34)
+				{
+					//std::cout << "Jump next\n";
+					if (index + 1 < listObstacle.size())
+						body.setPosition(body.getPosition().x, listObstacle[index + 1]->getPosition().y - speed * deltaTime * 2 + 70);
+				}
+				else movement.y -= speed * deltaTime * 2;
+			}
+			else
+				movement.y -= speed * deltaTime * 2;
+			checkMove = 1;
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+			if (inside)
+			{
+				if (body.getPosition().y - inside->getPosition().y > 34)
+				{
+					//std::cout << "Jump previous\n";
+					if (index - 1 >= 0)
+						body.setPosition(body.getPosition().x, listObstacle[index - 1]->getPosition().y + speed * deltaTime * 2 - 70);
+				}
+				else movement.y += speed * deltaTime * 2;
+			}
+			else
+				movement.y += speed * deltaTime * 2;
+			checkMove = 1;
+		}
 	}
+
 	if (!movement.x && !movement.y)
 		row = 1;
 	else if (movement.x) row = 0;

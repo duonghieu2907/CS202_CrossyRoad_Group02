@@ -38,11 +38,11 @@ private:
 
 
     ghost devil;
-    	
-   
-
-    sf::Texture* car; // get the texture of car
+    	 
     sf::Texture* road; // get the texture of road
+    sf::Texture* honda;
+    sf::Texture* car;
+    sf::Texture* xedo;
 
     sf::Texture* cat;
     sf::Texture* chicken;
@@ -60,6 +60,15 @@ private:
     sf::Texture* star;
     sf::Texture* sugarcane;
     sf::Texture* xaxi;
+
+    sf::Texture playerHpTex;
+    sf::Sprite playerHpTexBox;
+
+    sf::Texture playerStaminaTex;
+    sf::Sprite playerStaminaTexBox;
+
+    sf::Texture playerStarTex;
+    sf::Sprite playerStarTexBox;
 };
 
 #endif

@@ -28,6 +28,10 @@ void truck::setState(bool x)
 {
 	isGo = x;
 }
+bool truck::getState()
+{
+	return isGo;
+}
 void truck::update(float deltaTime, bool faceRight)
 {
 	if (getShape().getGlobalBounds().top + 90.f >=0) { // at the close enough the screen, the car now move

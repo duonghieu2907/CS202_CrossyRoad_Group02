@@ -60,6 +60,7 @@ ghost::ghost(sf::Vector2f sizeTruck, sf::Texture* truckPic, sf::Vector2u imgCoun
 		 //std::cout << i << std::endl;
 		 if (i == 1) { //  see a ghost
 			 isGo = 1;
+			 body.setPosition(75, 75);
 			 timing.restart();
 
 		 }
@@ -67,6 +68,7 @@ ghost::ghost(sf::Vector2f sizeTruck, sf::Texture* truckPic, sf::Vector2u imgCoun
 	 }
 	 if (isGo)
 	 {
+		// body.setPosition(0, 0);
 		 this->body.setTexture(flight);
 		 float a = player.getPosition().x;
 		 float b = player.getPosition().y;
