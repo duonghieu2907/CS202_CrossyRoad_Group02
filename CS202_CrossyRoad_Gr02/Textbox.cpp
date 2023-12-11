@@ -67,8 +67,8 @@ std::string Textbox::getText() {
 }
 
 void Textbox::drawTo(sf::RenderWindow& window) {
-    window.draw(textbox);
     window.draw(theBox);
+    window.draw(textbox);
 }
 
 // Function for event loop:

@@ -249,6 +249,12 @@ void AccountButton::setScoreString(std::string score)
     this->score.setString(score);
 }
 
+// Check if the mouse is within the bounds of the remove button:
+bool AccountButton::isMouseOverRemove(sf::RenderWindow& window)
+{
+    return remove.isMouseOver(window);
+}
+
 void AccountButton::update(sf::RenderWindow& window)
 {
     //Button::update(window);

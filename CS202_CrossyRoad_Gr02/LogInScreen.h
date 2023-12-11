@@ -3,6 +3,9 @@
 
 #include "Screen.h"
 #include "Button.h"
+#include "Data.h"
+#include "RemovePopMenu.h"
+#include "AddPopMenu.h"
 
 class LogInScreen : public Screen {
 public:
@@ -19,10 +22,10 @@ private:
     void initBackButton();
     void initLeftButton();
     void initRightButton();
-    void initCheckOver5();
+    void checkOver5();
     void initAccount();
 
-    void switchAccUI();
+    void updateUI();
 
 private:
     sf::Texture logInScreenTex;
@@ -42,6 +45,13 @@ private:
 
     bool over5Acc;
     bool left;
+    int counter;
+
+    bool add;
+    AddPopMenu addMenu;
+
+    bool remove;
+    RemovePopMenu removeMenu;
 
     sf::Texture accountTex;
     std::vector<AccountButton*> accounts;
