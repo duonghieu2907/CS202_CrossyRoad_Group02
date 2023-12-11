@@ -53,7 +53,9 @@ ghost::ghost(sf::Vector2f sizeTruck, sf::Texture* truckPic, sf::Vector2u imgCoun
  }// appear or not
  void  ghost::update(float deltaTime, bool faceRight, Character& player)
  {
-	 int i = static_cast<unsigned>(rand() % 1000 + 1); // alter percentage see ghost at here
+
+	 int i = static_cast<unsigned>(rand() % 10000 + 1); // alter percentage see ghost at here
+
 
 	 if (!isGo)
 	 {
@@ -93,8 +95,9 @@ ghost::ghost(sf::Vector2f sizeTruck, sf::Texture* truckPic, sf::Vector2u imgCoun
 
 	 if (isGo)
 	 {
-		 if (abs(body.getPosition().x - player.getPosition().x) <= 30
-			 && abs(body.getPosition().y - player.getPosition().y) <= 30)
+		 if (abs(body.getPosition().x - player.getPosition().x) <= body.getSize().x/3
+			 && abs(body.getPosition().y - player.getPosition().y) <= body.getSize().y/3
+			 && timing.getElapsedTime().asSeconds() < 8)
 			 player.loadgetDamage();
 	 }
  }

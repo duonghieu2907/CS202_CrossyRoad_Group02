@@ -40,9 +40,12 @@ private:
     ghost devil;
     	 
     sf::Texture* road; // get the texture of road
+
     sf::Texture* honda;
     sf::Texture* car;
     sf::Texture* xedo;
+    sf::Texture* road1;
+
 
     sf::Texture* cat;
     sf::Texture* chicken;
@@ -54,7 +57,8 @@ private:
     float addRoadTimeMax; // maximum time to add new road
 
 
-    bool playing;
+    bool playing = 0;
+    bool started = 0;
 
 
     sf::Texture* star;

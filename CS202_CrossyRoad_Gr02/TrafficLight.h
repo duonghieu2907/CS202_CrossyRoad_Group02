@@ -23,7 +23,13 @@ public:
 	bool canGo();
 	void setPosition(sf::Vector2f cur);
 	sf::RectangleShape& getShape();
-
+	void reflect()
+	{
+		faceRight = !faceRight;
+		sf::Vector2f distance;
+		distance.y = 0;
+		distance.x = abs(box.getPosition().x) + 1440;
+	}
 	void update();
 	void drawTo(sf::RenderTarget& target);
 };

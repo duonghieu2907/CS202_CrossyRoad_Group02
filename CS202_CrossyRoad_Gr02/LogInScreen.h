@@ -3,7 +3,9 @@
 
 #include "Screen.h"
 #include "Button.h"
+#include "Data.h"
 #include "RemovePopMenu.h"
+#include "AddPopMenu.h"
 
 class LogInScreen : public Screen {
 public:
@@ -46,6 +48,7 @@ private:
     int counter;
 
     bool add;
+    AddPopMenu addMenu;
 
     bool remove;
     RemovePopMenu removeMenu;

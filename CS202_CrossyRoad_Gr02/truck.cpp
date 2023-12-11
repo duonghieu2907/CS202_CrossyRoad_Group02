@@ -40,10 +40,11 @@ void truck::update(float deltaTime, bool faceRight)
 		if (isGo)
 		{
 			if (faceRight) {
-				car.move(this->carSpeed * deltaTime * 10, 0);
+				car.move(this->carSpeed * deltaTime * 10, 0); //move to the right
 			}
 			else {
-				car.move(-(this->carSpeed * deltaTime * 10), 0);
+				car.move(-(this->carSpeed * deltaTime * 10), 0);// move to the left
+				//std::cout << "Move left\n";
 			}
 		}
 	}

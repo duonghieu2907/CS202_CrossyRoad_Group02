@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <cstdlib>
 #include <ctime>
+#include "Character.h"
 
 class rain
 {
@@ -15,6 +16,7 @@ private:
     sf::RectangleShape raindropShape;
     //raindropShape.setRotation(30);
     bool state = 0;
+    sf::Clock timing;
 public:
     rain()
     {
@@ -30,20 +32,40 @@ public:
     {
         return state;
     }
-    void update(sf::RenderWindow
-        &window)
+    void update(sf::RenderWindow &window, Character& player)
     {
-      //  std::srand(std::time(nullptr));
-        if (rand() % 100 < 10) {
-           // std::cout << "OK\n";
-            float x = static_cast<float>(rand() % (window.getSize().x + 200));
-            sf::Color randomColor(
+        int i = static_cast<unsigned>(rand() % 1000 + 1); // alter percentage see rain at here
+       // std::cout << i << std::endl;
+        if (!state)
+        {
+            //std::cout << i << std::endl;
+            if (i == 1) { //  see a ghost
+                state = 1;
+                player.setSpeed(player.getSpeed() * 4 / 5);
+                timing.restart();
 
-                73, 73, 163
-            );
-            raindropShape.setFillColor(randomColor);
-            raindrops.push_back(sf::Vector2f(x, 0));
+            }
         }
+        if(state)
+        {
+            if (rand() % 100 < 10) {
+                // std::cout << "OK\n";
+                float x = static_cast<float>(rand() % (window.getSize().x + 200));
+                sf::Color randomColor(
+
+                    73, 73, 163
+                );
+                raindropShape.setFillColor(randomColor);
+                raindrops.push_back(sf::Vector2f(x, 0));
+            }
+            if (timing.getElapsedTime().asSeconds() >= 10)
+            {
+                state = 0;
+                player.setSpeed(player.getSpeed() * 1.25);
+                timing.restart();
+            }
+        }
+
     }
     void drawTo(sf::RenderWindow& window)
     {

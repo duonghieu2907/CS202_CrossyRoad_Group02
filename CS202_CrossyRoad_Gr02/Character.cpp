@@ -105,45 +105,47 @@ void Character::update(float deltaTime, std::vector <obstacle*> listObstacle)
 
 	checkMove = 0;
 
-	if (this->stamina > 0) {
+	if (this->stamina > 0) 
+  {
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
 			movement.x -= speed * deltaTime * 2;
 			checkMove = 1;
 		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
 			movement.x += speed * deltaTime * 2;
 			checkMove = 1;
 		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
 			if (inside)
+		{
+			if (inside->getPosition().y - body.getPosition().y > 34)
 			{
-				if (inside->getPosition().y - body.getPosition().y > 34)
-				{
-					//std::cout << "Jump next\n";
-					if (index + 1 < listObstacle.size())
-						body.setPosition(body.getPosition().x, listObstacle[index + 1]->getPosition().y - speed * deltaTime * 2 + 70);
-				}
-				else movement.y -= speed * deltaTime * 2;
+				//std::cout << "Jump next\n";
+				if (index + 1 < listObstacle.size() && body.getPosition().y >= 45)
+					body.setPosition(body.getPosition().x,
+						listObstacle[index + 1]->getPosition().y - speed * deltaTime * 2 + 70);
+				else  movement.y -= speed * deltaTime * 2;
+			}
+			else movement.y -= speed * deltaTime * 2;
 			}
 			else
 				movement.y -= speed * deltaTime * 2;
 			checkMove = 1;
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-			if (inside)
+}
+else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+		if (inside)
+		{
+			if (body.getPosition().y - inside->getPosition().y > 34)
 			{
-				if (body.getPosition().y - inside->getPosition().y > 34)
-				{
-					//std::cout << "Jump previous\n";
-					if (index - 1 >= 0)
-						body.setPosition(body.getPosition().x, listObstacle[index - 1]->getPosition().y + speed * deltaTime * 2 - 70);
-				}
-				else movement.y += speed * deltaTime * 2;
+				//std::cout << "Jump previous\n";
+				if (index - 1 >= 0)
+					body.setPosition(body.getPosition().x, listObstacle[index - 1]->getPosition().y + speed * deltaTime * 2 - 70);
 			}
-			else
-				movement.y += speed * deltaTime * 2;
-			checkMove = 1;
+			else movement.y += speed * deltaTime * 2;
 		}
+		else
+			movement.y += speed * deltaTime * 2;
+		checkMove = 1;
 	}
 
 	if (!movement.x && !movement.y)
@@ -154,7 +156,6 @@ void Character::update(float deltaTime, std::vector <obstacle*> listObstacle)
 		faceRight = true;
 	else
 		faceRight = false;
-
 	animation.update(row, deltaTime, faceRight);
 	body.setTextureRect(animation.uvRect);
 	if (moveToOther == 0) {
@@ -162,6 +163,10 @@ void Character::update(float deltaTime, std::vector <obstacle*> listObstacle)
 	}
 	if (body.getPosition().y - 40 >= 820) this->hp = 0; //dead
 	if (body.getPosition().x + 40 >= 1440 || body.getPosition().x - 40 <= 0)
+	{
+		body.move(-movement - listObstacle[0]->getSpeed());
+	}
+	if (body.getPosition().y - 40 <= 0)
 	{
 		body.move(-movement - listObstacle[0]->getSpeed());
 	}
@@ -278,6 +283,16 @@ void Character::incPoint()
 int Character::getPoint()
 {
 	return this->point;
+}
+
+float Character::getSpeed()
+{
+	return speed;
+}
+
+void Character::setSpeed( float x)
+{
+	speed = x;
 }
 
 

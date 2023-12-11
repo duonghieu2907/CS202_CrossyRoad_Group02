@@ -10,6 +10,7 @@ LogInScreen::LogInScreen(sf::RenderWindow& window) :
 	rightButton("", { 55, 55 }, 25, sf::Color::Transparent, sf::Color::Transparent, & rightButtonTex),
 	left(false),
 	counter(0),
+	addMenu(window),
 	add(false),
 	removeMenu(window),
 	remove(false)
@@ -164,9 +165,9 @@ void LogInScreen::updateUI()
 
 void LogInScreen::handleEvent(sf::Event event, sf::RenderWindow& window, ScreenState& currentScreen, bool& endScreen)
 {
-	if (event.type == sf::Event::MouseButtonReleased)
+	if (!remove && !add)
 	{
-		if (!remove && !add)
+		if (event.type == sf::Event::MouseButtonReleased)
 		{
 			counter = 0;
 			for (auto account : accounts)
@@ -197,7 +198,8 @@ void LogInScreen::handleEvent(sf::Event event, sf::RenderWindow& window, ScreenS
 				{
 					if (left)
 					{
-						dataCtrl.data = dataCtrl.datas[counter + 5];
+						counter += 5;
+						dataCtrl.data = dataCtrl.datas[counter];
 						std::cout << dataCtrl.data->getName() << " " << dataCtrl.data->getHighscore() << std::endl;
 					}
 					else
@@ -212,9 +214,8 @@ void LogInScreen::handleEvent(sf::Event event, sf::RenderWindow& window, ScreenS
 			}
 			if (newButton.isMouseOver(window))
 			{
-				currentScreen = ScreenState::GamePlayScreen;
-				endScreen = true;
-				isEndScreen = endScreen;
+				if (dataCtrl.datas.size() <= size_t(10))
+					add = true;
 			}
 			else if (backButton.isMouseOver(window))
 			{
@@ -228,7 +229,10 @@ void LogInScreen::handleEvent(sf::Event event, sf::RenderWindow& window, ScreenS
 				updateUI();
 			}
 		}
-		else if (remove)
+	}
+	else if (remove)
+	{
+		if (event.type == sf::Event::MouseButtonReleased)
 		{
 			if (removeMenu.isMouseOverConfirmButton(window))
 			{
@@ -241,9 +245,29 @@ void LogInScreen::handleEvent(sf::Event event, sf::RenderWindow& window, ScreenS
 				remove = false;
 			}
 		}
-		else
+	}
+	else
+	{
+		if (event.type == sf::Event::TextEntered)
 		{
-
+			addMenu.nameInputTypeOn(event);
+		}
+		else if (event.type == sf::Event::MouseButtonReleased)
+		{
+			if (addMenu.isMouseOverConfirmButton(window))
+			{
+				Data* newAccount = new Data(addMenu.nameInputGetText(), 0);
+				dataCtrl.datas.push_back(newAccount);
+				dataCtrl.data = newAccount;
+				currentScreen = ScreenState::GamePlayScreen;
+				endScreen = true;
+				isEndScreen = endScreen;
+				add = false;
+			}
+			else if (addMenu.isMouseOverCancelButton(window))
+			{
+				add = false;
+			}
 		}
 	}
 }
@@ -269,6 +293,10 @@ void LogInScreen::update(sf::RenderWindow& window)
 		{
 			removeMenu.update(window);
 		}
+		else if (add)
+		{
+			addMenu.update(window);
+		}
 	}
 }
 
@@ -293,7 +321,7 @@ void LogInScreen::render(sf::RenderWindow& window)
 		}
 		else if (add)
 		{
-
+			addMenu.render(window);
 		}
 	}
 }
