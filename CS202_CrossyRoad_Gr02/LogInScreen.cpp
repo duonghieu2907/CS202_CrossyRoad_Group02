@@ -12,6 +12,8 @@ LogInScreen::LogInScreen(sf::RenderWindow& window) :
 	counter(0),
 	addMenu(window),
 	add(false),
+	fullMenu(window),
+	full(false),
 	removeMenu(window),
 	remove(false)
 {
@@ -165,7 +167,7 @@ void LogInScreen::updateUI()
 
 void LogInScreen::handleEvent(sf::Event event, sf::RenderWindow& window, ScreenState& currentScreen, bool& endScreen)
 {
-	if (!remove && !add)
+	if (!remove && !add && !full)
 	{
 		if (event.type == sf::Event::MouseButtonReleased)
 		{
@@ -214,8 +216,10 @@ void LogInScreen::handleEvent(sf::Event event, sf::RenderWindow& window, ScreenS
 			}
 			if (newButton.isMouseOver(window))
 			{
-				if (dataCtrl.datas.size() <= size_t(10))
+				if (dataCtrl.datas.size() < size_t(10))
 					add = true;
+				else
+					full = true;
 			}
 			else if (backButton.isMouseOver(window))
 			{
@@ -246,7 +250,7 @@ void LogInScreen::handleEvent(sf::Event event, sf::RenderWindow& window, ScreenS
 			}
 		}
 	}
-	else
+	else if (add)
 	{
 		if (event.type == sf::Event::TextEntered)
 		{
@@ -256,17 +260,47 @@ void LogInScreen::handleEvent(sf::Event event, sf::RenderWindow& window, ScreenS
 		{
 			if (addMenu.isMouseOverConfirmButton(window))
 			{
-				Data* newAccount = new Data(addMenu.nameInputGetText(), 0);
-				dataCtrl.datas.push_back(newAccount);
-				dataCtrl.data = newAccount;
-				currentScreen = ScreenState::GamePlayScreen;
-				endScreen = true;
-				isEndScreen = endScreen;
-				add = false;
+				bool checkValid = true;
+				std::string newName = addMenu.nameInputGetText();
+				transform(newName.begin(), newName.end(), newName.begin(), ::toupper);
+				if (newName == "")
+					checkValid = false;
+				if (checkValid)
+				{
+					for (auto data : dataCtrl.datas)
+					{
+						if (newName == data->getName())
+						{
+							checkValid = false;
+							break;
+						}
+					}
+				}
+				if (checkValid)
+				{
+					Data* newAccount = new Data(newName, 0);
+					dataCtrl.datas.push_back(newAccount);
+					dataCtrl.data = newAccount;
+					addMenu.nameInputSetString("");
+					currentScreen = ScreenState::GamePlayScreen;
+					endScreen = true;
+					isEndScreen = endScreen;
+					add = false;
+				}
 			}
 			else if (addMenu.isMouseOverCancelButton(window))
 			{
 				add = false;
+			}
+		}
+	}
+	else if (full)
+	{
+		if (event.type == sf::Event::MouseButtonReleased)
+		{
+			if (fullMenu.isMouseOverConfirmButton(window))
+			{
+				full = false;
 			}
 		}
 	}
@@ -276,7 +310,19 @@ void LogInScreen::update(sf::RenderWindow& window)
 {
 	if (!isEndScreen)
 	{
-		if (!remove && !add)
+		if (remove)
+		{
+			removeMenu.update(window);
+		}
+		else if (add)
+		{
+			addMenu.update(window);
+		}
+		else if (full)
+		{
+			fullMenu.update(window);
+		}
+		else
 		{
 			for (auto account : accounts)
 			{
@@ -288,14 +334,6 @@ void LogInScreen::update(sf::RenderWindow& window)
 				leftButton.update(window);
 			else if (over5Acc)
 				rightButton.update(window);
-		}
-		else if (remove)
-		{
-			removeMenu.update(window);
-		}
-		else if (add)
-		{
-			addMenu.update(window);
 		}
 	}
 }
@@ -322,6 +360,10 @@ void LogInScreen::render(sf::RenderWindow& window)
 		else if (add)
 		{
 			addMenu.render(window);
+		}
+		else if (full)
+		{
+			fullMenu.render(window);
 		}
 	}
 }

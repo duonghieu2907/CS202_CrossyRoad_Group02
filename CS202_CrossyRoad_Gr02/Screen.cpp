@@ -78,7 +78,7 @@ void Screen::initData()
 				std::string name;
 				int highscore = 0;
 				std::getline(fin, name, ' ');
-				if (name.empty())
+				if (name == "")
 					break;
 				fin >> highscore;
 				fin.ignore(1000, '\n');

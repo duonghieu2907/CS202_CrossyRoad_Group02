@@ -153,6 +153,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainScreen.cpp" />
     <ClCompile Include="obstacle.cpp" />
+    <ClCompile Include="PausePopMenu.cpp" />
     <ClCompile Include="PopMenu.cpp" />
     <ClCompile Include="RemovePopMenu.cpp" />
     <ClCompile Include="Road.cpp" />
@@ -177,6 +178,7 @@
     <ClInclude Include="main.h" />
     <ClInclude Include="MainScreen.h" />
     <ClInclude Include="obstacle.h" />
+    <ClInclude Include="PausePopMenu.h" />
     <ClInclude Include="PopMenu.h" />
     <ClInclude Include="rain.h" />
     <ClInclude Include="RemovePopMenu.h" />

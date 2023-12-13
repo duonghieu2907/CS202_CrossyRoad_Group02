@@ -82,6 +82,11 @@ void AddPopMenu::nameInputSetSelected(sf::RenderWindow& window)
 		nameInput.setSelected(false);
 }
 
+void AddPopMenu::nameInputSetString(std::string string)
+{
+	nameInput.setText(string);
+}
+
 std::string AddPopMenu::nameInputGetText()
 {
 	return nameInput.getText();
@@ -112,3 +117,62 @@ void AddPopMenu::render(sf::RenderWindow& window)
 	cancelButton.drawTo(window);
 }
 
+// Full Pop Menu
+
+FullPopMenu::FullPopMenu(sf::RenderWindow& window) :
+	PopMenu(window),
+	confirmButton("", { 265, 55 }, 25, sf::Color::Transparent, sf::Color::Transparent, & confirmButtonTex)
+{
+	initTitle();
+	initConfirmButton();
+}
+
+FullPopMenu::FullPopMenu() :
+	PopMenu(),
+	confirmButton("", { 265, 55 }, 25, sf::Color::Transparent, sf::Color::Transparent, & confirmButtonTex)
+{
+	initTitle();
+	initConfirmButton();
+}
+
+FullPopMenu::~FullPopMenu()
+{
+
+}
+
+void FullPopMenu::initTitle()
+{
+	title.setFont(font);
+	title.setCharacterSize(80);
+	title.setFillColor(sf::Color::Black);
+	title.setString("MAXIMUM 10 ACCOUNTS!");
+	title.setPosition({ 720.f - title.getGlobalBounds().width / 2.f, 405.f - title.getGlobalBounds().height * 3.f });
+}
+
+void FullPopMenu::initConfirmButton()
+{
+	if (!confirmButtonTex.loadFromFile("Material/Buttons/Confirm.png"))
+		std::cout << "Confirm not found!\n";
+	confirmButtonTex.setSmooth(true);
+
+	confirmButton.setPosition({ 550, 520 });
+	confirmButton.setOutlineThickness(2);
+	confirmButton.setBackgroundAnimation(&confirmButtonTex);
+}
+
+bool FullPopMenu::isMouseOverConfirmButton(sf::RenderWindow& window)
+{
+	return confirmButton.isMouseOver(window);
+}
+
+void FullPopMenu::update(sf::RenderWindow& window)
+{
+	confirmButton.update(window);
+}
+
+void FullPopMenu::render(sf::RenderWindow& window)
+{
+	PopMenu::render(window);
+	window.draw(title);
+	confirmButton.drawTo(window);
+}

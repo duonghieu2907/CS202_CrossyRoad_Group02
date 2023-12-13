@@ -2,6 +2,8 @@
 #define INGAMESCREEN_H
 
 #include "Screen.h"
+#include "GamePlayScreen.h"
+#include "PausePopMenu.h"
 #include "Character.h"
 #include "obstacle.h"
 #include "rain.h"
@@ -57,7 +59,7 @@ private:
     float addRoadTimeMax; // maximum time to add new road
 
 
-    bool playing = 0;
+    bool playing;
     bool started = 0;
 
 
@@ -73,6 +75,10 @@ private:
 
     sf::Texture playerStarTex;
     sf::Sprite playerStarTexBox;
+
+    bool pause;
+    PausePopMenu pauseMenu;
+
 };
 
 #endif
