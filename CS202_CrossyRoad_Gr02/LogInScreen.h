@@ -49,6 +49,8 @@ private:
 
     bool add;
     AddPopMenu addMenu;
+    bool full;
+    FullPopMenu fullMenu;
 
     bool remove;
     RemovePopMenu removeMenu;

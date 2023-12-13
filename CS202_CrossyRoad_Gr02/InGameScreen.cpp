@@ -343,7 +343,10 @@ void InGameScreen::getRoadRan()
 }
 
 InGameScreen::InGameScreen(sf::RenderWindow& window) :
-	Screen(window)
+	Screen(window),
+	pause(false),
+	pauseMenu(window),
+	playing(false)
 {
 	initText();
 
@@ -375,18 +378,48 @@ void InGameScreen::handleEvent(sf::Event event, sf::RenderWindow& window, Screen
 	{
 		window.close();
 	}
-	else if (event.type == sf::Event::KeyReleased)
+	if (pause)
 	{
-		if (playing == 0 && player.getHp() > 0 && started == 0)
+		if (event.type == sf::Event::MouseButtonReleased)
 		{
-			playing = 1;
-			started = 1;
-			//clock.restart();
+			if (pauseMenu.isMouseOverResumeButton(window)) // RESUME
+			{
+				pause = false;
+			}
+			else if (pauseMenu.isMouseOverRestartButton(window)) // RESTART
+			{
+
+			}
+			else if (pauseMenu.isMouseOverQuitButton(window)) // QUIT TO MENU
+			{
+				pause = false;
+				GamePlayScreen::isContinue = true;
+				currentScreen = ScreenState::GamePlayScreen;
+				endScreen = true;
+				isEndScreen = endScreen;
+			}
 		}
-		if (playing == 1)
+	}
+	else
+	{
+		if (event.type == sf::Event::KeyReleased)
 		{
-			if (event.key.code == sf::Keyboard::P) {
-				playing = 0;
+			if (playing == 0 && player.getHp() > 0 && started == 0)
+			{
+				playing = 1;
+				started = 1;
+				//clock.restart();
+			}
+			else if (!playing && player.getHp() > 0)
+			{
+				playing = true;
+			}
+			else if (playing)
+			{
+				if (event.key.code == sf::Keyboard::Escape) {
+					pause = true;
+					playing = false;
+				}
 			}
 		}
 	}
@@ -394,86 +427,92 @@ void InGameScreen::handleEvent(sf::Event event, sf::RenderWindow& window, Screen
 
 void InGameScreen::update(sf::RenderWindow& window)
 {
-
-	if (playing == 0 && player.getHp() == player.getHpMax() && started == 0)
+	if (pause)
 	{
-		TimeDisplay.restart();
+		pauseMenu.update(window);
 	}
-	else if(player.getHp() > 0) elapsed = TimeDisplay.getElapsedTime();
- 	int minutes = static_cast<int>(elapsed.asSeconds()) / 60;
-	int seconds = static_cast<int>(elapsed.asSeconds()) % 60;
-	text.setString("Time: " + std::to_string(minutes) + "m " +
-		std::to_string(seconds) + "s");
-
-	deltaTime = clock.restart().asSeconds();
-
-	playerHp.setString("Hp: ");
-	int curHp = player.getHp();
-	playerHpTexBox.setTexture(playerHpTex);
-	sf::IntRect curRectHp(1755 * curHp, 0, 1755, 480);
-	playerHpTexBox.setTextureRect(curRectHp);
-	playerHpTexBox.setScale(0.1f, 0.1f);
-
-	playerStamina.setString("Stamina: ");
-	int curStamina = player.getStamina();
-	playerStaminaTexBox.setTexture(playerStaminaTex);
-	sf::IntRect curRectStamina(800 * curStamina, 0, 800, 118);
-	playerStaminaTexBox.setTextureRect(curRectStamina);
-	playerStaminaTexBox.setScale(0.4f, 0.4f);
-	//playerStaminaTexBox.setPosition(120.f, 29.f);
-
-	playerPoint.setString("Star: " + std::to_string(player.getPoint()));
-	std::string StarString = std::to_string(player.getPoint());
-	float lenStarString = static_cast<float>(StarString.size() * 5) ;
-	playerStarTexBox.setPosition(85.f + lenStarString,65.f);
-
-
-	if(playing == 0) player.update(deltaTime);
-	if (playing)
+	else
 	{
-
-
-		for (int i = 0; i < listObstacle.size();i++)
+		if (playing == 0 && player.getHp() == player.getHpMax() && started == 0)
 		{
-			listObstacle[i]->update();
-			//std::cout << i << " " << listObstacle[i]->getPosition().x << " " << listObstacle[i]->getPosition().y<<"\n";
+			TimeDisplay.restart();
 		}
+		else if (player.getHp() > 0) elapsed = TimeDisplay.getElapsedTime();
+		int minutes = static_cast<int>(elapsed.asSeconds()) / 60;
+		int seconds = static_cast<int>(elapsed.asSeconds()) % 60;
+		text.setString("Time: " + std::to_string(minutes) + "m " +
+			std::to_string(seconds) + "s");
 
-		player.update(deltaTime, listObstacle);
+		deltaTime = clock.restart().asSeconds();
 
-		// Stamina
-		player.reduceStamina();
-		//std::cout << player.getStamina() << " / " << player.getStaminaMax() << "\n";
+		playerHp.setString("Hp: ");
+		int curHp = player.getHp();
+		playerHpTexBox.setTexture(playerHpTex);
+		sf::IntRect curRectHp(1755 * curHp, 0, 1755, 480);
+		playerHpTexBox.setTextureRect(curRectHp);
+		playerHpTexBox.setScale(0.1f, 0.1f);
+
+		playerStamina.setString("Stamina: ");
+		int curStamina = player.getStamina();
+		playerStaminaTexBox.setTexture(playerStaminaTex);
+		sf::IntRect curRectStamina(800 * curStamina, 0, 800, 118);
+		playerStaminaTexBox.setTextureRect(curRectStamina);
+		playerStaminaTexBox.setScale(0.4f, 0.4f);
+		//playerStaminaTexBox.setPosition(120.f, 29.f);
+
+		playerPoint.setString("Star: " + std::to_string(player.getPoint()));
+		std::string StarString = std::to_string(player.getPoint());
+		float lenStarString = static_cast<float>(StarString.size() * 5);
+		playerStarTexBox.setPosition(85.f + lenStarString, 65.f);
 
 
-		//Rain effect
-		myRain.update(window, player);
-
-		devil.update(deltaTime, devil.getRight(), player);
-
-		for (int i = 0; i < listObstacle.size();i++)
+		if (playing == 0) 
+			player.update(deltaTime);
+		if (playing)
 		{
-			if (listObstacle[i]->charIsInside(player) && listObstacle[i]->isCollision(player)) {
-				player.loadgetDamage(); // after intersect with the obstacle, being invisible
-				//std::cout << player.getHp() << "\n";
+			for (int i = 0; i < listObstacle.size(); i++)
+			{
+				listObstacle[i]->update();
+				//std::cout << i << " " << listObstacle[i]->getPosition().x << " " << listObstacle[i]->getPosition().y<<"\n";
 			}
-			listObstacle[i]->isGetItem(player);
-		}
 
-		// Return the normal state after the invisible
-		player.settoNormal();
+			player.update(deltaTime, listObstacle);
 
-		//Endless mode
-		for (int i = 0;i < listObstacle.size();i++) {
-			if (listObstacle[i]->getPosition().y - 81.f > 810.f) {
-				//listObstacle[i]->clear();
-				listObstacle.erase(listObstacle.begin() + i);
-				getRoadRan();
+			// Stamina
+			player.reduceStamina();
+			//std::cout << player.getStamina() << " / " << player.getStaminaMax() << "\n";
+
+
+			//Rain effect
+			myRain.update(window, player);
+
+			devil.update(deltaTime, devil.getRight(), player);
+
+			for (int i = 0; i < listObstacle.size(); i++)
+			{
+				if (listObstacle[i]->charIsInside(player) && listObstacle[i]->isCollision(player)) {
+					player.loadgetDamage(); // after intersect with the obstacle, being invisible
+					//std::cout << player.getHp() << "\n";
+				}
+				listObstacle[i]->isGetItem(player);
 			}
+
+			// Return the normal state after the invisible
+			player.settoNormal();
+
+			//Endless mode
+			for (int i = 0; i < listObstacle.size(); i++) {
+				if (listObstacle[i]->getPosition().y - 81.f > 810.f) {
+					//listObstacle[i]->clear();
+					listObstacle.erase(listObstacle.begin() + i);
+					getRoadRan();
+				}
+			}
+
+			if (player.getHp() <= 0) 
+				playing = 0;
+
 		}
-
-		if (player.getHp() <= 0) playing = 0;
-
 	}
 }
 void InGameScreen::render(sf::RenderWindow& window)
@@ -501,6 +540,11 @@ void InGameScreen::render(sf::RenderWindow& window)
 		player.drawTo(window);
 		devil.drawTo(window);
 		if(myRain.getState())myRain.drawTo(window);
+
+		if (pause)
+		{
+			pauseMenu.render(window);
+		}
 	}
 
 }
