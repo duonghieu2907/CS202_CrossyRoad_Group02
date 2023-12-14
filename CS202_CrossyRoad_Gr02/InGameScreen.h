@@ -4,6 +4,7 @@
 #include "Screen.h"
 #include "GamePlayScreen.h"
 #include "PausePopMenu.h"
+#include "EndGamePopMenu.h"
 #include "Character.h"
 #include "obstacle.h"
 #include "rain.h"
@@ -79,6 +80,7 @@ private:
     bool pause;
     PausePopMenu pauseMenu;
 
+    EndGamePopMenu endMenu;
 };
 
 #endif

@@ -9,6 +9,14 @@ Application::Application() :
 	curScreenState(ScreenState::MainScreen)
 {
 	initWindow();
+	// Load loading screen background from file
+	if (!loadingScreenTex.loadFromFile("Material/Backgrounds/LoadingScreen.png"))
+		std::cout << "LoadingScreen not found!\n";
+	loadingScreenTex.setSmooth(true);
+	loadingScreen.setTexture(loadingScreenTex);
+	float scaleX = static_cast<float>(window.getSize().x) / loadingScreenTex.getSize().x;
+	float scaleY = static_cast<float>(window.getSize().y) / loadingScreenTex.getSize().y;
+	loadingScreen.setScale(scaleX, scaleY);
 }
 
 Application::~Application()
@@ -29,15 +37,11 @@ void Application::initWindow()
 
 void Application::run()
 {
-	//window.draw(loadingScreen);
-	//window.display();
+	window.draw(loadingScreen);
+	window.display();
+
 	while (window.isOpen())
 	{
-		/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
-			searchBar.setSelected(true);
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-			searchBar.setSelected(false);*/
-
 		handleEvent();
 		update();
 		render();

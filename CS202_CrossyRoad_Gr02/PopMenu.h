@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <iostream>
 #include "SFML/Graphics.hpp"
+#include <SFML/Audio.hpp>
 #include "Textbox.h"
 #include "Button.h"
 

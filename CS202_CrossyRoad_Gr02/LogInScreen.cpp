@@ -111,7 +111,8 @@ void LogInScreen::initAccount()
 	int i = 0;
 	for (auto dataT : dataCtrl.datas)
 	{
-		AccountButton* tmp = new AccountButton(dataT->getName(), {612.75f, 87.625f}, 30, sf::Color::Transparent, sf::Color::Black, &accountTex, std::to_string(dataT->getHighscore()));
+		AccountButton* tmp = new AccountButton(dataT->getName(), {612.75f, 87.625f}, 30, sf::Color::Transparent, sf::Color::Black,
+			&accountTex, std::to_string(dataT->getStar()), dataT->getTime());
 		tmp->setPosition({ 440.f, 100.f + i * 100.f });
 		tmp->setOutlineThickness(2.f);
 		tmp->setFont(font);
@@ -139,7 +140,8 @@ void LogInScreen::updateUI()
 		{
 			++i;
 			if (i < 6) continue;
-			AccountButton* tmp = new AccountButton(dataT->getName(), { 612.75f, 92.625f }, 30, sf::Color::Transparent, sf::Color::Black, &accountTex, std::to_string(dataT->getHighscore()));
+			AccountButton* tmp = new AccountButton(dataT->getName(), { 612.75f, 92.625f }, 30, sf::Color::Transparent, sf::Color::Black,
+				&accountTex, std::to_string(dataT->getStar()), dataT->getTime());
 			tmp->setPosition({ 440.f, 100.f + (i - 6) * 100.f });
 			tmp->setOutlineThickness(2.f);
 			tmp->setFont(font);
@@ -152,7 +154,8 @@ void LogInScreen::updateUI()
 		int i = 0;
 		for (auto dataT : dataCtrl.datas)
 		{
-			AccountButton* tmp = new AccountButton(dataT->getName(), { 612.75f, 92.625f }, 30, sf::Color::Transparent, sf::Color::Black, &accountTex, std::to_string(dataT->getHighscore()));
+			AccountButton* tmp = new AccountButton(dataT->getName(), { 612.75f, 92.625f }, 30, sf::Color::Transparent, sf::Color::Black,
+				&accountTex, std::to_string(dataT->getStar()), dataT->getTime());
 			tmp->setPosition({ 440.f, 100.f + i * 100.f });
 			tmp->setOutlineThickness(2.f);
 			tmp->setFont(font);
@@ -179,13 +182,11 @@ void LogInScreen::handleEvent(sf::Event event, sf::RenderWindow& window, ScreenS
 					if (left)
 					{
 						dataCtrl.data = dataCtrl.datas[counter + 5];
-						std::cout << dataCtrl.data->getName() << " " << dataCtrl.data->getHighscore() << std::endl;
 
 					}
 					else
 					{
 						dataCtrl.data = dataCtrl.datas[counter];
-						std::cout << dataCtrl.data->getName() << " " << dataCtrl.data->getHighscore() << std::endl;
 					}
 					currentScreen = ScreenState::GamePlayScreen;
 					endScreen = true;
@@ -202,12 +203,10 @@ void LogInScreen::handleEvent(sf::Event event, sf::RenderWindow& window, ScreenS
 					{
 						counter += 5;
 						dataCtrl.data = dataCtrl.datas[counter];
-						std::cout << dataCtrl.data->getName() << " " << dataCtrl.data->getHighscore() << std::endl;
 					}
 					else
 					{
 						dataCtrl.data = dataCtrl.datas[counter];
-						std::cout << dataCtrl.data->getName() << " " << dataCtrl.data->getHighscore() << std::endl;
 					}
 					remove = true;
 					break;
@@ -278,7 +277,8 @@ void LogInScreen::handleEvent(sf::Event event, sf::RenderWindow& window, ScreenS
 				}
 				if (checkValid)
 				{
-					Data* newAccount = new Data(newName, 0);
+					sf::Time time;
+					Data* newAccount = new Data(newName, 0, time);
 					dataCtrl.datas.push_back(newAccount);
 					dataCtrl.data = newAccount;
 					addMenu.nameInputSetString("");
