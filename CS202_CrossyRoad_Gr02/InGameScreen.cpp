@@ -346,6 +346,7 @@ InGameScreen::InGameScreen(sf::RenderWindow& window) :
 	Screen(window),
 	pause(false),
 	pauseMenu(window),
+	endMenu(window),
 	playing(false)
 {
 	initText();
@@ -400,6 +401,23 @@ void InGameScreen::handleEvent(sf::Event event, sf::RenderWindow& window, Screen
 			}
 		}
 	}
+	else if (isEndGame())
+	{
+		if (event.type == sf::Event::MouseButtonReleased)
+		{
+			if (endMenu.isMouseOverRestartButton(window)) // RESTART
+			{
+
+			}
+			else if (endMenu.isMouseOverQuitButton(window)) // QUIT TO MENU
+			{
+				GamePlayScreen::isContinue = false;
+				currentScreen = ScreenState::GamePlayScreen;
+				endScreen = true;
+				isEndScreen = endScreen;
+			}
+		}
+	}
 	else
 	{
 		if (event.type == sf::Event::KeyReleased)
@@ -419,6 +437,7 @@ void InGameScreen::handleEvent(sf::Event event, sf::RenderWindow& window, Screen
 				if (event.key.code == sf::Keyboard::Escape) {
 					pause = true;
 					playing = false;
+					
 				}
 			}
 		}
@@ -431,17 +450,22 @@ void InGameScreen::update(sf::RenderWindow& window)
 	{
 		pauseMenu.update(window);
 	}
+	else if (isEndGame())
+	{
+		endMenu.update(window);
+	}
 	else
 	{
 		if (playing == 0 && player.getHp() == player.getHpMax() && started == 0)
 		{
 			TimeDisplay.restart();
 		}
-		else if (player.getHp() > 0) elapsed = TimeDisplay.getElapsedTime();
+		else if (player.getHp() > 0) 
+			elapsed = TimeDisplay.getElapsedTime();
+
 		int minutes = static_cast<int>(elapsed.asSeconds()) / 60;
 		int seconds = static_cast<int>(elapsed.asSeconds()) % 60;
-		text.setString("Time: " + std::to_string(minutes) + "m " +
-			std::to_string(seconds) + "s");
+		text.setString("Time: " + std::to_string(minutes) + "m " + std::to_string(seconds) + "s");
 
 		deltaTime = clock.restart().asSeconds();
 
@@ -545,16 +569,18 @@ void InGameScreen::render(sf::RenderWindow& window)
 		{
 			pauseMenu.render(window);
 		}
+		else if (isEndGame())
+		{
+			endMenu.render(window);
+		}
 	}
 
 }
 
 const bool InGameScreen::isEndGame()
 {
-	if (player.getHp() == 0) {
+	if (player.getHp() <= 0) 
 		return true;
-	}
-	else {
+	else 
 		return false;
-	}
 }

@@ -5,9 +5,14 @@ void Data::setName(std::string name)
 	this->name = name;
 }
 
-void Data::setHighscore(int highscore)
+void Data::setStar(int star)
 {
-	this->highscore = highscore;
+	this->star = star;
+}
+
+void Data::setTime(sf::Time time)
+{
+	this->time = time;
 }
 
 //std::ostream& operator<<(std::ostream& out, const Data& other)
@@ -21,9 +26,14 @@ std::string Data::getName() const
 	return name; 
 }
 
-int Data::getHighscore() const 
-{ 
-	return highscore; 
+int Data::getStar() const
+{
+	return star;
+}
+
+sf::Time Data::getTime() const
+{
+	return time;
 }
 
 // Data Control

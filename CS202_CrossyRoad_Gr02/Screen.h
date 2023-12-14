@@ -7,6 +7,7 @@
 #include <time.h>
 #include <vector>
 #include "SFML/Graphics.hpp"
+#include <SFML/Audio.hpp>
 #include "Textbox.h"
 #include "Button.h"
 #include "Data.h"
