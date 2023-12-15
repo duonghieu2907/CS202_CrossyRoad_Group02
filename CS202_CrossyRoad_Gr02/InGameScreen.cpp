@@ -358,9 +358,9 @@ InGameScreen::InGameScreen(sf::RenderWindow& window) :
 	}
 
 	sf::Texture* tman = new sf::Texture;
-	if (!tman->loadFromFile("Material/Animations/Human.png"))
+	if (!tman->loadFromFile("Material/Animations/Human with Idle.png"))
 		std::cout << "Human Animation not found!\n";
-	Character man(tman, sf::Vector2u(4, 3), 0.1f, 100.0f, listObstacle[0]->getPosition());
+	Character man(tman, sf::Vector2u(4, 4), 0.1f, 100.0f, listObstacle[0]->getPosition());
 	player = man;
 
 	sf::Texture* tghost = new sf::Texture;
@@ -422,12 +422,13 @@ void InGameScreen::handleEvent(sf::Event event, sf::RenderWindow& window, Screen
 	{
 		if (event.type == sf::Event::KeyReleased)
 		{
-			if (playing == 0 && player.getHp() > 0 && started == 0)
+			if (playing == 0  && started == 0)
 			{
 				playing = 1;
 				started = 1;
-				//clock.restart();
+				
 			}
+			
 			else if (!playing && player.getHp() > 0)
 			{
 				playing = true;
@@ -437,7 +438,7 @@ void InGameScreen::handleEvent(sf::Event event, sf::RenderWindow& window, Screen
 				if (event.key.code == sf::Keyboard::Escape) {
 					pause = true;
 					playing = false;
-					
+					duration = elapsed;
 				}
 			}
 		}
@@ -446,9 +447,11 @@ void InGameScreen::handleEvent(sf::Event event, sf::RenderWindow& window, Screen
 
 void InGameScreen::update(sf::RenderWindow& window)
 {
+	if(playing == 0) TimeDisplay.restart();
 	if (pause)
 	{
 		pauseMenu.update(window);
+		TimeDisplay.restart();
 	}
 	else if (isEndGame())
 	{
@@ -456,12 +459,12 @@ void InGameScreen::update(sf::RenderWindow& window)
 	}
 	else
 	{
-		if (playing == 0 && player.getHp() == player.getHpMax() && started == 0)
+		if (playing == 0  && started == 0)
 		{
 			TimeDisplay.restart();
 		}
-		else if (player.getHp() > 0) 
-			elapsed = TimeDisplay.getElapsedTime();
+	
+		elapsed = TimeDisplay.getElapsedTime() + duration;
 
 		int minutes = static_cast<int>(elapsed.asSeconds()) / 60;
 		int seconds = static_cast<int>(elapsed.asSeconds()) % 60;
