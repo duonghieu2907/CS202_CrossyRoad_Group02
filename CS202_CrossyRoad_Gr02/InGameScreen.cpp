@@ -377,7 +377,7 @@ void InGameScreen::handleEvent(sf::Event event, sf::RenderWindow& window, Screen
 	}
 	else if (event.type == sf::Event::KeyReleased)
 	{
-		if (playing == 0 && player.getHp() > 0 && started == 0)
+		if (playing == 0  && started == 0)
 		{
 			playing = 1;
 			started = 1;
@@ -387,6 +387,15 @@ void InGameScreen::handleEvent(sf::Event event, sf::RenderWindow& window, Screen
 		{
 			if (event.key.code == sf::Keyboard::P) {
 				playing = 0;
+				duration = elapsed;
+				
+			}
+		}
+		if (playing == 0 && started == 1)
+		{
+			if (event.key.code == sf::Keyboard::C) {
+				TimeDisplay.restart();
+				playing = 1;
 			}
 		}
 	}
@@ -395,11 +404,21 @@ void InGameScreen::handleEvent(sf::Event event, sf::RenderWindow& window, Screen
 void InGameScreen::update(sf::RenderWindow& window)
 {
 
-	if (playing == 0 && player.getHp() == player.getHpMax() && started == 0)
+	if (playing == 0 )
 	{
-		TimeDisplay.restart();
+		if (started == 0)
+		{
+			duration = TimeDisplay.restart();//game not start yet clock alway 0
+		}
+		else if(player.getHp() > 0)// pause during game
+		{
+			//std::cout << "PAUSE\n";
+		}
 	}
-	else if(player.getHp() > 0) elapsed = TimeDisplay.getElapsedTime();
+	else
+	{
+		if (player.getHp() > 0) elapsed = TimeDisplay.getElapsedTime() + duration;
+	}
  	int minutes = static_cast<int>(elapsed.asSeconds()) / 60;
 	int seconds = static_cast<int>(elapsed.asSeconds()) % 60;
 	text.setString("Time: " + std::to_string(minutes) + "m " +

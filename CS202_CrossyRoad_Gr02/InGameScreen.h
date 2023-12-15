@@ -33,6 +33,7 @@ private:
     sf::Clock clock;
     sf::Clock TimeDisplay;
     sf::Time elapsed; //save time player have play
+    sf::Time duration; //save time for pausing
 
     rain myRain;
 
