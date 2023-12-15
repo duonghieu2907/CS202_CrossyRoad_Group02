@@ -1,5 +1,7 @@
 #include "GamePlayScreen.h"
 
+bool GamePlayScreen::isContinue = false;
+
 GamePlayScreen::GamePlayScreen(sf::RenderWindow& window) :
 	Screen(window),
 	continueButton("", { 300, 55 }, 25, sf::Color::Transparent, sf::Color::Transparent, & continueButtonTex),
@@ -8,6 +10,7 @@ GamePlayScreen::GamePlayScreen(sf::RenderWindow& window) :
 {
 	initBackground(window);
 	initUsername();
+	initDiscontinue();
 	initContinueButton();
 	initNewGameButton();
 	initBackButton();
@@ -33,6 +36,11 @@ void GamePlayScreen::initBackground(sf::RenderWindow& window)
 	float scaleY = static_cast<float>(window.getSize().y) / gamePlayScreen1Tex.getSize().y;
 	gamePlayScreen.setScale(scaleX, scaleY);
 
+	// Discontinue button
+	if (!discontinueTex.loadFromFile("Material/Buttons/Discontinue.png"))
+		std::cout << "Discontinue not found!\n";
+	discontinueTex.setSmooth(true);
+
 	// Continue button
 	if (!continueButtonTex.loadFromFile("Material/Buttons/Continue.png"))
 		std::cout << "Continue not found!\n";
@@ -55,6 +63,13 @@ void GamePlayScreen::initUsername()
 	username.setFont(font);
 	username.setCharacterSize(80);
 	username.setFillColor(sf::Color::Black);
+}
+
+void GamePlayScreen::initDiscontinue()
+{
+	discontinue.setSize({ 300.f, 55.f });
+	discontinue.setPosition({ 610, 350 });
+	discontinue.setTexture(&discontinueTex);
 }
 
 void GamePlayScreen::initContinueButton()
@@ -85,9 +100,11 @@ void GamePlayScreen::handleEvent(sf::Event event, sf::RenderWindow& window, Scre
 {
 	if (event.type == sf::Event::MouseButtonReleased)
 	{
-		if (continueButton.isMouseOver(window))
+		if (isContinue && continueButton.isMouseOver(window))
 		{
-
+			currentScreen = ScreenState::InGameScreen;
+			endScreen = true;
+			isEndScreen = endScreen;
 		}
 		else if (newGameButton.isMouseOver(window))
 		{
@@ -115,7 +132,8 @@ void GamePlayScreen::update(sf::RenderWindow& window)
 		}
 		else
 			std::cout << "data is null\n";
-		continueButton.update(window);
+		if (isContinue)
+			continueButton.update(window);
 		newGameButton.update(window);
 		backButton.update(window);
 	}
@@ -127,7 +145,10 @@ void GamePlayScreen::render(sf::RenderWindow& window)
 	{
 		window.draw(gamePlayScreen);
 		window.draw(username);
-		continueButton.drawTo(window);
+		if (isContinue)
+			continueButton.drawTo(window);
+		else
+			window.draw(discontinue);
 		newGameButton.drawTo(window);
 		backButton.drawTo(window);
 	}
