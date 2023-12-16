@@ -2,26 +2,30 @@
 #define DATA_H
 #pragma once
 #include <iostream>
+#include <SFML/Graphics.hpp>
 #include <fstream>
 #include <string>
 #include <vector>
 
 class Data {
 public:
-	Data() : name(""), highscore(0) {}
-	Data(std::string name, int highscore) : name(name), highscore(highscore) {}
+	Data() : name(""), star(0) {}
+	Data(std::string name, int star, sf::Time time) : name(name), star(star), time(time) {}
 	~Data() {}
 
 	void setName(std::string name);
-	void setHighscore(int highscore);
+	void setStar(int star);
+	void setTime(sf::Time time);
 
 	//friend std::ostream& operator<<(std::ostream& out, const Data& other);
 
 	std::string getName() const;
-	int getHighscore() const;
+	int getStar() const;
+	sf::Time getTime() const;
 private:
 	std::string name;
-	int highscore;
+	int star;
+	sf::Time time;
 };
 
 struct DataControl {

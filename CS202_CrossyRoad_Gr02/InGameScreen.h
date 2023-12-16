@@ -2,6 +2,9 @@
 #define INGAMESCREEN_H
 
 #include "Screen.h"
+#include "GamePlayScreen.h"
+#include "PausePopMenu.h"
+#include "EndGamePopMenu.h"
 #include "Character.h"
 #include "obstacle.h"
 #include "rain.h"
@@ -33,6 +36,7 @@ private:
     sf::Clock clock;
     sf::Clock TimeDisplay;
     sf::Time elapsed; //save time player have play
+    sf::Time duration;
 
     rain myRain;
 
@@ -56,7 +60,7 @@ private:
     float addRoadTimeMax; // maximum time to add new road
 
 
-    bool playing = 0;
+    bool playing;
     bool started = 0;
 
 
@@ -83,6 +87,11 @@ private:
     sf::Texture* obs8;
 
     sf::Vector2f ItemCoor;
+
+    bool pause;
+    PausePopMenu pauseMenu;
+
+    EndGamePopMenu endMenu;
 
 };
 

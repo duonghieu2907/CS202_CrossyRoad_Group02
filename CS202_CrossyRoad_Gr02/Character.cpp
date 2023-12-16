@@ -7,12 +7,12 @@ Character::Character(sf::Texture* texture, sf::Vector2u imgCount, float switchTi
 	animation(texture, imgCount, switchTime),
 	speed(speed),
 	row(0),
-	faceRight(true)
+	faceRight(false)
 {
 	this->normal = texture;
 
 	sf::Texture* t = new sf::Texture;
-	if (!t->loadFromFile("Material/Animations/getDamage.png")) {
+	if (!t->loadFromFile("Material/Animations/getDamage with Idle.png")) {
 		std::cout << "ERROR can't not load player get damage\n";
 	}
 	this->getDamageTex = t;
@@ -42,12 +42,12 @@ Character::Character(sf::Texture* texture, sf::Vector2u imgCount, float switchTi
 	animation(texture, imgCount, switchTime),
 	speed(speed),
 	row(0),
-	faceRight(true)
+	faceRight(false)
 {
 	this->normal = texture;
 
 	sf::Texture* t = new sf::Texture;
-	if (!t->loadFromFile("Material/Animations/getDamage.png")) {
+	if (!t->loadFromFile("Material/Animations/getDamage with Idle.png")) {
 		std::cout << "ERROR can't not load player get damage\n";
 	}
 	this->getDamageTex = t;
@@ -105,13 +105,14 @@ void Character::update(float deltaTime, std::vector <obstacle*> listObstacle)
 
 	checkMove = 0;
 
-	if (this->stamina > 0) 
-  {
+	if (this->stamina > 0)
+	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 		{
 			movement.x -= speed * deltaTime * 2;
 			checkMove = 1;
 		}
+
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 		{
 			movement.x += speed * deltaTime * 2;
@@ -140,8 +141,11 @@ void Character::update(float deltaTime, std::vector <obstacle*> listObstacle)
 				{
 					//std::cout << "Jump next\n";
 					if (index + 1 < listObstacle.size() && body.getPosition().y >= 45)
+					{
 						body.setPosition(body.getPosition().x,
 							listObstacle[index + 1]->getPosition().y - speed * deltaTime * 2 + 70);
+						moveToOther = 1;
+					}
 					else  movement.y -= speed * deltaTime * 2;
 				}
 				else movement.y -= speed * deltaTime * 2;
@@ -150,15 +154,42 @@ void Character::update(float deltaTime, std::vector <obstacle*> listObstacle)
 				movement.y -= speed * deltaTime * 2;
 			checkMove = 1;
 		}
+
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		{
+			if (inside)
+			{
+				//std::cout << "MOVE BACK\n";
+				if (body.getPosition().y - inside->getPosition().y > 34)
+				{
+					//std::cout << "Jump previous\n";
+					if (index - 1 >= 0)
+					{
+						body.setPosition(body.getPosition().x, listObstacle[index - 1]->getPosition().y + speed * deltaTime * 2 - 70);
+						moveToOther = 1;
+					}
+					else movement.y += speed * deltaTime * 2;
+				}
+				else movement.y += speed * deltaTime * 2;
+			}
+			else
+				movement.y += speed * deltaTime * 2;
+			checkMove = 1;
+		}
 	}
 
 	if (!movement.x && !movement.y)
-		row = 1;
-	else if (movement.x) row = 0;
-	else row = 2;
+		row = 0;
+	else if (movement.x) row = 1;
+	else if (movement.y < 0) row = 3;
+	else if (movement.y > 0)
+	{
+		row = 2;// std::cout << "MOVE BACK\n";
+	}
+
 	if (movement.x > 0.0f)
 		faceRight = true;
-	else
+	if (movement.y < 0)
 		faceRight = false;
 	animation.update(row, deltaTime, faceRight);
 	body.setTextureRect(animation.uvRect);

@@ -1,3 +1,4 @@
+#include <iomanip>
 #include "Screen.h"
 #include "MainScreen.h"
 #include "LogInScreen.h"
@@ -76,13 +77,17 @@ void Screen::initData()
 			while (!fin.eof())
 			{
 				std::string name;
-				int highscore = 0;
+				sf::Time time;
 				std::getline(fin, name, ' ');
-				if (name.empty())
+				if (name == "")
 					break;
-				fin >> highscore;
+				float second = 0.f;
+				fin >> second;
+				time = sf::seconds(second);
+				int star = 0;
+				fin >> star;
 				fin.ignore(1000, '\n');
-				Data* tmp = new Data(name, highscore);
+				Data* tmp = new Data(name, star, time);
 				dataCtrl.datas.push_back(tmp);
 			}
 			fin.close();
@@ -101,7 +106,7 @@ void Screen::saveData()
 	else
 	{
 		for (auto dataT : dataCtrl.datas)
-			fout << dataT->getName() << " " << dataT->getHighscore() << std::endl;
+			fout << dataT->getName() << " " << std::setprecision(0) << std::fixed << dataT->getTime().asSeconds() << " " << dataT->getStar() << std::endl;
 		fout.close();
 	}
 }
