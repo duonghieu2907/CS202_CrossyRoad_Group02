@@ -118,6 +118,21 @@ void Character::update(float deltaTime, std::vector <obstacle*> listObstacle)
 			movement.x += speed * deltaTime * 2;
 			checkMove = 1;
 		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+			if (inside)
+			{
+				if (body.getPosition().y - inside->getPosition().y > 34)
+				{
+					//std::cout << "Jump previous\n";
+					if (index - 1 >= 0)
+						body.setPosition(body.getPosition().x, listObstacle[index - 1]->getPosition().y + speed * deltaTime * 2 - 70);
+				}
+				else movement.y += speed * deltaTime * 2;
+			}
+			else
+				movement.y += speed * deltaTime * 2;
+			checkMove = 1;
+		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 		{
 			if (inside)
@@ -139,6 +154,7 @@ void Character::update(float deltaTime, std::vector <obstacle*> listObstacle)
 				movement.y -= speed * deltaTime * 2;
 			checkMove = 1;
 		}
+
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 		{
 			if (inside)

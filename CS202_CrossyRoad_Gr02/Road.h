@@ -3,7 +3,9 @@
 #include"obstacle.h"
 #include"TrafficLight.h"
 #include"truck.h"
-#include "Item.h"
+#include"Item.h"
+#include"StaticObstacles.h"
+
 #include<vector>
 
 class Road : public obstacle
@@ -12,6 +14,7 @@ public:
 	std::vector<TrafficLight> light;
 	std::vector<truck> car;
 	std::vector<Item> item;
+	std::vector<StaticObstacles> obj;
 
 public:
 	Road(float width, sf::Vector2f speed, sf::Texture* texture);
@@ -20,10 +23,12 @@ public:
 	void addCar(truck tmp, sf::Vector2f pos);
 	void addLight(TrafficLight tmp, sf::Vector2f pos);
 	void addItem(Item tmp, sf::Vector2f pos);
+	void addObj(StaticObstacles tmp, sf::Vector2f pos);
 
 	void setPosition(sf::Vector2f pos) override;
 	bool isCollision(Character& player);
 	void isGetItem(Character& player);
+	void ObjCollision(Character& player);
 	//
 	void printCarpos();
 	int getCarnum() {
