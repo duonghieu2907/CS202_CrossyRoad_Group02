@@ -67,6 +67,9 @@
     <ClCompile Include="AddPopMenu.cpp">
       <Filter>Source\Pop Menu</Filter>
     </ClCompile>
+    <ClCompile Include="StaticObstacles.cpp">
+      <Filter>Source\Animation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -140,6 +143,9 @@
     </ClInclude>
     <ClInclude Include="AddPopMenu.h">
       <Filter>Header\Pop Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticObstacles.h">
+      <Filter>Header\Animation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

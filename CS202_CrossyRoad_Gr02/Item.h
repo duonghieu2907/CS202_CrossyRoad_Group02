@@ -9,7 +9,7 @@ private:
 	Animation animation;
 
 	unsigned int row = 0;
-	float deltaTime = 0;
+	float deltaTime = 0.0014f;
 
 	// This is to check what type of Item is
 	// 1. Star

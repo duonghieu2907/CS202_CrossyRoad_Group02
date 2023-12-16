@@ -28,30 +28,37 @@ void Road::addItem(Item tmp, sf::Vector2f pos)
 	item.push_back(tmp);
 }
 
+void Road::addObj(StaticObstacles tmp, sf::Vector2f pos)
+{
+	tmp.setPosition(pos);
+	obj.push_back(tmp);
+}
+
 void Road::setPosition(sf::Vector2f pos)
 {
 	sf::Vector2f distance = pos - getShape().getPosition();
 	obstacle::setPosition(pos);
-	//std::cout << distance.x << " " << distance.y << "\n";
+	// Car
 	for (int i = 0;i < car.size();i++) {
 		car[i].getShape().move(distance);
 	}
+	// Traffic light
 	for (int i = 0;i < light.size();i++) {
 		light[i].getShape().move(distance);
 	}
-
+	// Item 
 	for (int i = 0;i < item.size();i++) {
 		item[i].getShape().move(distance);
+	}
+	// Static Obstacle
+	for (int i = 0;i < obj.size();i++) {
+		obj[i].getShape().move(distance);
 	}
 }
 
 bool Road::isCollision(Character& player)
 {
-
 	for (int i = 0;i < car.size();i++) {
-		//if (this->car[i].getShape().getGlobalBounds().intersects(player.getBounds())) {
-		//	return true;
-		//}
 		if (abs(this->car[i].getShape().getPosition().x - player.getBody().getPosition().x) <= 40)
 		{
 			return true;
@@ -78,6 +85,31 @@ void Road::isGetItem(Character& player)
 					player.incStamina(3);
 				}
 				item.erase(item.begin() + i);
+			}
+		}
+	}
+}
+
+void Road::ObjCollision(Character& player)
+{
+	if (obj.size() == 0) {
+		return;
+	}
+	else {
+		for (int i = 0;i < obj.size();i++) {
+			if (abs(player.getPosition().x - obj[i].getPos().x) < 50.f && abs(player.getPosition().y - obj[i].getPos().y) < 50.f) {
+				if (player.getPosition().x >= obj[i].getPos().x) {
+					player.setPosition(sf::Vector2f(player.getPosition().x + 2.f, player.getPosition().y));
+				}
+				if (player.getPosition().x <= obj[i].getPos().x) {
+					player.setPosition(sf::Vector2f(player.getPosition().x - 2.f, player.getPosition().y));
+				}
+				if (player.getPosition().y >= obj[i].getPos().y) {
+					player.setPosition(sf::Vector2f(player.getPosition().x, player.getPosition().y + 2.f));
+				}
+				if (player.getPosition().y <= obj[i].getPos().y) {
+					player.setPosition(sf::Vector2f(player.getPosition().x, player.getPosition().y - 2.f));
+				}
 			}
 		}
 	}
@@ -130,6 +162,11 @@ void Road::update()
 		}
 	}
 
+	for (int i = 0;i < obj.size();i++) {	
+		obj[i].getShape().move(getSpeed());
+		obj[i].update();
+	}
+
 	for (int i = 0;i < light.size();i++) {
 		light[i].getShape().move(getSpeed());
 		light[i].update();
@@ -166,6 +203,10 @@ void Road::drawTo(sf::RenderWindow& target)
 
 	for (int i = 0;i < item.size();i++) {
 		target.draw(item[i].getShape());
+	}
+
+	for (int i = 0;i < obj.size();i++) {
+		target.draw(obj[i].getShape());
 	}
 }
 
