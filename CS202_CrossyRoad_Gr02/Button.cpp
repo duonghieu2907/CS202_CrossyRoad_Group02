@@ -304,6 +304,7 @@ void AccountButton::update(sf::RenderWindow& window)
 {
     //Button::update(window);
     ButtonCustom::update(window);
+
     remove.update(window);
 }
 

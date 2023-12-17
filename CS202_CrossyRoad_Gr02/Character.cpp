@@ -189,7 +189,7 @@ void Character::update(float deltaTime, std::vector <obstacle*> listObstacle)
 
 	if (movement.x > 0.0f)
 		faceRight = true;
-	if (movement.y < 0)
+	if (movement.x < 0)
 		faceRight = false;
 	animation.update(row, deltaTime, faceRight);
 	body.setTextureRect(animation.uvRect);

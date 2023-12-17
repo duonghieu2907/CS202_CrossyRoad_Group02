@@ -131,7 +131,9 @@ void GamePlayScreen::update(sf::RenderWindow& window)
 			username.setPosition({ 720.f - username.getGlobalBounds().width / 2.2f, 160.f});
 		}
 		else
-			std::cout << "data is null\n";
+		{
+			//std::cout << "data is null\n";
+		}
 		if (isContinue)
 			continueButton.update(window);
 		newGameButton.update(window);

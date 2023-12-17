@@ -123,6 +123,7 @@ void LogInScreen::initAccount()
 	}
 }
 
+
 void LogInScreen::updateUI()
 {
 	for (auto account : accounts)
@@ -308,6 +309,7 @@ void LogInScreen::handleEvent(sf::Event event, sf::RenderWindow& window, ScreenS
 
 void LogInScreen::update(sf::RenderWindow& window)
 {
+	updateUI();
 	if (!isEndScreen)
 	{
 		if (remove)

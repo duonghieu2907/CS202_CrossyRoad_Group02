@@ -42,6 +42,7 @@ public:
 	truck getCar(int index);
 	void reflect();
 	void update() override;
+	void beginUpdate() override;
 	void drawTo(sf::RenderWindow& target) override;
 };
 
