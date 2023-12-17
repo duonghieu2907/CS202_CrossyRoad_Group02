@@ -50,7 +50,6 @@ private:
     sf::Texture* xedo;
     sf::Texture* road1;
 
-
     sf::Texture* cat;
     sf::Texture* chicken;
     sf::Texture* duck;
@@ -78,10 +77,22 @@ private:
     sf::Texture playerStarTex;
     sf::Sprite playerStarTexBox;
 
+    sf::Texture* obs1;
+    sf::Texture* obs2;
+    sf::Texture* obs3;
+    sf::Texture* obs4;
+    sf::Texture* obs5;
+    sf::Texture* obs6;
+    sf::Texture* obs7;
+    sf::Texture* obs8;
+
+    sf::Vector2f ItemCoor;
+
     bool pause;
     PausePopMenu pauseMenu;
 
     EndGamePopMenu endMenu;
+
 };
 
 #endif

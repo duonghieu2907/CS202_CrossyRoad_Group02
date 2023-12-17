@@ -67,11 +67,16 @@
     <ClCompile Include="AddPopMenu.cpp">
       <Filter>Source\Pop Menu</Filter>
     </ClCompile>
+
+    <ClCompile Include="StaticObstacles.cpp">
+      <Filter>Source\Animation</Filter>
+
     <ClCompile Include="PausePopMenu.cpp">
       <Filter>Source\Pop Menu</Filter>
     </ClCompile>
     <ClCompile Include="EndGamePopMenu.cpp">
       <Filter>Source\Pop Menu</Filter>
+
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -147,11 +152,16 @@
     <ClInclude Include="AddPopMenu.h">
       <Filter>Header\Pop Menu</Filter>
     </ClInclude>
+
+    <ClInclude Include="StaticObstacles.h">
+      <Filter>Header\Animation</Filter>
+
     <ClInclude Include="PausePopMenu.h">
       <Filter>Header\Pop Menu</Filter>
     </ClInclude>
     <ClInclude Include="EndGamePopMenu.h">
       <Filter>Header\Pop Menu</Filter>
+
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
