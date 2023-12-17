@@ -22,6 +22,7 @@ public:
     void initText();
     void getRoadRan();
 
+
     InGameScreen(sf::RenderWindow& window);
     ~InGameScreen() {}
     void handleEvent(sf::Event event, sf::RenderWindow& window, ScreenState& currentScreen, bool& endScreen) override;

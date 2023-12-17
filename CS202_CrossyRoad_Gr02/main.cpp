@@ -1,6 +1,6 @@
 #pragma once
 #include "main.h"
-
+#include "Screen.h"
 
 Application::Application() :
 	videoMode(SCREEN_WIDTH, SCREEN_HEIGHT),
@@ -78,6 +78,12 @@ void Application::handleEvent()
 void Application::update()
 {
 	curScreen->update(window);
+	if (curScreen -> getRestart())
+	{
+		curScreen->setRestart(0);
+		screenCtrl.pop();
+		screenCtrl.addInGameScreen(window);
+	}
 }
 
 void Application::render()

@@ -41,7 +41,7 @@ public:
             //std::cout << i << std::endl;
             if (i == 1) { //  see a ghost
                 state = 1;
-                player.setSpeed(player.getSpeed() * 4 / 5);
+                player.setSpeed(player.getSpeed() * 2 / 3);
                 timing.restart();
 
             }
@@ -61,7 +61,7 @@ public:
             if (timing.getElapsedTime().asSeconds() >= 10)
             {
                 state = 0;
-                player.setSpeed(player.getSpeed() * 1.25);
+                player.setSpeed(player.getSpeed() * 1.5);
                 timing.restart();
             }
         }

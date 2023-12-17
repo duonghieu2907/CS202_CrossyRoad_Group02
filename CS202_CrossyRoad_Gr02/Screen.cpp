@@ -43,6 +43,12 @@ Screen* ScreenControl::getScreen(ScreenState state)
 	}
 }
 
+void ScreenControl::addInGameScreen(sf::RenderWindow& window)
+{
+		Screen* tmp;
+		tmp = new InGameScreen(window);
+		screens.push_back(tmp);
+}
 // SCREEN
 
 DataControl Screen::dataCtrl;
@@ -64,6 +70,7 @@ void Screen::initFont()
 
 void Screen::initData()
 {
+	dataCtrl.datas.clear();
 	if (dataCtrl.datas.empty())
 	{
 		std::ifstream fin("Data/Data.txt");
@@ -97,7 +104,7 @@ void Screen::initData()
 
 void Screen::saveData()
 {
-	std::ofstream fout("Data/DataSave.txt");
+	std::ofstream fout("Data/Data.txt");
 	if (!fout.is_open())
 	{
 		std::cout << "DataSave not found!\n";

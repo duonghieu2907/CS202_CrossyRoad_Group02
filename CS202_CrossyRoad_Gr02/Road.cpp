@@ -178,6 +178,14 @@ void Road::update()
 	}
 }
 
+void Road::beginUpdate()
+{
+	for (int i = 0;i < item.size();i++) {
+		//item[i].getShape().move(getSpeed());
+		item[i].update();
+	}
+}
+
 void Road::reflect()
 {
 	for (int i = 0;i < car.size();i++) {
