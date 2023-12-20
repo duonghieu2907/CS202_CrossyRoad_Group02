@@ -42,6 +42,7 @@ public:
     virtual void render(sf::RenderWindow& window) {}
     void setEndScreen(bool value) { isEndScreen = value; }
 
+    static DataControl dataCtrl;
 protected:
     virtual void initBackground(sf::RenderWindow& window) {}
     void initFont();
@@ -51,7 +52,6 @@ protected: // my set to protected if need
     sf::Font font;
     bool isEndScreen;
 
-    static DataControl dataCtrl;
     bool callRestartGame = 0;
 };
 

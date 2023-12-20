@@ -534,7 +534,8 @@ void InGameScreen::handleEvent(sf::Event event, sf::RenderWindow& window, Screen
 			{
 				//std::cout << dataCtrl.data->getName() << " " << dataCtrl.data->getStar() << "\n";
 				dataCtrl.data->setStar(dataCtrl.data->getStar() + player.getPoint());
-				if(elapsed > dataCtrl.data -> getTime()) dataCtrl.data->setTime(elapsed);
+				if (elapsed > dataCtrl.data -> getTime()) 
+					dataCtrl.data->setTime(elapsed);
 				std::cout <<"Update: " << dataCtrl.data->getName() << " " << dataCtrl.data->getStar() << "\n";
 				saveData();
 				setRestart(1);
@@ -558,7 +559,8 @@ void InGameScreen::handleEvent(sf::Event event, sf::RenderWindow& window, Screen
 			{
 				//std::cout << dataCtrl.data->getName() << " " << dataCtrl.data->getStar() << "\n";
 				dataCtrl.data->setStar(dataCtrl.data->getStar() + player.getPoint());
-				if (elapsed > dataCtrl.data->getTime()) dataCtrl.data->setTime(elapsed);
+				if (elapsed > dataCtrl.data->getTime()) 
+					dataCtrl.data->setTime(elapsed);
 				saveData();
 				std::cout <<"Update: "<< dataCtrl.data->getName() << " " << dataCtrl.data->getStar() << "\n";
 
