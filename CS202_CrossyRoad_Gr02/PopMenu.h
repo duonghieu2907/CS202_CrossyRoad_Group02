@@ -20,17 +20,17 @@ public:
 
 protected:
 	sf::Font font;
+	virtual void initContainer(sf::RenderWindow& window);
+	sf::Texture containerTex;
+	sf::RectangleShape container;
 
 private:
 	void initFont();
 	void initBackground(sf::RenderWindow& window);
-	void initContainer(sf::RenderWindow& window);
 
 private:
 	sf::RectangleShape background;
 
-	sf::Texture containerTex;
-	sf::RectangleShape container;
 
 };
 

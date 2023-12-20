@@ -3,6 +3,7 @@
 
 #include "Screen.h"
 #include "InGameScreen.h"
+#include "InfoPopMenu.h"
 
 class GamePlayScreen : public Screen {
 public:
@@ -19,6 +20,7 @@ private:
     void initBackground(sf::RenderWindow& window) override;
     void initUsername();
     void initDiscontinue();
+    void initInfoButton();
     void initContinueButton();
     void initNewGameButton();
     void initBackButton();
@@ -34,6 +36,11 @@ private:
     static bool isContinue;
     sf::Texture discontinueTex;
     sf::RectangleShape discontinue;
+
+    bool isViewInfo;
+    sf::Texture infoButtonTex;
+    ButtonCustom infoButton;
+    InfoPopMenu infoMenu;
 
     sf::Texture continueButtonTex;
     ButtonCustom continueButton;

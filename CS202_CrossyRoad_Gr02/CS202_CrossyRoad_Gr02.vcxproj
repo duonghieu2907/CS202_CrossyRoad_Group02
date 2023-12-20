@@ -148,6 +148,7 @@
     <ClCompile Include="EndGamePopMenu.cpp" />
     <ClCompile Include="GamePlayScreen.cpp" />
     <ClCompile Include="ghost.cpp" />
+    <ClCompile Include="InfoPopMenu.cpp" />
     <ClCompile Include="InGameScreen.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="LogInScreen.cpp" />
@@ -175,6 +176,7 @@
     <ClInclude Include="GamePlayScreen.h" />
     <ClInclude Include="ghost.h" />
     <ClInclude Include="Header.h" />
+    <ClInclude Include="InfoPopMenu.h" />
     <ClInclude Include="InGameScreen.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="LogInScreen.h" />
