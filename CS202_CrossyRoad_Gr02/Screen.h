@@ -26,7 +26,7 @@ enum class ScreenState {
 //ANY screen will be inheritance from this abstract base screen.
 class Screen {
 public:
-    Screen() : isEndScreen(false) { dataCtrl.data = nullptr; }
+    Screen() : isEndScreen(false), callRestartGame(false) { dataCtrl.data = nullptr; }
     Screen(sf::RenderWindow& window);
     virtual ~Screen() { saveData(); }
     bool getRestart()
@@ -52,7 +52,7 @@ protected: // my set to protected if need
     sf::Font font;
     bool isEndScreen;
 
-    bool callRestartGame = 0;
+    bool callRestartGame;
 };
 
 class ScreenControl {
