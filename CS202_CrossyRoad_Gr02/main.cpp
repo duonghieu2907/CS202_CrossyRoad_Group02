@@ -80,9 +80,12 @@ void Application::update()
 	curScreen->update(window);
 	if (curScreen -> getRestart())
 	{
+		Data* tmp = curScreen->dataCtrl.data;
 		curScreen->setRestart(0);
 		screenCtrl.pop();
 		screenCtrl.addInGameScreen(window);
+		curScreen = screenCtrl.getScreen(ScreenState::InGameScreen);
+		curScreen->dataCtrl.data = tmp;
 	}
 }
 
