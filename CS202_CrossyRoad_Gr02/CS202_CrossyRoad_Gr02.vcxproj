@@ -143,6 +143,7 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Character.cpp" />
+    <ClCompile Include="ContinuePopMenu.cpp" />
     <ClCompile Include="CS202_Gr02.cpp" />
     <ClCompile Include="Data.cpp" />
     <ClCompile Include="EndGamePopMenu.cpp" />
@@ -171,6 +172,7 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Character.h" />
+    <ClInclude Include="ContinuePopMenu.h" />
     <ClInclude Include="Data.h" />
     <ClInclude Include="EndGamePopMenu.h" />
     <ClInclude Include="GamePlayScreen.h" />

@@ -490,6 +490,7 @@ InGameScreen::InGameScreen(sf::RenderWindow& window) :
 	pause(false),
 	pauseMenu(window),
 	endMenu(window),
+	continueMenu(window),
 	playing(false)
 {
 	initText();
@@ -542,6 +543,8 @@ void InGameScreen::handleEvent(sf::Event event, sf::RenderWindow& window, Screen
 			}
 			else if (pauseMenu.isMouseOverQuitButton(window)) // QUIT TO MENU
 			{
+				dataCtrl.tmp.setStar(player.getPoint());
+				dataCtrl.tmp.setTime(elapsed);
 				pause = false;
 				GamePlayScreen::isContinue = true;
 				currentScreen = ScreenState::GamePlayScreen;
@@ -549,6 +552,10 @@ void InGameScreen::handleEvent(sf::Event event, sf::RenderWindow& window, Screen
 				isEndScreen = endScreen;
 				
 			}
+		}
+		if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape)
+		{
+			pause = false;
 		}
 	}
 	else if (isEndGame())
@@ -733,6 +740,11 @@ void InGameScreen::render(sf::RenderWindow& window)
 		devil.drawTo(window);
 		if(myRain.getState())myRain.drawTo(window);
 
+		if (!playing && player.getHp() > 0)
+		{
+			continueMenu.render(window);
+		}
+		
 		if (pause)
 		{
 			pauseMenu.render(window);
