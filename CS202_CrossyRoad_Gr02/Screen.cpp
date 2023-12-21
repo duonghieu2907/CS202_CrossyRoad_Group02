@@ -70,7 +70,7 @@ void Screen::initFont()
 
 void Screen::initData()
 {
-	dataCtrl.datas.clear();
+	//dataCtrl.datas.clear();
 	if (dataCtrl.datas.empty())
 	{
 		std::ifstream fin("Data/Data.txt");

@@ -27,6 +27,7 @@
     <ClCompile Include="TrafficLight.cpp" />
     <ClCompile Include="truck.cpp" />
     <ClCompile Include="InfoPopMenu.cpp" />
+    <ClCompile Include="ContinuePopMenu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AddPopMenu.h" />
@@ -57,5 +58,6 @@
     <ClInclude Include="TrafficLight.h" />
     <ClInclude Include="truck.h" />
     <ClInclude Include="InfoPopMenu.h" />
+    <ClInclude Include="ContinuePopMenu.h" />
   </ItemGroup>
 </Project>

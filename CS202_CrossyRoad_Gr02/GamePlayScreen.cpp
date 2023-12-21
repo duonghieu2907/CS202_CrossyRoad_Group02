@@ -140,6 +140,15 @@ void GamePlayScreen::handleEvent(sf::Event event, sf::RenderWindow& window, Scre
 		}
 		else if (backButton.isMouseOver(window))
 		{
+			if (isContinue)
+			{
+				if (dataCtrl.tmp.getTime() > dataCtrl.data->getTime())
+					dataCtrl.data->setTime(dataCtrl.tmp.getTime());
+				dataCtrl.data->setStar(dataCtrl.data->getStar() + dataCtrl.tmp.getStar());
+				std::cout << "Update: " << dataCtrl.data->getName() << " " << dataCtrl.data->getStar() << "\n";
+				isContinue = false;
+				setRestart(true);
+			}
 			currentScreen = ScreenState::LogInScreen;
 			endScreen = true;
 			isEndScreen = endScreen;
