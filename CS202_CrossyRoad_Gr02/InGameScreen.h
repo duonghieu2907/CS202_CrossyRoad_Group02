@@ -93,6 +93,13 @@ private:
 
     EndGamePopMenu endMenu;
 
+    sf::Texture* banhmi;
+    sf::Texture* comtam;
+    sf::Texture* ma;
+
+    bool Ghost = false;
+    float Ghostdie = 0;
+
 };
 
 #endif

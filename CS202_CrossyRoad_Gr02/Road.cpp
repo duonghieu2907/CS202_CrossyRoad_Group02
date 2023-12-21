@@ -34,6 +34,12 @@ void Road::addObj(StaticObstacles tmp, sf::Vector2f pos)
 	obj.push_back(tmp);
 }
 
+void Road::addGift(Item tmp, sf::Vector2f pos)
+{
+	tmp.setPosition(pos);
+	gift.push_back(tmp);
+}
+
 void Road::setPosition(sf::Vector2f pos)
 {
 	sf::Vector2f distance = pos - getShape().getPosition();
@@ -54,12 +60,16 @@ void Road::setPosition(sf::Vector2f pos)
 	for (int i = 0;i < obj.size();i++) {
 		obj[i].getShape().move(distance);
 	}
+	// Gift
+	for (int i = 0;i < gift.size();i++) {
+		gift[i].getShape().move(distance);
+	}
 }
 
 bool Road::isCollision(Character& player)
 {
 	for (int i = 0;i < car.size();i++) {
-		if (abs(this->car[i].getShape().getPosition().x - player.getBody().getPosition().x) <= 40)
+		if (abs(this->car[i].getShape().getPosition().x - player.getBody().getPosition().x) <= car[i].getShape().getSize().x * 0.5)
 		{
 			return true;
 		}
@@ -113,6 +123,37 @@ void Road::ObjCollision(Character& player)
 			}
 		}
 	}
+}
+
+void Road::GiftCollision(Character& player)
+{
+	if (gift.size() == 0) {
+		return;
+	}
+	else {
+		for (int i = 0;i < gift.size();i++) {
+			if (abs(player.getPosition().x - gift[i].getPos().x) < 50.f && abs(player.getPosition().y - gift[i].getPos().y) < 50.f) {
+				gift[i].render = 1;
+
+				if (gift[i].getType() == 4) {
+					player.incHp(1);
+					player.incStamina(2);
+				}
+				else if (gift[i].getType() == 5) {
+					player.incHp(2);
+					player.incStamina(3);
+				}
+				else if (gift[i].getType() == 6) { // the ghost here
+					ghost = 1;
+				}
+			}
+		}
+	}
+}
+
+bool Road::isGhostCollision()
+{
+	return ghost;
 }
 
 void Road::printCarpos()
@@ -176,6 +217,18 @@ void Road::update()
 		item[i].getShape().move(getSpeed());
 		item[i].update();
 	}
+
+	for (int i = 0;i < gift.size();i++) {
+		gift[i].getShape().move(getSpeed());
+		if (gift[i].IsRender() == 1) {
+			gift[i].changedeltaTime(0.001);
+			gift[i].update();
+		}
+		else {
+			gift[i].changedeltaTime(0);
+			gift[i].update();
+		}
+	}
 }
 
 void Road::reflect()
@@ -192,17 +245,29 @@ void Road::reflect()
 void Road::drawTo(sf::RenderWindow& target)
 {
 	target.draw(getShape());
-	//std::cout << car.size() << "\n";
+
+	for (int i = 0;i < gift.size();i++) {
+		target.draw(gift[i].getShape());
+		if (gift[i].IsRender()) {
+			if (gift[i].getTimeLoad() > 8960.f) {
+				gift.erase(gift.begin() + i);
+			}
+			else {
+				gift[i].increaseLoad(30.f);
+			}
+		}
+	}
+
+	for (int i = 0;i < item.size();i++) {
+		target.draw(item[i].getShape());
+	}
+
 	for (int i = 0;i < car.size();i++) {
 		target.draw(car[i].getShape());
 	}
 
 	for (int i = 0;i < light.size();i++) {
 		target.draw(light[i].getShape());
-	}
-
-	for (int i = 0;i < item.size();i++) {
-		target.draw(item[i].getShape());
 	}
 
 	for (int i = 0;i < obj.size();i++) {

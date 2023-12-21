@@ -43,6 +43,14 @@ ghost::ghost(sf::Vector2f sizeTruck, sf::Texture* truckPic, sf::Vector2u imgCoun
  {
 	 return faceRight;
  }
+ void ghost::setEnd(bool tmp)
+ {
+	 this->end = tmp;
+ }
+ bool ghost::getEnd()
+ {
+	 return this->end;
+ }
  sf::RectangleShape& ghost::getShape()
  {
 	 return body;
@@ -54,7 +62,7 @@ ghost::ghost(sf::Vector2f sizeTruck, sf::Texture* truckPic, sf::Vector2u imgCoun
  void  ghost::update(float deltaTime, bool faceRight, Character& player)
  {
 
-	 int i = static_cast<unsigned>(rand() % 10000 + 1); // alter percentage see ghost at here
+	 int i = 1; // alter percentage see ghost at here
 
 
 	 if (!isGo)
@@ -83,6 +91,7 @@ ghost::ghost(sf::Vector2f sizeTruck, sf::Texture* truckPic, sf::Vector2u imgCoun
 		 if (timing.getElapsedTime().asSeconds() >= 8)
 		 {
 			 body.setTexture(death);
+			 end = true;
 		 }
 		 animation.update(row, deltaTime, faceRight);
 		 body.setTextureRect(animation.uvRect);
