@@ -15,9 +15,10 @@ private:
 	sf::Texture* flight;
 	sf::Texture* death;
 	sf::Clock timing;
+
+	bool end = false;
 public:
-	ghost()
-	{};
+	ghost(){};
 
 	void initText();
 	
@@ -27,6 +28,8 @@ public:
 	void setPosition(sf::Vector2f pos);
 	
 	bool getRight();
+	void setEnd(bool tmp);
+	bool getEnd();
 	
 	sf::RectangleShape& getShape();
 	

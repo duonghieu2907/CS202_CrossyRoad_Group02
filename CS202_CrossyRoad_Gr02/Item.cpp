@@ -45,6 +45,31 @@ int Item::getType()
 	return this->type;
 }
 
+void Item::setTexture(sf::Texture* tmp)
+{
+	this->shape.setTexture(tmp);
+}
+
+void Item::changedeltaTime(float n)
+{
+	this->deltaTime = n;
+}
+
+bool Item::IsRender()
+{
+	return this->render;
+}
+
+float Item::getTimeLoad()
+{
+	return this->timeload;
+}
+
+void Item::increaseLoad(float n)
+{
+	this->timeload += n;
+}
+
 void Item::update()
 {
 	animation.update(row, deltaTime, true);

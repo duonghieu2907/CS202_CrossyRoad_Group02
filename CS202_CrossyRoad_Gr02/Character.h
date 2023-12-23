@@ -43,6 +43,8 @@ public:
 	void setSpeed(float x);
 	float getSpeed();
 	int getPoint();
+
+	void incHp(int n);
 private:
 	//sf::Texture texture;
 	sf::RectangleShape body;
