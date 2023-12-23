@@ -305,10 +305,10 @@ void InGameScreen::getRoadRan()
 
 
 	//Random obstacle
-	if ((randObs == 1 || randObs >= 7 && randObs <= 15) && playing) { // for car
+	if ((randObs == 1 || randObs >= 7 && randObs <= 15) && playing) { // for car and gift
 
 		//set gift here
-		int giftRand = static_cast<unsigned>(rand() % 5 + 1); // Set percentage here - 20%
+		int giftRand = static_cast<unsigned>(rand() % 3 + 1); // Set percentage here - 33.3%
 		int rightRand = static_cast<unsigned> (rand() % 2 + 1);
 
 		float randCoor = 0.f;
@@ -320,7 +320,7 @@ void InGameScreen::getRoadRan()
 		}
 		
 		if (giftRand == 1) { // add gift
-			int giftTypeRand = static_cast<unsigned>(rand() % 3 + 1);
+			int giftTypeRand = static_cast<unsigned>(rand() % 6 + 1);
 			if (giftTypeRand == 1) {
 				Item tmp0(sf::Vector2f(100.f, 50.f), this->banhmi, sf::Vector2u(3, 1), 0.1, 4);
 				tmp->addGift(tmp0, tmp->getPosition() + sf::Vector2f(randCoor, 0));
@@ -329,7 +329,7 @@ void InGameScreen::getRoadRan()
 				Item tmp0(sf::Vector2f(100.f, 50.f), this->comtam, sf::Vector2u(3, 1), 0.1, 5);
 				tmp->addGift(tmp0, tmp->getPosition() + sf::Vector2f(randCoor, 0));
 			}
-			else if (giftTypeRand == 3) {
+			else if (giftTypeRand >= 3) {
 				Item tmp0(sf::Vector2f(100.f, 50.f), this->ma, sf::Vector2u(3, 1), 0.1, 6);
 				tmp->addGift(tmp0, tmp->getPosition() + sf::Vector2f(randCoor, 0));
 			}
@@ -607,7 +607,7 @@ void InGameScreen::handleEvent(sf::Event event, sf::RenderWindow& window, Screen
 				dataCtrl.data->setStar(dataCtrl.data->getStar() + player.getPoint());
 				if (elapsed > dataCtrl.data -> getTime()) 
 					dataCtrl.data->setTime(elapsed);
-				std::cout <<"Update: " << dataCtrl.data->getName() << " " << dataCtrl.data->getStar() << "\n";
+				//std::cout <<"Update: " << dataCtrl.data->getName() << " " << dataCtrl.data->getStar() << "\n";
 				saveData();
 				setRestart(1);
 			}
@@ -639,7 +639,7 @@ void InGameScreen::handleEvent(sf::Event event, sf::RenderWindow& window, Screen
 				if (elapsed > dataCtrl.data->getTime()) 
 					dataCtrl.data->setTime(elapsed);
 				saveData();
-				std::cout <<"Update: "<< dataCtrl.data->getName() << " " << dataCtrl.data->getStar() << "\n";
+				//std::cout <<"Update: "<< dataCtrl.data->getName() << " " << dataCtrl.data->getStar() << "\n";
 
 				setRestart(1);
 			}
@@ -649,7 +649,7 @@ void InGameScreen::handleEvent(sf::Event event, sf::RenderWindow& window, Screen
 				dataCtrl.data->setStar(dataCtrl.data->getStar() + player.getPoint());
 				if (elapsed > dataCtrl.data->getTime()) dataCtrl.data->setTime(elapsed);
 				saveData();
-				std::cout << "Update: " << dataCtrl.data->getName() << " " << dataCtrl.data->getStar() << "\n";
+				//std::cout << "Update: " << dataCtrl.data->getName() << " " << dataCtrl.data->getStar() << "\n";
 				setRestart(1);
 				currentScreen = ScreenState::GamePlayScreen;
 				endScreen = true;
@@ -686,7 +686,7 @@ void InGameScreen::handleEvent(sf::Event event, sf::RenderWindow& window, Screen
 
 void InGameScreen::update(sf::RenderWindow& window)
 {
-	if(playing == 0) TimeDisplay.restart();
+	if (playing == 0) TimeDisplay.restart();
 	if (pause)
 	{
 		pauseMenu.update(window);
@@ -698,11 +698,11 @@ void InGameScreen::update(sf::RenderWindow& window)
 	}
 	else
 	{
-		if (playing == 0  && started == 0)
+		if (playing == 0 && started == 0)
 		{
 			TimeDisplay.restart();
 		}
-	
+
 		elapsed = TimeDisplay.getElapsedTime() + duration;
 
 		int minutes = static_cast<int>(elapsed.asSeconds()) / 60;
@@ -727,7 +727,6 @@ void InGameScreen::update(sf::RenderWindow& window)
 			}
 
 			player.update(deltaTime, listObstacle);
-
 
 			// Stamina
 			player.reduceStamina();
@@ -765,9 +764,6 @@ void InGameScreen::update(sf::RenderWindow& window)
 					}
 				}
 			}
-			listObstacle[i]->isGetItem(player);
-			listObstacle[i]->ObjCollision(player);
-		}
 
 			// Return the normal state after the invisible
 			player.settoNormal();
@@ -781,7 +777,7 @@ void InGameScreen::update(sf::RenderWindow& window)
 				}
 			}
 
-			if (player.getHp() <= 0) 
+			if (player.getHp() <= 0)
 				playing = 0;
 
 		}
