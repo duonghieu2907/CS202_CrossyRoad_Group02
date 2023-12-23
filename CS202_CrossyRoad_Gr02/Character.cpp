@@ -196,6 +196,7 @@ void Character::update(float deltaTime, std::vector <obstacle*> listObstacle)
 	if (moveToOther == 0) {
 		body.move(movement + listObstacle[0]->getSpeed());
 	}
+
 	if (body.getPosition().y - 40 >= 820) this->hp = 0; //dead
 	if (body.getPosition().x + 40 >= 1440 || body.getPosition().x - 40 <= 0)
 	{
@@ -203,7 +204,8 @@ void Character::update(float deltaTime, std::vector <obstacle*> listObstacle)
 	}
 	if (body.getPosition().y - 40 <= 0)
 	{
-		body.move(-movement - listObstacle[0]->getSpeed());
+		//body.move(-movement - listObstacle[0]->getSpeed());
+		body.setPosition(body.getPosition().x,body.getPosition().y + 5.f);
 	}
 }
 
@@ -318,6 +320,14 @@ void Character::incPoint()
 int Character::getPoint()
 {
 	return this->point;
+}
+
+void Character::incHp(int n)
+{
+	this->hp += n;
+	if (this->hp >= this->hpMax) {
+		this->hp = this->hpMax;
+	}
 }
 
 float Character::getSpeed()

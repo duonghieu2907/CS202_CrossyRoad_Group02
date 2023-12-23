@@ -16,7 +16,12 @@ public:
 	std::vector<Item> item;
 	std::vector<StaticObstacles> obj;
 
+	std::vector<Item> gift;
+
 public:
+
+	bool ghost = false;
+
 	Road(float width, sf::Vector2f speed, sf::Texture* texture);
 	~Road();
 
@@ -25,10 +30,18 @@ public:
 	void addItem(Item tmp, sf::Vector2f pos);
 	void addObj(StaticObstacles tmp, sf::Vector2f pos);
 
+	void addGift(Item tmp, sf::Vector2f pos);
+
+
 	void setPosition(sf::Vector2f pos) override;
 	bool isCollision(Character& player);
 	void isGetItem(Character& player);
 	void ObjCollision(Character& player);
+
+	void GiftCollision(Character& player);
+
+	bool isGhostCollision();
+
 	//
 	void printCarpos();
 	int getCarnum() {

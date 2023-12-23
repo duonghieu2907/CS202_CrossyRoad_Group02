@@ -165,6 +165,24 @@ void InGameScreen::initTex()
 		std::cout << "Can not load obj8!! \n";
 	}
 
+	// Load gift
+	sf::Texture* tbanhmi = new sf::Texture;
+	if (!tbanhmi->loadFromFile("Material/Others/Chest Item/banhmi.png"))
+	{
+		std::cout << "Can not load banhmi!! \n";
+	}
+
+	sf::Texture* tcomtam = new sf::Texture;
+	if (!tcomtam->loadFromFile("Material/Others/Chest Item/comtam.png"))
+	{
+		std::cout << "Can not load comtam!! \n";
+	}
+
+	sf::Texture* tma = new sf::Texture;
+	if (!tma->loadFromFile("Material/Others/Chest Item/Chest.png"))
+	{
+		std::cout << "Can not load gift!! \n";
+	}
 	this->honda = thonda;
 	this->car = tcar;
 	this->xedo = txedo;
@@ -194,6 +212,11 @@ void InGameScreen::initTex()
 	this->obs6 = tobs6;
 	this->obs7 = tobs7;
 	this->obs8 = tobs8;
+  
+	this->comtam = tcomtam;
+	this->banhmi = tbanhmi;
+	this->ma = tma;
+
 }
 
 void InGameScreen::initText()
@@ -253,32 +276,67 @@ void InGameScreen::getRoadRan()
 	Road* tmp = new Road(162.0f, sf::Vector2f(0, 1), this->road);
 
 	// Random Item
+	float randCoor = 0.f;
+	int rightRand0 = static_cast<unsigned>(rand() % 2 + 1);
+	if (rightRand0 == 1) {
+		randCoor = static_cast<float>(rand() % 500 + 50);
+	}
+	else {
+		randCoor = - static_cast<float>(rand() % 500 + 50);
+	}
+	ItemCoor = tmp->getPosition() + sf::Vector2f(randCoor, 0);
+
 	if (itemRate >= 12) {
 		if (randItem == 2) { // 102x61
 			Item tmp0(sf::Vector2f(51.f, 61.f), this->sugarcane, sf::Vector2u(2, 1), 0.1f, 2); //
-			float randCoor = static_cast<float>(rand() % 600 + 50);
-			tmp->addItem(tmp0, tmp->getPosition() + sf::Vector2f(randCoor, 0));
-			ItemCoor = tmp->getPosition() + sf::Vector2f(randCoor, 0);
+			tmp->addItem(tmp0,ItemCoor);
 		}
 		else if (randItem == 3) { // 82x71
 			Item tmp0(sf::Vector2f(41.f, 71.f), this->xaxi, sf::Vector2u(2, 1), 0.1f, 3); //
-			float randCoor = static_cast<float>(rand() % 600 + 50);
-			tmp->addItem(tmp0, tmp->getPosition() + sf::Vector2f(randCoor, 0));
-			ItemCoor = tmp->getPosition() + sf::Vector2f(randCoor, 0);
+			tmp->addItem(tmp0, ItemCoor);
 		}
 	}
 	else if (itemRate < 12 && itemRate >= 1 ) { // 137x60
 		if (randItem == 1 || randItem == 4) {
-			Item tmp0(sf::Vector2f(68.5f, 60.f), this->star, sf::Vector2u(2, 1), 0.1f, 1); //
-			float randCoor = static_cast<float>(rand() % 600 + 50);
-			tmp->addItem(tmp0, tmp->getPosition() + sf::Vector2f(randCoor, 0));
-			ItemCoor = tmp->getPosition() + sf::Vector2f(randCoor, 0);
+			Item tmp0(sf::Vector2f(68.5f, 60.f), this->star, sf::Vector2u(2, 1), 0.1f, 1);
+			tmp->addItem(tmp0, ItemCoor);
 		}
 	}
 
 
 	//Random obstacle
 	if ((randObs == 1 || randObs >= 7 && randObs <= 15) && playing) { // for car
+
+		//set gift here
+		int giftRand = static_cast<unsigned>(rand() % 5 + 1); // Set percentage here - 20%
+		int rightRand = static_cast<unsigned> (rand() % 2 + 1);
+
+		float randCoor = 0.f;
+		if (rightRand == 1) {
+			randCoor = static_cast<float>(rand() % 500 + 50);
+		}
+		else {
+			randCoor = - static_cast<float>(rand() % 500 + 50);
+		}
+		
+		if (giftRand == 1) { // add gift
+			int giftTypeRand = static_cast<unsigned>(rand() % 3 + 1);
+			if (giftTypeRand == 1) {
+				Item tmp0(sf::Vector2f(100.f, 50.f), this->banhmi, sf::Vector2u(3, 1), 0.1, 4);
+				tmp->addGift(tmp0, tmp->getPosition() + sf::Vector2f(randCoor, 0));
+			}
+			else if (giftTypeRand == 2) {
+				Item tmp0(sf::Vector2f(100.f, 50.f), this->comtam, sf::Vector2u(3, 1), 0.1, 5);
+				tmp->addGift(tmp0, tmp->getPosition() + sf::Vector2f(randCoor, 0));
+			}
+			else if (giftTypeRand == 3) {
+				Item tmp0(sf::Vector2f(100.f, 50.f), this->ma, sf::Vector2u(3, 1), 0.1, 6);
+				tmp->addGift(tmp0, tmp->getPosition() + sf::Vector2f(randCoor, 0));
+			}
+		}
+
+		// Set car here
+
 		int curDir = -1;
 		for (int j = 0;j < RandnumCar;j++) {
 			int RandCarType = static_cast<unsigned>(rand() % 3 + 1);
@@ -397,12 +455,17 @@ void InGameScreen::getRoadRan()
 		for (int i = 0;i < 8;i++) {
 			arr[i] = 0;
 		}
+		int earr[8];
+		for (int i = 0;i < 8;i++) {
+			earr[i] = 0;
+		}
 
 		for (int k = 0;k < RandObsNum;k++) {
 			int StaObsRand = static_cast<unsigned>(rand() % 10 + 1); // get random for the static obstacle
 			int PosObsRand = static_cast<unsigned>(rand() % 7 + 1);
 
-			while (arr[PosObsRand] == 1) { // make sure current obstacle don't spawn on the previous one
+			while (arr[PosObsRand] == 1 || earr[PosObsRand] == 1) { // make sure current obstacle don't spawn on the previous one
+
 				PosObsRand = static_cast<unsigned>(rand() % 7 + 1);
 				int counter = 0;
 				for (int i = 0;i < 8;i++) { 
@@ -418,24 +481,31 @@ void InGameScreen::getRoadRan()
 			float ObsDis = 200.f;
 			if (PosObsRand == 1) {
 				ObsDis = -600.f;
+				earr[PosObsRand] = 1;
 			}
 			else if (PosObsRand == 2) {
 				ObsDis = -400.f;
+				earr[PosObsRand] = 1;
 			}
 			else if (PosObsRand == 3) {
 				ObsDis = -200.f;
+				earr[PosObsRand] = 1;
 			}
 			else if (PosObsRand == 4) {
 				ObsDis = 0.f;
+				earr[PosObsRand] = 1;
 			}
 			else if (PosObsRand == 5) {
 				ObsDis = 200.f;
+				earr[PosObsRand] = 1;
 			}
 			else if (PosObsRand == 6) {
 				ObsDis = 400.f;
+				earr[PosObsRand] = 1;
 			}
 			else if (PosObsRand == 7) {
 				ObsDis = 600.f;
+				earr[PosObsRand] = 1;
 			}
 
 			if (abs(tmp->getPosition().x + ObsDis - ItemCoor.x) >= 100.f) { // the Obs not spawn on the Item
@@ -641,27 +711,6 @@ void InGameScreen::update(sf::RenderWindow& window)
 
 		deltaTime = clock.restart().asSeconds();
 
-		playerHp.setString("Hp: ");
-		int curHp = player.getHp();
-		playerHpTexBox.setTexture(playerHpTex);
-		sf::IntRect curRectHp(1755 * curHp, 0, 1755, 480);
-		playerHpTexBox.setTextureRect(curRectHp);
-		playerHpTexBox.setScale(0.1f, 0.1f);
-
-		playerStamina.setString("Stamina: ");
-		int curStamina = player.getStamina();
-		playerStaminaTexBox.setTexture(playerStaminaTex);
-		sf::IntRect curRectStamina(800 * curStamina, 0, 800, 118);
-		playerStaminaTexBox.setTextureRect(curRectStamina);
-		playerStaminaTexBox.setScale(0.4f, 0.4f);
-		//playerStaminaTexBox.setPosition(120.f, 29.f);
-
-		playerPoint.setString("Star: " + std::to_string(player.getPoint()));
-		std::string StarString = std::to_string(player.getPoint());
-		float lenStarString = static_cast<float>(StarString.size() * 5);
-		playerStarTexBox.setPosition(85.f + lenStarString, 65.f);
-
-
 		if (playing == 0)
 		{
 			player.update(deltaTime);
@@ -679,18 +728,42 @@ void InGameScreen::update(sf::RenderWindow& window)
 
 			player.update(deltaTime, listObstacle);
 
-		// Stamina
-		player.reduceStamina();
+
+			// Stamina
+			player.reduceStamina();
 
 			//Rain effect
 			myRain.update(window, player);
 
-			devil.update(deltaTime, devil.getRight(), player);
+			for (int i = 0; i < listObstacle.size();i++)
+			{
+				if (listObstacle[i]->charIsInside(player) && listObstacle[i]->isCollision(player)) {
+					player.loadgetDamage(); // after intersect with the obstacle, being invisible
+				}
+				listObstacle[i]->isGetItem(player);
+				listObstacle[i]->ObjCollision(player);
+				listObstacle[i]->GiftCollision(player);
+				if (listObstacle[i]->isGhostCollision() == 1) {
+					Ghost = 1;
+				}
+			}
 
-		for (int i = 0; i < listObstacle.size();i++)
-		{
-			if (listObstacle[i]->charIsInside(player) && listObstacle[i]->isCollision(player)) {
-				player.loadgetDamage(); // after intersect with the obstacle, being invisible
+			//Ghost
+			if (Ghost == 1) {
+				if (!devil.getEnd()) {
+					devil.update(deltaTime, devil.getRight(), player);
+				}
+				else {
+					if (Ghostdie < 2000.f) {
+						Ghostdie += 10.f;
+						devil.update(deltaTime, devil.getRight(), player);
+					}
+					else {
+						devil.update(deltaTime, devil.getRight(), player);
+						devil.setEnd(true);
+						Ghost = 0;
+					}
+				}
 			}
 			listObstacle[i]->isGetItem(player);
 			listObstacle[i]->ObjCollision(player);
@@ -712,8 +785,29 @@ void InGameScreen::update(sf::RenderWindow& window)
 				playing = 0;
 
 		}
+
+		playerHp.setString("Hp: ");
+		int curHp = player.getHp();
+		playerHpTexBox.setTexture(playerHpTex);
+		sf::IntRect curRectHp(1755 * curHp, 0, 1755, 480);
+		playerHpTexBox.setTextureRect(curRectHp);
+		playerHpTexBox.setScale(0.1f, 0.1f);
+
+		playerStamina.setString("Stamina: ");
+		int curStamina = player.getStamina();
+		playerStaminaTexBox.setTexture(playerStaminaTex);
+		sf::IntRect curRectStamina(800 * curStamina, 0, 800, 118);
+		playerStaminaTexBox.setTextureRect(curRectStamina);
+		playerStaminaTexBox.setScale(0.4f, 0.4f);
+		//playerStaminaTexBox.setPosition(120.f, 29.f);
+
+		playerPoint.setString("Star: " + std::to_string(player.getPoint()));
+		std::string StarString = std::to_string(player.getPoint());
+		float lenStarString = static_cast<float>(StarString.size() * 5);
+		playerStarTexBox.setPosition(85.f + lenStarString, 65.f);
 	}
 }
+
 void InGameScreen::render(sf::RenderWindow& window)
 {
 	if (!isEndScreen)
@@ -737,7 +831,9 @@ void InGameScreen::render(sf::RenderWindow& window)
 		window.draw(playerStarTexBox);
 
 		player.drawTo(window);
-		devil.drawTo(window);
+		if (Ghost == 1) {
+			devil.drawTo(window);
+		}
 		if(myRain.getState())myRain.drawTo(window);
 
 		if (!playing && player.getHp() > 0)
