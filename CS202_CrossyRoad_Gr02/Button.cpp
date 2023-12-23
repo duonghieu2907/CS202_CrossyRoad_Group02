@@ -1,5 +1,9 @@
 #include "Button.h"
 
+sf::Sound Button::buttonSound;
+
+sf::SoundBuffer Button::buttonBuff;
+
 Button::Button(std::string btnText, sf::Vector2f buttonSize, int charSize, sf::Color bgColor, sf::Color textColor) 
 {
     button.setSize(buttonSize);
@@ -11,6 +15,7 @@ Button::Button(std::string btnText, sf::Vector2f buttonSize, int charSize, sf::C
     text.setString(btnText);
     text.setCharacterSize(charSize);
     text.setFillColor(textColor);
+    initButtonSound();
 }
 
 // Pass font by reference:
@@ -133,6 +138,16 @@ void Button::adjustSizeToContainText()
     
 }
 
+void Button::initButtonSound()
+{
+    if (!buttonSound.getBuffer())
+    {
+        if (!buttonBuff.loadFromFile("Sound/button.wav"))
+            std::cout << "button.wav not found!\n";
+        buttonSound.setBuffer(buttonBuff);
+    }
+}
+
 // ButtonCustom
 
 ButtonCustom::ButtonCustom(std::string btnText, sf::Vector2f buttonSize, int charSize, sf::Color bgColor, sf::Color textColor, sf::Texture* buttonTex)
@@ -166,6 +181,7 @@ void ButtonCustom::update(sf::RenderWindow& window)
         {
             uvRect.left = uvRect.width * 2;
             uvRect.top = 0;
+            buttonSound.play();
         }
         else
         {
@@ -188,19 +204,24 @@ void ButtonCustom::drawTo(sf::RenderWindow& window)
 
 // AccountButton
 
-AccountButton::AccountButton(std::string btnText, sf::Vector2f buttonSize, int charSize, sf::Color bgColor, sf::Color textColor, sf::Texture* buttonTex, std::string score)
+AccountButton::AccountButton(std::string btnText, sf::Vector2f buttonSize, int charSize, sf::Color bgColor, sf::Color textColor,
+    sf::Texture* buttonTex, std::string score, sf::Time time)
     : ButtonCustom(btnText, { buttonSize.x * 0.85f, buttonSize.y }, charSize, bgColor, textColor, buttonTex),
     remove("", { buttonSize.x * 0.15f, buttonSize.y }, charSize, bgColor, textColor, &removeTex)
 {
     initBackground();
     initScore(score, charSize, textColor);
+    initTime(time, charSize, textColor);
     initRemoveButton();
     initStarShape(buttonSize);
+    initClockShape(buttonSize);
 }
 
 void AccountButton::initBackground()
 {
     if (!starTex.loadFromFile("Material/Others/Star.png"))
+        std::cout << "Star not found!\n";
+    if (!clockTex.loadFromFile("Material/Others/Clock.png"))
         std::cout << "Star not found!\n";
     if (!removeTex.loadFromFile("Material/Buttons/Delete.png"))
         std::cout << "Delete not found!\n";
@@ -211,6 +232,15 @@ void AccountButton::initScore(std::string score, int charSize, sf::Color textCol
     this->score.setString(score);
     this->score.setCharacterSize(charSize);
     this->score.setFillColor(textColor);
+}
+
+void AccountButton::initTime(sf::Time time, int charSize, sf::Color textColor)
+{
+    int minutes = static_cast<int>(time.asSeconds()) / 60;
+    int seconds = static_cast<int>(time.asSeconds()) % 60;
+    this->time.setString(std::to_string(minutes) + ":" + std::to_string(seconds));
+    this->time.setCharacterSize(charSize);
+    this->time.setFillColor(textColor);
 }
 
 void AccountButton::initRemoveButton()
@@ -224,27 +254,42 @@ void AccountButton::initStarShape(sf::Vector2f buttonSize)
     star.setTexture(&starTex);
 }
 
+void AccountButton::initClockShape(sf::Vector2f buttonSize)
+{
+    clock.setSize({ buttonSize.y * 0.35f, buttonSize.y * 0.35f });
+    clock.setTexture(&clockTex);
+}
+
 void AccountButton::setPosition(const sf::Vector2f& point)
 {
     ButtonCustom::setPosition(point);
-    score.setPosition({point.x + btnWidth * 0.6f, point.y + btnHeight * 0.3f});
-    star.setPosition({ point.x + btnWidth * 0.7f, point.y + btnHeight * 0.075f });
+    time.setPosition({ point.x + btnWidth * 0.55f, point.y + btnHeight * 0.3f });
+    clock.setPosition({ point.x + btnWidth * 0.47f, point.y + btnHeight * 0.32f });
+    score.setPosition({point.x + btnWidth * 0.86f, point.y + btnHeight * 0.3f});
+    star.setPosition({ point.x + btnWidth * 0.75f, point.y + btnHeight * 0.075f });
     remove.setPosition({ point.x + btnWidth, point.y });
 }
 
 void AccountButton::setFont(const sf::Font& font)
 {
     Button::setFont(font);
+    time.setFont(font);
     score.setFont(font);
 }
 
 void AccountButton::setTextColor(const sf::Color& color)
 {
     Button::setTextColor(color);
+    time.setFillColor(color);
     score.setFillColor(color);
 }
 
 void AccountButton::setScoreString(std::string score)
+{
+    this->score.setString(score);
+}
+
+void AccountButton::setTimeString(std::string score)
 {
     this->score.setString(score);
 }
@@ -259,6 +304,7 @@ void AccountButton::update(sf::RenderWindow& window)
 {
     //Button::update(window);
     ButtonCustom::update(window);
+
     remove.update(window);
 }
 
@@ -268,6 +314,8 @@ void AccountButton::drawTo(sf::RenderWindow& window)
     ButtonCustom::drawTo(window);
     Button::drawTo(window);
     remove.drawTo(window);
+    window.draw(time);
+    window.draw(clock);
     window.draw(score);
     window.draw(star);
 }

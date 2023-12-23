@@ -1,6 +1,6 @@
 #pragma once
 #include "main.h"
-
+#include "Screen.h"
 
 Application::Application() :
 	videoMode(SCREEN_WIDTH, SCREEN_HEIGHT),
@@ -9,6 +9,14 @@ Application::Application() :
 	curScreenState(ScreenState::MainScreen)
 {
 	initWindow();
+	// Load loading screen background from file
+	if (!loadingScreenTex.loadFromFile("Material/Backgrounds/LoadingScreen.png"))
+		std::cout << "LoadingScreen not found!\n";
+	loadingScreenTex.setSmooth(true);
+	loadingScreen.setTexture(loadingScreenTex);
+	float scaleX = static_cast<float>(window.getSize().x) / loadingScreenTex.getSize().x;
+	float scaleY = static_cast<float>(window.getSize().y) / loadingScreenTex.getSize().y;
+	loadingScreen.setScale(scaleX, scaleY);
 }
 
 Application::~Application()
@@ -29,15 +37,11 @@ void Application::initWindow()
 
 void Application::run()
 {
-	//window.draw(loadingScreen);
-	//window.display();
+	window.draw(loadingScreen);
+	window.display();
+
 	while (window.isOpen())
 	{
-		/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
-			searchBar.setSelected(true);
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-			searchBar.setSelected(false);*/
-
 		handleEvent();
 		update();
 		render();
@@ -74,6 +78,15 @@ void Application::handleEvent()
 void Application::update()
 {
 	curScreen->update(window);
+	if (curScreen -> getRestart())
+	{
+		Data* tmp = curScreen->dataCtrl.data;
+		curScreen->setRestart(0);
+		screenCtrl.pop();
+		screenCtrl.addInGameScreen(window);
+		curScreen = screenCtrl.getScreen(ScreenState::InGameScreen);
+		curScreen->dataCtrl.data = tmp;
+	}
 }
 
 void Application::render()

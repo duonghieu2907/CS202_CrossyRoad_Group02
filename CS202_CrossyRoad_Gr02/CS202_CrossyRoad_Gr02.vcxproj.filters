@@ -70,6 +70,9 @@
     <ClCompile Include="PausePopMenu.cpp">
       <Filter>Source\Pop Menu</Filter>
     </ClCompile>
+    <ClCompile Include="InstructtionScreen.cpp">
+      <Filter>Source\Pop Menu</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -146,6 +149,9 @@
     </ClInclude>
     <ClInclude Include="PausePopMenu.h">
       <Filter>Header\Pop Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="InstructtionScreen.h">
+      <Filter>Header\Screen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

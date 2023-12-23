@@ -4,6 +4,8 @@
 #include "Screen.h"
 #include "GamePlayScreen.h"
 #include "PausePopMenu.h"
+#include "EndGamePopMenu.h"
+#include "ContinuePopMenu.h"
 #include "Character.h"
 #include "obstacle.h"
 #include "rain.h"
@@ -21,6 +23,7 @@ public:
     void initText();
     void getRoadRan();
 
+
     InGameScreen(sf::RenderWindow& window);
     ~InGameScreen() {}
     void handleEvent(sf::Event event, sf::RenderWindow& window, ScreenState& currentScreen, bool& endScreen) override;
@@ -35,6 +38,7 @@ private:
     sf::Clock clock;
     sf::Clock TimeDisplay;
     sf::Time elapsed; //save time player have play
+    sf::Time duration;
 
     rain myRain;
 
@@ -47,7 +51,6 @@ private:
     sf::Texture* car;
     sf::Texture* xedo;
     sf::Texture* road1;
-
 
     sf::Texture* cat;
     sf::Texture* chicken;
@@ -76,8 +79,24 @@ private:
     sf::Texture playerStarTex;
     sf::Sprite playerStarTexBox;
 
+    sf::Texture* obs1;
+    sf::Texture* obs2;
+    sf::Texture* obs3;
+    sf::Texture* obs4;
+    sf::Texture* obs5;
+    sf::Texture* obs6;
+    sf::Texture* obs7;
+    sf::Texture* obs8;
+
+    sf::Vector2f ItemCoor;
+
     bool pause;
     PausePopMenu pauseMenu;
+
+    EndGamePopMenu endMenu;
+
+
+    ContinuePopMenu continueMenu;
 
 };
 

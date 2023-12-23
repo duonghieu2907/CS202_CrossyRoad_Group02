@@ -15,6 +15,7 @@ public:
     bool charIsInside(Character player);
     virtual bool isCollision(Character& player) { return false; }
     virtual void isGetItem(Character& player) {}
+    virtual void ObjCollision(Character& player){}
     sf::Vector2f getPosition();
     virtual void setPosition(sf::Vector2f pos);
     void setSpeed(sf::Vector2f v);
@@ -27,7 +28,7 @@ public:
     virtual void drawTo(sf::RenderWindow& window);
     sf::RectangleShape getShape();
     virtual void update();
-
+    virtual void beginUpdate();
     virtual int getCarnum() { return 0; }
     virtual void printCarpos(){}
     virtual void clear()

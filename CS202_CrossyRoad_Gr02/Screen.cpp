@@ -1,9 +1,11 @@
+#include <iomanip>
 #include "Screen.h"
 #include "MainScreen.h"
 #include "LogInScreen.h"
 #include "SettingScreen.h"
 #include "GamePlayScreen.h"
 #include "InGameScreen.h"
+#include "InstructtionScreen.h"
 
 ScreenControl::ScreenControl(sf::RenderWindow& window)
 {
@@ -17,6 +19,8 @@ ScreenControl::ScreenControl(sf::RenderWindow& window)
 	tmp = new GamePlayScreen(window);
 	screens.push_back(tmp);
 	tmp = new InGameScreen(window);
+	screens.push_back(tmp);
+	tmp = new InstructionScreen(window);
 	screens.push_back(tmp);
 }
 
@@ -39,9 +43,17 @@ Screen* ScreenControl::getScreen(ScreenState state)
 		return screens[3];
 	case ScreenState::InGameScreen:
 		return screens[4];
+	case ScreenState::InstructionScreen:
+		return screens[5];
 	}
 }
 
+void ScreenControl::addInGameScreen(sf::RenderWindow& window)
+{
+		Screen* tmp;
+		tmp = new InGameScreen(window);
+		screens.push_back(tmp);
+}
 // SCREEN
 
 DataControl Screen::dataCtrl;
@@ -63,6 +75,7 @@ void Screen::initFont()
 
 void Screen::initData()
 {
+	//dataCtrl.datas.clear();
 	if (dataCtrl.datas.empty())
 	{
 		std::ifstream fin("Data/Data.txt");
@@ -76,13 +89,17 @@ void Screen::initData()
 			while (!fin.eof())
 			{
 				std::string name;
-				int highscore = 0;
+				sf::Time time;
 				std::getline(fin, name, ' ');
 				if (name == "")
 					break;
-				fin >> highscore;
+				float second = 0.f;
+				fin >> second;
+				time = sf::seconds(second);
+				int star = 0;
+				fin >> star;
 				fin.ignore(1000, '\n');
-				Data* tmp = new Data(name, highscore);
+				Data* tmp = new Data(name, star, time);
 				dataCtrl.datas.push_back(tmp);
 			}
 			fin.close();
@@ -92,7 +109,7 @@ void Screen::initData()
 
 void Screen::saveData()
 {
-	std::ofstream fout("Data/DataSave.txt");
+	std::ofstream fout("Data/Data.txt");
 	if (!fout.is_open())
 	{
 		std::cout << "DataSave not found!\n";
@@ -101,7 +118,7 @@ void Screen::saveData()
 	else
 	{
 		for (auto dataT : dataCtrl.datas)
-			fout << dataT->getName() << " " << dataT->getHighscore() << std::endl;
+			fout << dataT->getName() << " " << std::setprecision(0) << std::fixed << dataT->getTime().asSeconds() << " " << dataT->getStar() << std::endl;
 		fout.close();
 	}
 }

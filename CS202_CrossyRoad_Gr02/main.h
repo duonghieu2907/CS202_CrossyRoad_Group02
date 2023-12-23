@@ -3,6 +3,7 @@
 #pragma once
 #include <iostream>
 #include "SFML/Graphics.hpp"
+#include <SFML/Audio.hpp>
 #include "Screen.h"
 #include "Character.h"
 #include "obstacle.h"
@@ -30,10 +31,15 @@ private:
 
     sf::Event event;
 
+    sf::Texture loadingScreenTex;
+    sf::Sprite loadingScreen;
+
     ScreenState curScreenState;
 
     ScreenControl screenCtrl;
     Screen* curScreen;
+
+   
 };
 
 #endif
