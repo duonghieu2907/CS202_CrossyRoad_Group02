@@ -18,9 +18,9 @@ ScreenControl::ScreenControl(sf::RenderWindow& window)
 	screens.push_back(tmp);
 	tmp = new GamePlayScreen(window);
 	screens.push_back(tmp);
-	tmp = new InGameScreen(window);
-	screens.push_back(tmp);
 	tmp = new InstructionScreen(window);
+	screens.push_back(tmp);
+	tmp = new InGameScreen(window);
 	screens.push_back(tmp);
 }
 
@@ -42,9 +42,9 @@ Screen* ScreenControl::getScreen(ScreenState state)
 	case ScreenState::GamePlayScreen:
 		return screens[3];
 	case ScreenState::InGameScreen:
-		return screens[4];
-	case ScreenState::InstructionScreen:
 		return screens[5];
+	case ScreenState::InstructionScreen:
+		return screens[4];
 	}
 }
 
