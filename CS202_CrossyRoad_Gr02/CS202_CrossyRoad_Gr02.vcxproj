@@ -151,6 +151,7 @@
     <ClCompile Include="ghost.cpp" />
     <ClCompile Include="InfoPopMenu.cpp" />
     <ClCompile Include="InGameScreen.cpp" />
+    <ClCompile Include="InstructtionScreen.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="LogInScreen.cpp" />
     <ClCompile Include="main.cpp" />
@@ -180,6 +181,7 @@
     <ClInclude Include="Header.h" />
     <ClInclude Include="InfoPopMenu.h" />
     <ClInclude Include="InGameScreen.h" />
+    <ClInclude Include="InstructtionScreen.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="LogInScreen.h" />
     <ClInclude Include="main.h" />

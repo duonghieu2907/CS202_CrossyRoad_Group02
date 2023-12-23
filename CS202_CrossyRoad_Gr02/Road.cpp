@@ -34,12 +34,12 @@ void Road::addObj(StaticObstacles tmp, sf::Vector2f pos)
 	obj.push_back(tmp);
 }
 
+
 void Road::addGift(Item tmp, sf::Vector2f pos)
 {
 	tmp.setPosition(pos);
 	gift.push_back(tmp);
 }
-
 void Road::setPosition(sf::Vector2f pos)
 {
 	sf::Vector2f distance = pos - getShape().getPosition();
@@ -60,6 +60,7 @@ void Road::setPosition(sf::Vector2f pos)
 	for (int i = 0;i < obj.size();i++) {
 		obj[i].getShape().move(distance);
 	}
+
 	// Gift
 	for (int i = 0;i < gift.size();i++) {
 		gift[i].getShape().move(distance);
@@ -239,6 +240,14 @@ void Road::beginUpdate()
 	}
 }
 
+void Road::beginUpdate()
+{
+	for (int i = 0;i < item.size();i++) {
+		//item[i].getShape().move(getSpeed());
+		item[i].update();
+	}
+}
+
 void Road::reflect()
 {
 	for (int i = 0;i < car.size();i++) {
@@ -276,6 +285,10 @@ void Road::drawTo(sf::RenderWindow& target)
 
 	for (int i = 0;i < light.size();i++) {
 		target.draw(light[i].getShape());
+	}
+
+	for (int i = 0;i < obj.size();i++) {
+		target.draw(obj[i].getShape());
 	}
 
 	for (int i = 0;i < obj.size();i++) {

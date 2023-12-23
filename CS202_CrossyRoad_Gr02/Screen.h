@@ -18,7 +18,8 @@ enum class ScreenState {
     LogInScreen, // 1
     SettingScreen, // 2
     GamePlayScreen, // 3
-    InGameScreen // 4
+    InGameScreen, // 4
+    InstructionScreen // 5
 };
 
 // struct DataControl dataCtrl;

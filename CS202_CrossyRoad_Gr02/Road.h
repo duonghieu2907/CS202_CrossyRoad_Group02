@@ -15,6 +15,7 @@ public:
 	std::vector<truck> car;
 	std::vector<Item> item;
 	std::vector<StaticObstacles> obj;
+
 	std::vector<Item> gift;
 
 public:
@@ -28,15 +29,19 @@ public:
 	void addLight(TrafficLight tmp, sf::Vector2f pos);
 	void addItem(Item tmp, sf::Vector2f pos);
 	void addObj(StaticObstacles tmp, sf::Vector2f pos);
+
 	void addGift(Item tmp, sf::Vector2f pos);
+
 
 	void setPosition(sf::Vector2f pos) override;
 	bool isCollision(Character& player);
 	void isGetItem(Character& player);
 	void ObjCollision(Character& player);
+
 	void GiftCollision(Character& player);
 
 	bool isGhostCollision();
+
 	//
 	void printCarpos();
 	int getCarnum() {

@@ -16,6 +16,7 @@
 #include "GamePlayScreen.h"
 #include "SettingScreen.h"
 #include "InGameScreen.h"
+#include "InstructtionScreen.h"
 
 #include "Animation.h"
 #include "Character.h"

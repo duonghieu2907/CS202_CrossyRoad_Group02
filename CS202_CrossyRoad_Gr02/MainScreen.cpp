@@ -99,7 +99,9 @@ void MainScreen::handleEvent(sf::Event event, sf::RenderWindow& window, ScreenSt
 		}
 		else if (instructionButton.isMouseOver(window))
 		{
-
+			currentScreen = ScreenState::InstructionScreen;
+			endScreen = true;
+			isEndScreen = endScreen;
 		}
 		else if (settingButton.isMouseOver(window))
 		{

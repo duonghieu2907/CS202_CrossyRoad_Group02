@@ -5,6 +5,7 @@
 #include "SettingScreen.h"
 #include "GamePlayScreen.h"
 #include "InGameScreen.h"
+#include "InstructtionScreen.h"
 
 ScreenControl::ScreenControl(sf::RenderWindow& window)
 {
@@ -18,6 +19,8 @@ ScreenControl::ScreenControl(sf::RenderWindow& window)
 	tmp = new GamePlayScreen(window);
 	screens.push_back(tmp);
 	tmp = new InGameScreen(window);
+	screens.push_back(tmp);
+	tmp = new InstructionScreen(window);
 	screens.push_back(tmp);
 }
 
@@ -40,6 +43,8 @@ Screen* ScreenControl::getScreen(ScreenState state)
 		return screens[3];
 	case ScreenState::InGameScreen:
 		return screens[4];
+	case ScreenState::InstructionScreen:
+		return screens[5];
 	}
 }
 

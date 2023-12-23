@@ -183,7 +183,6 @@ void InGameScreen::initTex()
 	{
 		std::cout << "Can not load gift!! \n";
 	}
-
 	this->honda = thonda;
 	this->car = tcar;
 	this->xedo = txedo;
@@ -213,10 +212,11 @@ void InGameScreen::initTex()
 	this->obs6 = tobs6;
 	this->obs7 = tobs7;
 	this->obs8 = tobs8;
-
+  
 	this->comtam = tcomtam;
 	this->banhmi = tbanhmi;
 	this->ma = tma;
+
 }
 
 void InGameScreen::initText()
@@ -336,6 +336,7 @@ void InGameScreen::getRoadRan()
 		}
 
 		// Set car here
+
 		int curDir = -1;
 		for (int j = 0;j < RandnumCar;j++) {
 			int RandCarType = static_cast<unsigned>(rand() % 3 + 1);
@@ -459,12 +460,12 @@ void InGameScreen::getRoadRan()
 			earr[i] = 0;
 		}
 
-
 		for (int k = 0;k < RandObsNum;k++) {
 			int StaObsRand = static_cast<unsigned>(rand() % 10 + 1); // get random for the static obstacle
 			int PosObsRand = static_cast<unsigned>(rand() % 7 + 1);
 
 			while (arr[PosObsRand] == 1 || earr[PosObsRand] == 1) { // make sure current obstacle don't spawn on the previous one
+
 				PosObsRand = static_cast<unsigned>(rand() % 7 + 1);
 				int counter = 0;
 				for (int i = 0;i < 8;i++) { 
@@ -727,6 +728,7 @@ void InGameScreen::update(sf::RenderWindow& window)
 
 			player.update(deltaTime, listObstacle);
 
+
 			// Stamina
 			player.reduceStamina();
 
@@ -763,6 +765,9 @@ void InGameScreen::update(sf::RenderWindow& window)
 					}
 				}
 			}
+			listObstacle[i]->isGetItem(player);
+			listObstacle[i]->ObjCollision(player);
+		}
 
 			// Return the normal state after the invisible
 			player.settoNormal();
