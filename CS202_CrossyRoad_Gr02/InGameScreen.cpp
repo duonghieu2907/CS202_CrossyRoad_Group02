@@ -296,7 +296,7 @@ void InGameScreen::getRoadRan()
 			tmp->addItem(tmp0, ItemCoor);
 		}
 	}
-	else if (itemRate < 12 && itemRate >= 1) { // 137x60
+	else if (itemRate < 12 && itemRate >= 1 ) { // 137x60
 		if (randItem == 1 || randItem == 4) {
 			Item tmp0(sf::Vector2f(68.5f, 60.f), this->star, sf::Vector2u(2, 1), 0.1f, 1);
 			tmp->addItem(tmp0, ItemCoor);
@@ -447,7 +447,7 @@ void InGameScreen::getRoadRan()
 		}
 		tmp->setTexture(road1);
 	}
-	else if (randObs >= 16 && playing) { // static obstacles
+	else if (randObs >= 16) { // static obstacles
 		int RandObsNum = static_cast<unsigned>(rand() % 4 + 1); // 1-7 block
 		int saveRand = 0;
 		int arr[8];
@@ -559,6 +559,7 @@ InGameScreen::InGameScreen(sf::RenderWindow& window) :
 	pause(false),
 	pauseMenu(window),
 	endMenu(window),
+	continueMenu(window),
 	playing(false)
 {
 	initText();
@@ -601,16 +602,29 @@ void InGameScreen::handleEvent(sf::Event event, sf::RenderWindow& window, Screen
 			}
 			else if (pauseMenu.isMouseOverRestartButton(window)) // RESTART
 			{
-
+				//std::cout << dataCtrl.data->getName() << " " << dataCtrl.data->getStar() << "\n";
+				dataCtrl.data->setStar(dataCtrl.data->getStar() + player.getPoint());
+				if (elapsed > dataCtrl.data -> getTime()) 
+					dataCtrl.data->setTime(elapsed);
+				std::cout <<"Update: " << dataCtrl.data->getName() << " " << dataCtrl.data->getStar() << "\n";
+				saveData();
+				setRestart(1);
 			}
 			else if (pauseMenu.isMouseOverQuitButton(window)) // QUIT TO MENU
 			{
+				dataCtrl.tmp.setStar(player.getPoint());
+				dataCtrl.tmp.setTime(elapsed);
 				pause = false;
 				GamePlayScreen::isContinue = true;
 				currentScreen = ScreenState::GamePlayScreen;
 				endScreen = true;
 				isEndScreen = endScreen;
+				
 			}
+		}
+		if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape)
+		{
+			pause = false;
 		}
 	}
 	else if (isEndGame())
@@ -619,11 +633,23 @@ void InGameScreen::handleEvent(sf::Event event, sf::RenderWindow& window, Screen
 		{
 			if (endMenu.isMouseOverRestartButton(window)) // RESTART
 			{
+				//std::cout << dataCtrl.data->getName() << " " << dataCtrl.data->getStar() << "\n";
+				dataCtrl.data->setStar(dataCtrl.data->getStar() + player.getPoint());
+				if (elapsed > dataCtrl.data->getTime()) 
+					dataCtrl.data->setTime(elapsed);
+				saveData();
+				std::cout <<"Update: "<< dataCtrl.data->getName() << " " << dataCtrl.data->getStar() << "\n";
 
+				setRestart(1);
 			}
 			else if (endMenu.isMouseOverQuitButton(window)) // QUIT TO MENU
 			{
 				GamePlayScreen::isContinue = false;
+				dataCtrl.data->setStar(dataCtrl.data->getStar() + player.getPoint());
+				if (elapsed > dataCtrl.data->getTime()) dataCtrl.data->setTime(elapsed);
+				saveData();
+				std::cout << "Update: " << dataCtrl.data->getName() << " " << dataCtrl.data->getStar() << "\n";
+				setRestart(1);
 				currentScreen = ScreenState::GamePlayScreen;
 				endScreen = true;
 				isEndScreen = endScreen;
@@ -684,14 +710,19 @@ void InGameScreen::update(sf::RenderWindow& window)
 
 		deltaTime = clock.restart().asSeconds();
 
-		if (playing == 0) 
+		if (playing == 0)
+		{
 			player.update(deltaTime);
+			for (int i = 0; i < listObstacle.size(); i++)
+			{
+				listObstacle[i]->beginUpdate();
+			}
+		}
 		if (playing)
 		{
 			for (int i = 0; i < listObstacle.size(); i++)
 			{
 				listObstacle[i]->update();
-				//std::cout << i << " " << listObstacle[i]->getPosition().x << " " << listObstacle[i]->getPosition().y<<"\n";
 			}
 
 			player.update(deltaTime, listObstacle);
@@ -800,6 +831,11 @@ void InGameScreen::render(sf::RenderWindow& window)
 		}
 		if(myRain.getState())myRain.drawTo(window);
 
+		if (!playing && player.getHp() > 0)
+		{
+			continueMenu.render(window);
+		}
+		
 		if (pause)
 		{
 			pauseMenu.render(window);

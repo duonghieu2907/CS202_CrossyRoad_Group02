@@ -29,6 +29,7 @@ private:
 };
 
 struct DataControl {
+	Data tmp;
 	std::vector<Data*> datas;
 	Data* data = nullptr;
 };

@@ -5,6 +5,7 @@
 #include "GamePlayScreen.h"
 #include "PausePopMenu.h"
 #include "EndGamePopMenu.h"
+#include "ContinuePopMenu.h"
 #include "Character.h"
 #include "obstacle.h"
 #include "rain.h"
@@ -21,6 +22,7 @@ public:
     void initTex();
     void initText();
     void getRoadRan();
+
 
     InGameScreen(sf::RenderWindow& window);
     ~InGameScreen() {}
@@ -99,6 +101,8 @@ private:
 
     bool Ghost = false;
     float Ghostdie = 0;
+    
+    ContinuePopMenu continueMenu;
 
 };
 

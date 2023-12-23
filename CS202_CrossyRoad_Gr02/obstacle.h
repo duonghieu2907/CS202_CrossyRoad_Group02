@@ -31,7 +31,7 @@ public:
     virtual void drawTo(sf::RenderWindow& window);
     sf::RectangleShape getShape();
     virtual void update();
-
+    virtual void beginUpdate();
     virtual int getCarnum() { return 0; }
     virtual void printCarpos(){}
     virtual void clear()
