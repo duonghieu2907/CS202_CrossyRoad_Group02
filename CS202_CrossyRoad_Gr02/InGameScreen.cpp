@@ -320,7 +320,7 @@ void InGameScreen::getRoadRan()
 		}
 		
 		if (giftRand == 1) { // add gift
-			int giftTypeRand = static_cast<unsigned>(rand() % 6 + 1);
+			int giftTypeRand = static_cast<unsigned>(rand() % 8 + 1);
 			if (giftTypeRand == 1) {
 				Item tmp0(sf::Vector2f(100.f, 50.f), this->banhmi, sf::Vector2u(3, 1), 0.1, 4);
 				tmp->addGift(tmp0, tmp->getPosition() + sf::Vector2f(randCoor, 0));
@@ -744,6 +744,7 @@ void InGameScreen::update(sf::RenderWindow& window)
 				listObstacle[i]->GiftCollision(player);
 				if (listObstacle[i]->isGhostCollision() == 1) {
 					Ghost = 1;
+					devil.setEnd(false);
 				}
 			}
 
@@ -753,15 +754,8 @@ void InGameScreen::update(sf::RenderWindow& window)
 					devil.update(deltaTime, devil.getRight(), player);
 				}
 				else {
-					if (Ghostdie < 2000.f) {
-						Ghostdie += 10.f;
-						devil.update(deltaTime, devil.getRight(), player);
-					}
-					else {
-						devil.update(deltaTime, devil.getRight(), player);
-						devil.setEnd(true);
-						Ghost = 0;
-					}
+					devil.setEnd(true);
+					Ghost = 0;
 				}
 			}
 
@@ -830,6 +824,7 @@ void InGameScreen::render(sf::RenderWindow& window)
 		if (Ghost == 1) {
 			devil.drawTo(window);
 		}
+
 		if(myRain.getState())myRain.drawTo(window);
 
 		if (!playing && player.getHp() > 0)

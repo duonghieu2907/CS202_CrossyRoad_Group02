@@ -91,12 +91,12 @@ ghost::ghost(sf::Vector2f sizeTruck, sf::Texture* truckPic, sf::Vector2u imgCoun
 		 if (timing.getElapsedTime().asSeconds() >= 8)
 		 {
 			 body.setTexture(death);
-			 end = true;
 		 }
 		 animation.update(row, deltaTime, faceRight);
 		 body.setTextureRect(animation.uvRect);
 		 if (timing.getElapsedTime().asSeconds() >= 10)
 		 {
+			 end = true;
 			 isGo = 0;
 			 timing.restart();
 		 }
