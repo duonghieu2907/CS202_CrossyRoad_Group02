@@ -59,11 +59,9 @@ ghost::ghost(sf::Vector2f sizeTruck, sf::Texture* truckPic, sf::Vector2u imgCoun
  {
 	 isGo = x;
  }// appear or not
- void  ghost::update(float deltaTime, bool faceRight, Character& player)
+ void  ghost::update(float deltaTime, bool faceRight, Character& player, sf::Time time)
  {
-
-	 int i = 1; // alter percentage see ghost at here
-
+	 int i = 1;
 
 	 if (!isGo)
 	 {
@@ -71,8 +69,7 @@ ghost::ghost(sf::Vector2f sizeTruck, sf::Texture* truckPic, sf::Vector2u imgCoun
 		 if (i == 1) { //  see a ghost
 			 isGo = 1;
 			 body.setPosition(75, 75);
-			 timing.restart();
-
+			 start = time;
 		 }
 
 	 }
@@ -82,23 +79,25 @@ ghost::ghost(sf::Vector2f sizeTruck, sf::Texture* truckPic, sf::Vector2u imgCoun
 		 this->body.setTexture(flight);
 		 float a = player.getPosition().x;
 		 float b = player.getPosition().y;
-		 if (timing.getElapsedTime().asSeconds() <= 2)
+		 ended = time;
+
+		 if (ended.asSeconds() - start.asSeconds() <= 2)
 		 {
 			 body.move((a - body.getPosition().x) * 0.001, (b - body.getPosition().y) * 0.001);
 		 }
 		 else body.move((a - body.getPosition().x) * speed, (b - body.getPosition().y) * speed);
 
-		 if (timing.getElapsedTime().asSeconds() >= 8)
+		 if (ended.asSeconds() - start.asSeconds() >= 8)
 		 {
 			 body.setTexture(death);
 		 }
 		 animation.update(row, deltaTime, faceRight);
 		 body.setTextureRect(animation.uvRect);
-		 if (timing.getElapsedTime().asSeconds() >= 10)
+		 if (ended.asSeconds() - start.asSeconds() >= 10)
 		 {
 			 end = true;
 			 isGo = 0;
-			 timing.restart();
+			 start = time;
 		 }
 	 }
 
@@ -106,7 +105,7 @@ ghost::ghost(sf::Vector2f sizeTruck, sf::Texture* truckPic, sf::Vector2u imgCoun
 	 {
 		 if (abs(body.getPosition().x - player.getPosition().x) <= body.getSize().x/3
 			 && abs(body.getPosition().y - player.getPosition().y) <= body.getSize().y/3
-			 && timing.getElapsedTime().asSeconds() < 8)
+			 && ended.asSeconds() - start.asSeconds() < 8)
 			 player.loadgetDamage();
 	 }
  }

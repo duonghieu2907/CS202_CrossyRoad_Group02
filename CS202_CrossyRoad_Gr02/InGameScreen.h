@@ -11,6 +11,7 @@
 #include "rain.h"
 #include "ghost.h"
 
+
 class InGameScreen : public Screen
 {
 public:
@@ -22,6 +23,10 @@ public:
     void initTex();
     void initText();
     void getRoadRan();
+    sf::Time getTime()
+    {
+        return elapsed;
+    }
 
 
     InGameScreen(sf::RenderWindow& window);

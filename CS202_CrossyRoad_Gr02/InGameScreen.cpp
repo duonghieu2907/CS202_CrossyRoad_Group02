@@ -732,7 +732,7 @@ void InGameScreen::update(sf::RenderWindow& window)
 			player.reduceStamina();
 
 			//Rain effect
-			myRain.update(window, player);
+			myRain.update(window, player, elapsed);
 
 			for (int i = 0; i < listObstacle.size();i++)
 			{
@@ -751,7 +751,7 @@ void InGameScreen::update(sf::RenderWindow& window)
 			//Ghost
 			if (Ghost == 1) {
 				if (!devil.getEnd()) {
-					devil.update(deltaTime, devil.getRight(), player);
+					devil.update(deltaTime, devil.getRight(), player, elapsed);
 				}
 				else {
 					devil.setEnd(true);

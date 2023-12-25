@@ -3,6 +3,7 @@
 #include "Animation.h"
 #include "Character.h"
 #include <math.h>
+
 class ghost
 {
 private:
@@ -14,8 +15,9 @@ private:
 	bool faceRight;
 	sf::Texture* flight;
 	sf::Texture* death;
-	sf::Clock timing;
-
+	//sf::Clock timing;
+	sf::Time start;
+	sf::Time ended;
 	bool end = false;
 public:
 	ghost(){};
@@ -35,7 +37,7 @@ public:
 	
 	void setState(bool x);// appear or not
 
-	void update(float deltaTime, bool faceRight, Character& player);
+	void update(float deltaTime, bool faceRight, Character& player, sf::Time time);
 	
 	void drawTo(sf::RenderTarget& target);
 	
