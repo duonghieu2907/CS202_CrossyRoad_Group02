@@ -56,6 +56,8 @@ private:
     sf::Texture* car;
     sf::Texture* xedo;
     sf::Texture* road1;
+    sf::Texture* xecuuthuong;
+    sf::Texture* xebantai;
 
     sf::Texture* cat;
     sf::Texture* chicken;

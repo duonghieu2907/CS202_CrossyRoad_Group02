@@ -30,9 +30,9 @@ void InGameScreen::initTex()
   
   // Load Vehicle
 	sf::Texture* thonda = new sf::Texture;
-	if (!(thonda->loadFromFile("Material/Animations/Vehicles/Honda.png")))
+	if (!(thonda->loadFromFile("Material/Animations/Vehicles/Xe may.png")))
 	{
-		std::cout << "Can not load honda! \n";
+		std::cout << "Can not load xe may! \n";
 	}
 
 	sf::Texture* tcar = new sf::Texture;
@@ -47,6 +47,17 @@ void InGameScreen::initTex()
 		std::cout << "Can not load honda! \n";
 	}
 
+	sf::Texture* txecuuthuong = new sf::Texture;
+	if (!(txecuuthuong->loadFromFile("Material/Animations/Vehicles/Xe cuu thuong.png")))
+	{
+		std::cout << "Can not load xe cuu thuong! \n";
+	}
+
+	sf::Texture* txebantai = new sf::Texture;
+	if (!(txebantai->loadFromFile("Material/Animations/Vehicles/Xe ban tai.png")))
+	{
+		std::cout << "Can not load ban tai! \n";
+	}
 
 	// Load the animal 
 	sf::Texture* tcat = new sf::Texture;
@@ -186,6 +197,8 @@ void InGameScreen::initTex()
 	this->honda = thonda;
 	this->car = tcar;
 	this->xedo = txedo;
+	this->xecuuthuong = txecuuthuong;
+	this->xebantai = txebantai;
 
 	this->road = t;
 	this->road1 = t1;
@@ -339,26 +352,34 @@ void InGameScreen::getRoadRan()
 
 		int curDir = -1;
 		for (int j = 0;j < RandnumCar;j++) {
-			int RandCarType = static_cast<unsigned>(rand() % 3 + 1);
+			int RandCarType = static_cast<unsigned>(rand() % 5 + 1);
 			if (direct == 1) {
 				curDir = 1;
 				if (RandCarType == 1) {
-					truck tmp1(sf::Vector2f(100.f, 100.f), this->honda, sf::Vector2u(10, 1), 0.1f, 10.f, true);
+					truck tmp1(sf::Vector2f(89.f, 85.f), this->honda, sf::Vector2u(4, 1), 0.1f, 10.f, true);
 					tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x - 720 - i * 10 - j * 400, tmp->getPosition().y));
 				}
 				else if (RandCarType == 2) {
 					truck tmp1(sf::Vector2f(288.667f, 100.f), this->car, sf::Vector2u(4, 1), 0.1f, 10.f, true);
 					tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x - 720 - i * 10 - j * 400, tmp->getPosition().y));
 				}
-				else if (RandCarType == 3) { // 1408 4224x330 1408/110
+				else if (RandCarType == 3) { 
 					truck tmp1(sf::Vector2f(352.f, 110.f), this->xedo, sf::Vector2u(4, 1), 0.1f, 10.f, true);
+					tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x - 720 - i * 10 - j * 400, tmp->getPosition().y));
+				}
+				else if (RandCarType == 4) { 
+					truck tmp1(sf::Vector2f(291.67f, 100.f), this->xebantai, sf::Vector2u(4, 1), 0.1f, 10.f, true);
+					tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x - 720 - i * 10 - j * 400, tmp->getPosition().y));
+				}
+				else if (RandCarType == 5) { 
+					truck tmp1(sf::Vector2f(218.75f, 110.f), this->xecuuthuong, sf::Vector2u(4, 1), 0.1f, 10.f, true);
 					tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x - 720 - i * 10 - j * 400, tmp->getPosition().y));
 				}
 			}
 			else {
 				curDir = 0;
 				if (RandCarType == 1) {
-					truck tmp1(sf::Vector2f(100.f, 100.f), this->honda, sf::Vector2u(10, 1), 0.1f, 10.f, false);
+					truck tmp1(sf::Vector2f(89.f, 85.f), this->honda, sf::Vector2u(4, 1), 0.1f, 10.f, false);
 					tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x + 720 + i * 10 + j * 400, tmp->getPosition().y));
 				}
 				else if (RandCarType == 2) {
@@ -368,6 +389,14 @@ void InGameScreen::getRoadRan()
 				else if (RandCarType == 3) {
 					truck tmp1(sf::Vector2f(352.f, 110.f), this->xedo, sf::Vector2u(4, 1), 0.1f, 10.f, false);
 					tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x + 720 + i * 10 + j * 400, tmp->getPosition().y));
+				}
+				else if (RandCarType == 4) {
+					truck tmp1(sf::Vector2f(291.67f, 100.f), this->xebantai, sf::Vector2u(4, 1), 0.1f, 10.f, false);
+					tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x - 720 - i * 10 - j * 400, tmp->getPosition().y));
+				}
+				else if (RandCarType == 5) {
+					truck tmp1(sf::Vector2f(218.75f, 110.f), this->xecuuthuong, sf::Vector2u(4, 1), 0.1f, 10.f, false);
+					tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x - 720 - i * 10 - j * 400, tmp->getPosition().y));
 				}
 			}
 		}
@@ -572,9 +601,9 @@ InGameScreen::InGameScreen(sf::RenderWindow& window) :
 	}
 
 	sf::Texture* tman = new sf::Texture;
-	if (!tman->loadFromFile("Material/Animations/Human with Idle.png"))
+	if (!tman->loadFromFile("Material/Animations/Human with clothes.png"))
 		std::cout << "Human Animation not found!\n";
-	Character man(tman, sf::Vector2u(4, 4), 0.1f, 100.0f, listObstacle[0]->getPosition());
+	Character man(tman, sf::Vector2u(8, 4), 0.1f, 100.0f, listObstacle[0]->getPosition());
 	player = man;
 
 	sf::Texture* tghost = new sf::Texture;
