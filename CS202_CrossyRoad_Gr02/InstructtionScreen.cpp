@@ -43,7 +43,7 @@ void InstructionScreen::initBackground(sf::RenderWindow& window)
 	backButtonTex.setSmooth(true);
 
 	// Skip button
-	if (!skipButtonTex.loadFromFile("Material/Buttons/Save.png"))
+	if (!skipButtonTex.loadFromFile("Material/Buttons/Skip.png"))
 		std::cout << "Skip hover not found!\n";
 	skipButtonTex.setSmooth(true);
 

@@ -17,6 +17,11 @@ private:
     void initBackground(sf::RenderWindow& window);
     void initBackButton();
     void initSaveButton();
+    void initMusicButton();
+    void initControlsButton();
+    void toggleMusic();
+    void toggleControls();
+    void saveSettings();
 
 private:
     sf::Texture settingScreen1Tex;
@@ -28,6 +33,26 @@ private:
 
     sf::Texture backButtonTex;
     ButtonCustom backButton;
+
+    sf::Texture musicOnButtonTex1;
+    sf::Texture musicOnButtonTex2;
+    sf::Texture musicOffButtonTex1;
+    sf::Texture musicOffButtonTex2;
+    ButtonCustom musicOnButton;
+    ButtonCustom musicOffButton;
+
+    sf::Texture controlsOnButtonTex1;
+    sf::Texture controlsOnButtonTex2;
+    sf::Texture controlsOffButtonTex1;
+    sf::Texture controlsOffButtonTex2;
+    ButtonCustom controlsOnButton;
+    ButtonCustom controlsOffButton;
+
+    sf::Text HeaderMusicText;
+    sf::Text HeaderControlsText;
+
+    bool musicEnabled;
+    bool useWASDControls;
 
 };
 
