@@ -194,6 +194,14 @@ void InGameScreen::initTex()
 	{
 		std::cout << "Can not load gift!! \n";
 	}
+
+	// Load background
+	sf::Texture* tbackground = new sf::Texture;
+	if (!tbackground->loadFromFile("Material/Backgrounds/StartingScreen.png"))
+	{
+		std::cout << "Can not load background!! \n";
+	}
+
 	this->honda = thonda;
 	this->car = tcar;
 	this->xedo = txedo;
@@ -230,6 +238,9 @@ void InGameScreen::initTex()
 	this->banhmi = tbanhmi;
 	this->ma = tma;
 
+	this->background.setSize(sf::Vector2f(1440,880));
+	this->background.setTexture(tbackground);
+	this->background.setPosition(sf::Vector2f(0.f, 0.f));
 }
 
 void InGameScreen::initText()
@@ -603,7 +614,7 @@ InGameScreen::InGameScreen(sf::RenderWindow& window) :
 	sf::Texture* tman = new sf::Texture;
 	if (!tman->loadFromFile("Material/Animations/Human with clothes.png"))
 		std::cout << "Human Animation not found!\n";
-	Character man(tman, sf::Vector2u(8, 4), 0.1f, 100.0f, listObstacle[0]->getPosition());
+	Character man(tman, sf::Vector2u(8, 4), 0.1f, 100.0f, listObstacle[0]->getPosition() + sf::Vector2f(0.f,500.f));
 	player = man;
 
 	sf::Texture* tghost = new sf::Texture;
@@ -833,6 +844,8 @@ void InGameScreen::render(sf::RenderWindow& window)
 	{
 		window.clear();
 		
+		window.draw(this->background);
+
 		for (int i = 0; i < listObstacle.size(); i++)
 		{
 			listObstacle[i]->drawTo(window);

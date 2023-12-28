@@ -111,6 +111,7 @@ private:
     
     ContinuePopMenu continueMenu;
 
+    sf::RectangleShape background;
 };
 
 #endif
