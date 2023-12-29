@@ -16,7 +16,9 @@ private:
     sf::RectangleShape raindropShape;
     //raindropShape.setRotation(30);
     bool state = 0;
-    sf::Clock timing;
+    sf::Time start;
+    sf::Time end;
+
 public:
     rain()
     {
@@ -32,7 +34,7 @@ public:
     {
         return state;
     }
-    void update(sf::RenderWindow &window, Character& player)
+    void update(sf::RenderWindow &window, Character& player, sf::Time time)
     {
         int i = static_cast<unsigned>(rand() % 1000 + 1); // alter percentage see rain at here
        // std::cout << i << std::endl;
@@ -42,12 +44,13 @@ public:
             if (i == 1) { //  see a ghost
                 state = 1;
                 player.setSpeed(player.getSpeed() * 2 / 3);
-                timing.restart();
+                start = time;
 
             }
         }
         if(state)
         {
+            end = time;
             if (rand() % 100 < 10) {
                 // std::cout << "OK\n";
                 float x = static_cast<float>(rand() % (window.getSize().x + 200));
@@ -58,11 +61,11 @@ public:
                 raindropShape.setFillColor(randomColor);
                 raindrops.push_back(sf::Vector2f(x, 0));
             }
-            if (timing.getElapsedTime().asSeconds() >= 10)
+            if (end.asSeconds() - start.asSeconds() >= 10)
             {
                 state = 0;
                 player.setSpeed(player.getSpeed() * 1.5);
-                timing.restart();
+                start = time;
             }
         }
 

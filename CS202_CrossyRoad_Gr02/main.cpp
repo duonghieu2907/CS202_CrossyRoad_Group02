@@ -65,7 +65,6 @@ void Application::handleEvent()
 		}
 		else
 		{
-			//curScreen = screenCtrl.getScreen(curScreenState);
 			bool endScreen = false;
 			curScreen->setEndScreen(endScreen);
 			curScreen->handleEvent(event, window, curScreenState, endScreen);

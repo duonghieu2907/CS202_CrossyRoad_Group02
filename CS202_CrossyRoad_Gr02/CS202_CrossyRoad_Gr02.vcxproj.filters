@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-
     <ClCompile Include="CS202_Gr02.cpp">
       <Filter>Source</Filter>
     </ClCompile>
@@ -56,9 +55,6 @@
     <ClCompile Include="Screen.cpp">
       <Filter>Source\Screen</Filter>
     </ClCompile>
-    <ClCompile Include="SettingScreen.cpp">
-      <Filter>Source\Pop Menu</Filter>
-    </ClCompile>
     <ClCompile Include="PopMenu.cpp">
       <Filter>Source\Pop Menu</Filter>
     </ClCompile>
@@ -71,11 +67,25 @@
     <ClCompile Include="PausePopMenu.cpp">
       <Filter>Source\Pop Menu</Filter>
     </ClCompile>
-    <ClCompile Include="InstructtionScreen.cpp">
+    <ClCompile Include="ContinuePopMenu.cpp">
+      <Filter>Source\Pop Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="EndGamePopMenu.cpp">
       <Filter>Source\Pop Menu</Filter>
     </ClCompile>
     <ClCompile Include="Cursor.cpp">
       <Filter>Source\Material</Filter>
+    <ClCompile Include="InfoPopMenu.cpp">
+      <Filter>Source\Pop Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticObstacles.cpp">
+      <Filter>Source\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="SettingScreen.cpp">
+      <Filter>Source\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="InstructtionScreen.cpp">
+      <Filter>Source\Screen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -157,8 +167,6 @@
     <ClInclude Include="InstructtionScreen.h">
       <Filter>Header\Screen</Filter>
     </ClInclude>
-<<<<<<< Updated upstream
-=======
     <ClInclude Include="ContinuePopMenu.h">
       <Filter>Header\Pop Menu</Filter>
     </ClInclude>
@@ -171,10 +179,7 @@
     <ClInclude Include="StaticObstacles.h">
       <Filter>Header\Animation</Filter>
     </ClInclude>
-    <ClInclude Include="Cursor.h">
-      <Filter>Header\Material</Filter>
-    </ClInclude>
->>>>>>> Stashed changes
+
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header">
@@ -207,14 +212,12 @@
     <Filter Include="Source\Screen">
       <UniqueIdentifier>{8fcf4f28-e08b-48fd-8557-d19e688de046}</UniqueIdentifier>
     </Filter>
-
     <ClCompile Include="AddPopMenu.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="CS202_Gr02.cpp" />
     <ClCompile Include="Data.cpp" />
-    <ClCompile Include="EndGamePopMenu.cpp" />
     <ClCompile Include="GamePlayScreen.cpp" />
     <ClCompile Include="ghost.cpp" />
     <ClCompile Include="InGameScreen.cpp" />
@@ -229,12 +232,9 @@
     <ClCompile Include="Road.cpp" />
     <ClCompile Include="Screen.cpp" />
     <ClCompile Include="SettingScreen.cpp" />
-    <ClCompile Include="StaticObstacles.cpp" />
     <ClCompile Include="Textbox.cpp" />
     <ClCompile Include="TrafficLight.cpp" />
     <ClCompile Include="truck.cpp" />
-    <ClCompile Include="InfoPopMenu.cpp" />
-    <ClCompile Include="ContinuePopMenu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AddPopMenu.h" />
@@ -242,7 +242,6 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="Data.h" />
-    <ClInclude Include="EndGamePopMenu.h" />
     <ClInclude Include="GamePlayScreen.h" />
     <ClInclude Include="ghost.h" />
     <ClInclude Include="Header.h" />
@@ -260,12 +259,8 @@
     <ClInclude Include="Road.h" />
     <ClInclude Include="Screen.h" />
     <ClInclude Include="SettingScreen.h" />
-    <ClInclude Include="StaticObstacles.h" />
     <ClInclude Include="Textbox.h" />
     <ClInclude Include="TrafficLight.h" />
     <ClInclude Include="truck.h" />
-    <ClInclude Include="InfoPopMenu.h" />
-    <ClInclude Include="ContinuePopMenu.h" />
-
   </ItemGroup>
 </Project>

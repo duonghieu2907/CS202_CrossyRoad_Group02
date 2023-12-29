@@ -11,6 +11,7 @@
 #include "rain.h"
 #include "ghost.h"
 
+
 class InGameScreen : public Screen
 {
 public:
@@ -22,6 +23,10 @@ public:
     void initTex();
     void initText();
     void getRoadRan();
+    sf::Time getTime()
+    {
+        return elapsed;
+    }
 
 
     InGameScreen(sf::RenderWindow& window);
@@ -51,6 +56,8 @@ private:
     sf::Texture* car;
     sf::Texture* xedo;
     sf::Texture* road1;
+    sf::Texture* xecuuthuong;
+    sf::Texture* xebantai;
 
     sf::Texture* cat;
     sf::Texture* chicken;
@@ -104,6 +111,7 @@ private:
     
     ContinuePopMenu continueMenu;
 
+    sf::RectangleShape background;
 };
 
 #endif

@@ -14,7 +14,7 @@ Character::Character(sf::Texture* texture, sf::Vector2u imgCount, float switchTi
 	this->normal = texture;
 
 	sf::Texture* t = new sf::Texture;
-	if (!t->loadFromFile("Material/Animations/getDamage with Idle.png")) {
+	if (!t->loadFromFile("Material/Animations/getDamage with clothes.png")) {
 		std::cout << "ERROR can't not load player get damage\n";
 	}
 	this->getDamageTex = t;
@@ -49,7 +49,7 @@ Character::Character(sf::Texture* texture, sf::Vector2u imgCount, float switchTi
 	this->normal = texture;
 
 	sf::Texture* t = new sf::Texture;
-	if (!t->loadFromFile("Material/Animations/getDamage with Idle.png")) {
+	if (!t->loadFromFile("Material/Animations/getDamage with clothes.png")) {
 		std::cout << "ERROR can't not load player get damage\n";
 	}
 	this->getDamageTex = t;

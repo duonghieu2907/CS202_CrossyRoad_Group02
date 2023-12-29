@@ -30,9 +30,9 @@ void InGameScreen::initTex()
   
   // Load Vehicle
 	sf::Texture* thonda = new sf::Texture;
-	if (!(thonda->loadFromFile("Material/Animations/Vehicles/Honda.png")))
+	if (!(thonda->loadFromFile("Material/Animations/Vehicles/Xe may.png")))
 	{
-		std::cout << "Can not load honda! \n";
+		std::cout << "Can not load xe may! \n";
 	}
 
 	sf::Texture* tcar = new sf::Texture;
@@ -47,6 +47,17 @@ void InGameScreen::initTex()
 		std::cout << "Can not load honda! \n";
 	}
 
+	sf::Texture* txecuuthuong = new sf::Texture;
+	if (!(txecuuthuong->loadFromFile("Material/Animations/Vehicles/Xe cuu thuong.png")))
+	{
+		std::cout << "Can not load xe cuu thuong! \n";
+	}
+
+	sf::Texture* txebantai = new sf::Texture;
+	if (!(txebantai->loadFromFile("Material/Animations/Vehicles/Xe ban tai.png")))
+	{
+		std::cout << "Can not load ban tai! \n";
+	}
 
 	// Load the animal 
 	sf::Texture* tcat = new sf::Texture;
@@ -183,9 +194,19 @@ void InGameScreen::initTex()
 	{
 		std::cout << "Can not load gift!! \n";
 	}
+
+	// Load background
+	sf::Texture* tbackground = new sf::Texture;
+	if (!tbackground->loadFromFile("Material/Backgrounds/StartingScreen.png"))
+	{
+		std::cout << "Can not load background!! \n";
+	}
+
 	this->honda = thonda;
 	this->car = tcar;
 	this->xedo = txedo;
+	this->xecuuthuong = txecuuthuong;
+	this->xebantai = txebantai;
 
 	this->road = t;
 	this->road1 = t1;
@@ -217,6 +238,9 @@ void InGameScreen::initTex()
 	this->banhmi = tbanhmi;
 	this->ma = tma;
 
+	this->background.setSize(sf::Vector2f(1440,880));
+	this->background.setTexture(tbackground);
+	this->background.setPosition(sf::Vector2f(0.f, 0.f));
 }
 
 void InGameScreen::initText()
@@ -305,10 +329,10 @@ void InGameScreen::getRoadRan()
 
 
 	//Random obstacle
-	if ((randObs == 1 || randObs >= 7 && randObs <= 15) && playing) { // for car
+	if ((randObs == 1 || randObs >= 7 && randObs <= 15) && playing) { // for car and gift
 
 		//set gift here
-		int giftRand = static_cast<unsigned>(rand() % 5 + 1); // Set percentage here - 20%
+		int giftRand = static_cast<unsigned>(rand() % 3 + 1); // Set percentage here - 33.3%
 		int rightRand = static_cast<unsigned> (rand() % 2 + 1);
 
 		float randCoor = 0.f;
@@ -320,7 +344,7 @@ void InGameScreen::getRoadRan()
 		}
 		
 		if (giftRand == 1) { // add gift
-			int giftTypeRand = static_cast<unsigned>(rand() % 3 + 1);
+			int giftTypeRand = static_cast<unsigned>(rand() % 8 + 1);
 			if (giftTypeRand == 1) {
 				Item tmp0(sf::Vector2f(100.f, 50.f), this->banhmi, sf::Vector2u(3, 1), 0.1, 4);
 				tmp->addGift(tmp0, tmp->getPosition() + sf::Vector2f(randCoor, 0));
@@ -329,7 +353,7 @@ void InGameScreen::getRoadRan()
 				Item tmp0(sf::Vector2f(100.f, 50.f), this->comtam, sf::Vector2u(3, 1), 0.1, 5);
 				tmp->addGift(tmp0, tmp->getPosition() + sf::Vector2f(randCoor, 0));
 			}
-			else if (giftTypeRand == 3) {
+			else if (giftTypeRand >= 3) {
 				Item tmp0(sf::Vector2f(100.f, 50.f), this->ma, sf::Vector2u(3, 1), 0.1, 6);
 				tmp->addGift(tmp0, tmp->getPosition() + sf::Vector2f(randCoor, 0));
 			}
@@ -339,26 +363,34 @@ void InGameScreen::getRoadRan()
 
 		int curDir = -1;
 		for (int j = 0;j < RandnumCar;j++) {
-			int RandCarType = static_cast<unsigned>(rand() % 3 + 1);
+			int RandCarType = static_cast<unsigned>(rand() % 5 + 1);
 			if (direct == 1) {
 				curDir = 1;
 				if (RandCarType == 1) {
-					truck tmp1(sf::Vector2f(100.f, 100.f), this->honda, sf::Vector2u(10, 1), 0.1f, 10.f, true);
+					truck tmp1(sf::Vector2f(89.f, 85.f), this->honda, sf::Vector2u(4, 1), 0.1f, 10.f, true);
 					tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x - 720 - i * 10 - j * 400, tmp->getPosition().y));
 				}
 				else if (RandCarType == 2) {
 					truck tmp1(sf::Vector2f(288.667f, 100.f), this->car, sf::Vector2u(4, 1), 0.1f, 10.f, true);
 					tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x - 720 - i * 10 - j * 400, tmp->getPosition().y));
 				}
-				else if (RandCarType == 3) { // 1408 4224x330 1408/110
+				else if (RandCarType == 3) { 
 					truck tmp1(sf::Vector2f(352.f, 110.f), this->xedo, sf::Vector2u(4, 1), 0.1f, 10.f, true);
+					tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x - 720 - i * 10 - j * 400, tmp->getPosition().y));
+				}
+				else if (RandCarType == 4) { 
+					truck tmp1(sf::Vector2f(291.67f, 100.f), this->xebantai, sf::Vector2u(4, 1), 0.1f, 10.f, true);
+					tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x - 720 - i * 10 - j * 400, tmp->getPosition().y));
+				}
+				else if (RandCarType == 5) { 
+					truck tmp1(sf::Vector2f(218.75f, 110.f), this->xecuuthuong, sf::Vector2u(4, 1), 0.1f, 10.f, true);
 					tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x - 720 - i * 10 - j * 400, tmp->getPosition().y));
 				}
 			}
 			else {
 				curDir = 0;
 				if (RandCarType == 1) {
-					truck tmp1(sf::Vector2f(100.f, 100.f), this->honda, sf::Vector2u(10, 1), 0.1f, 10.f, false);
+					truck tmp1(sf::Vector2f(89.f, 85.f), this->honda, sf::Vector2u(4, 1), 0.1f, 10.f, false);
 					tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x + 720 + i * 10 + j * 400, tmp->getPosition().y));
 				}
 				else if (RandCarType == 2) {
@@ -368,6 +400,14 @@ void InGameScreen::getRoadRan()
 				else if (RandCarType == 3) {
 					truck tmp1(sf::Vector2f(352.f, 110.f), this->xedo, sf::Vector2u(4, 1), 0.1f, 10.f, false);
 					tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x + 720 + i * 10 + j * 400, tmp->getPosition().y));
+				}
+				else if (RandCarType == 4) {
+					truck tmp1(sf::Vector2f(291.67f, 100.f), this->xebantai, sf::Vector2u(4, 1), 0.1f, 10.f, false);
+					tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x - 720 - i * 10 - j * 400, tmp->getPosition().y));
+				}
+				else if (RandCarType == 5) {
+					truck tmp1(sf::Vector2f(218.75f, 110.f), this->xecuuthuong, sf::Vector2u(4, 1), 0.1f, 10.f, false);
+					tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x - 720 - i * 10 - j * 400, tmp->getPosition().y));
 				}
 			}
 		}
@@ -572,9 +612,9 @@ InGameScreen::InGameScreen(sf::RenderWindow& window) :
 	}
 
 	sf::Texture* tman = new sf::Texture;
-	if (!tman->loadFromFile("Material/Animations/Human with Idle.png"))
+	if (!tman->loadFromFile("Material/Animations/Human with clothes.png"))
 		std::cout << "Human Animation not found!\n";
-	Character man(tman, sf::Vector2u(4, 4), 0.1f, 100.0f, listObstacle[0]->getPosition());
+	Character man(tman, sf::Vector2u(8, 4), 0.1f, 100.0f, listObstacle[0]->getPosition() + sf::Vector2f(0.f,500.f));
 	player = man;
 
 	sf::Texture* tghost = new sf::Texture;
@@ -607,7 +647,7 @@ void InGameScreen::handleEvent(sf::Event event, sf::RenderWindow& window, Screen
 				dataCtrl.data->setStar(dataCtrl.data->getStar() + player.getPoint());
 				if (elapsed > dataCtrl.data -> getTime()) 
 					dataCtrl.data->setTime(elapsed);
-				std::cout <<"Update: " << dataCtrl.data->getName() << " " << dataCtrl.data->getStar() << "\n";
+				//std::cout <<"Update: " << dataCtrl.data->getName() << " " << dataCtrl.data->getStar() << "\n";
 				saveData();
 				setRestart(1);
 			}
@@ -639,7 +679,7 @@ void InGameScreen::handleEvent(sf::Event event, sf::RenderWindow& window, Screen
 				if (elapsed > dataCtrl.data->getTime()) 
 					dataCtrl.data->setTime(elapsed);
 				saveData();
-				std::cout <<"Update: "<< dataCtrl.data->getName() << " " << dataCtrl.data->getStar() << "\n";
+				//std::cout <<"Update: "<< dataCtrl.data->getName() << " " << dataCtrl.data->getStar() << "\n";
 
 				setRestart(1);
 			}
@@ -649,7 +689,7 @@ void InGameScreen::handleEvent(sf::Event event, sf::RenderWindow& window, Screen
 				dataCtrl.data->setStar(dataCtrl.data->getStar() + player.getPoint());
 				if (elapsed > dataCtrl.data->getTime()) dataCtrl.data->setTime(elapsed);
 				saveData();
-				std::cout << "Update: " << dataCtrl.data->getName() << " " << dataCtrl.data->getStar() << "\n";
+				//std::cout << "Update: " << dataCtrl.data->getName() << " " << dataCtrl.data->getStar() << "\n";
 				setRestart(1);
 				currentScreen = ScreenState::GamePlayScreen;
 				endScreen = true;
@@ -686,7 +726,7 @@ void InGameScreen::handleEvent(sf::Event event, sf::RenderWindow& window, Screen
 
 void InGameScreen::update(sf::RenderWindow& window)
 {
-	if(playing == 0) TimeDisplay.restart();
+	if (playing == 0) TimeDisplay.restart();
 	if (pause)
 	{
 		pauseMenu.update(window);
@@ -698,11 +738,11 @@ void InGameScreen::update(sf::RenderWindow& window)
 	}
 	else
 	{
-		if (playing == 0  && started == 0)
+		if (playing == 0 && started == 0)
 		{
 			TimeDisplay.restart();
 		}
-	
+
 		elapsed = TimeDisplay.getElapsedTime() + duration;
 
 		int minutes = static_cast<int>(elapsed.asSeconds()) / 60;
@@ -728,12 +768,11 @@ void InGameScreen::update(sf::RenderWindow& window)
 
 			player.update(deltaTime, listObstacle);
 
-
 			// Stamina
 			player.reduceStamina();
 
 			//Rain effect
-			myRain.update(window, player);
+			myRain.update(window, player, elapsed);
 
 			for (int i = 0; i < listObstacle.size();i++)
 			{
@@ -745,29 +784,20 @@ void InGameScreen::update(sf::RenderWindow& window)
 				listObstacle[i]->GiftCollision(player);
 				if (listObstacle[i]->isGhostCollision() == 1) {
 					Ghost = 1;
+					devil.setEnd(false);
 				}
 			}
 
 			//Ghost
 			if (Ghost == 1) {
 				if (!devil.getEnd()) {
-					devil.update(deltaTime, devil.getRight(), player);
+					devil.update(deltaTime, devil.getRight(), player, elapsed);
 				}
 				else {
-					if (Ghostdie < 2000.f) {
-						Ghostdie += 10.f;
-						devil.update(deltaTime, devil.getRight(), player);
-					}
-					else {
-						devil.update(deltaTime, devil.getRight(), player);
-						devil.setEnd(true);
-						Ghost = 0;
-					}
+					devil.setEnd(true);
+					Ghost = 0;
 				}
 			}
-			listObstacle[i]->isGetItem(player);
-			listObstacle[i]->ObjCollision(player);
-		}
 
 			// Return the normal state after the invisible
 			player.settoNormal();
@@ -781,7 +811,7 @@ void InGameScreen::update(sf::RenderWindow& window)
 				}
 			}
 
-			if (player.getHp() <= 0) 
+			if (player.getHp() <= 0)
 				playing = 0;
 
 		}
@@ -814,6 +844,8 @@ void InGameScreen::render(sf::RenderWindow& window)
 	{
 		window.clear();
 		
+		window.draw(this->background);
+
 		for (int i = 0; i < listObstacle.size(); i++)
 		{
 			listObstacle[i]->drawTo(window);
@@ -834,6 +866,7 @@ void InGameScreen::render(sf::RenderWindow& window)
 		if (Ghost == 1) {
 			devil.drawTo(window);
 		}
+
 		if(myRain.getState())myRain.drawTo(window);
 
 		if (!playing && player.getHp() > 0)
