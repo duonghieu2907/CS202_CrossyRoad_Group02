@@ -1,4 +1,7 @@
 #include "SettingScreen.h"
+#include "MainScreen.h"
+#include "Button.h"
+
 
 SettingScreen::SettingScreen(sf::RenderWindow& window) :
 	Screen(window),
@@ -8,7 +11,8 @@ SettingScreen::SettingScreen(sf::RenderWindow& window) :
 	musicOffButton("", { 178, 55 }, 25, sf::Color::Transparent, sf::Color::Transparent, & musicOffButtonTex1),
 	controlsOnButton("", { 178, 55 }, 25, sf::Color::Transparent, sf::Color::Transparent, & controlsOnButtonTex1),
 	controlsOffButton("", { 178, 55 }, 25, sf::Color::Transparent, sf::Color::Transparent, & controlsOffButtonTex1),
-	musicEnabled(false),
+	musicEnabled(true),
+	musicEnabledMain(true),
 	useWASDControls(false)
 
 {
@@ -17,7 +21,8 @@ SettingScreen::SettingScreen(sf::RenderWindow& window) :
 	initSaveButton();
 	initMusicButton();
 	initControlsButton();
-	toggleMusic();
+	stopAllSounds();
+	toggleMusicState();
 	toggleControls();
 }
 
@@ -69,15 +74,15 @@ void SettingScreen::initBackground(sf::RenderWindow& window)
 	saveButtonTex.setSmooth(true);
 
 	// music on button
-	if (!musicOnButtonTex1.loadFromFile("Material/Buttons/On.png") ||
-		!musicOnButtonTex2.loadFromFile("Material/Buttons/On_clicked.png"))
+	if (!musicOnButtonTex1.loadFromFile("Material/Buttons/On_clicked.png") ||
+		!musicOnButtonTex2.loadFromFile("Material/Buttons/On.png"))
 		std::cout << "Failed to load on button textures!\n";
 	musicOnButtonTex1.setSmooth(true);
 	musicOnButtonTex2.setSmooth(true);
 
 	//music off button
-	if (!musicOffButtonTex1.loadFromFile("Material/Buttons/Off_clicked.png") ||
-		!musicOffButtonTex2.loadFromFile("Material/Buttons/Off.png"))
+	if (!musicOffButtonTex1.loadFromFile("Material/Buttons/Off.png") ||
+		!musicOffButtonTex2.loadFromFile("Material/Buttons/Off_clicked.png"))
 		std::cout << "Failed to load off button textures!\n";
 	musicOffButtonTex1.setSmooth(true);
 	musicOffButtonTex2.setSmooth(true);
@@ -150,9 +155,14 @@ void SettingScreen::initControlsButton()
 }
 
 
-void SettingScreen::toggleMusic()
-{
-	musicEnabled = !musicEnabled;
+void SettingScreen::stopAllSounds() {
+	if (Button::getButtonSound().getStatus() == sf::Sound::Playing) {
+		Button::getButtonSound().stop();
+	}
+
+	if (MainScreen::getIntroSound().getStatus() == sf::Sound::Playing) {
+		MainScreen::getIntroSound().stop();
+	}
 }
 
 void SettingScreen::toggleControls()
@@ -160,12 +170,17 @@ void SettingScreen::toggleControls()
 	useWASDControls = !useWASDControls;
 }
 
-void SettingScreen::saveSettings()
-{
-	std::cout << "Settings saved:\n";
-	std::cout << "Music: " << (musicEnabled ? "On" : "Off") << "\n";
-	std::cout << "Controls: " << (useWASDControls ? "WASD" : "Arrow Keys") << "\n";
+void SettingScreen::toggleMusicState() {
+	if (musicEnabled) {
+		MainScreen::getIntroSound().play();
+		Button::getButtonSound().play();
+	}
+	else {
+		stopAllSounds();
+	}
+	musicEnabledMain = musicEnabled;
 }
+
 
 void SettingScreen::handleEvent(sf::Event event, sf::RenderWindow& window, ScreenState& currentScreen, bool& endScreen)
 {
@@ -179,15 +194,17 @@ void SettingScreen::handleEvent(sf::Event event, sf::RenderWindow& window, Scree
 		}
 		else if ((musicOnButton.isMouseOver(window)) /*&& (musicEnabled == false)*/)
 		{
-			musicOffButton.setBackgroundAnimation(&musicOffButtonTex2);
-			musicOnButton.setBackgroundAnimation(&musicOnButtonTex2);
+			musicOffButton.setBackgroundAnimation(&musicOffButtonTex1);
+			musicOnButton.setBackgroundAnimation(&musicOnButtonTex1);
 			musicEnabled = true;  // turn on button music
+			toggleMusicState();
 		}
 		else if ((musicOffButton.isMouseOver(window)) /*&& (musicEnabled == true)*/)
 		{
-			musicOnButton.setBackgroundAnimation(&musicOnButtonTex1);
-			musicOffButton.setBackgroundAnimation(&musicOffButtonTex1);
+			musicOnButton.setBackgroundAnimation(&musicOnButtonTex2);
+			musicOffButton.setBackgroundAnimation(&musicOffButtonTex2);
 			musicEnabled = false;  // turn off button music 
+			toggleMusicState();
 		}
 		else if ((controlsOnButton.isMouseOver(window))/* && (useWASDControls == false)*/)
 		{
@@ -203,10 +220,10 @@ void SettingScreen::handleEvent(sf::Event event, sf::RenderWindow& window, Scree
 		}
 		else
 		{
-			/*saveSettings();
 			currentScreen = ScreenState::MainScreen;
 			endScreen = true;
-			isEndScreen = endScreen;*/
+			isEndScreen = endScreen;
+			MainScreen::setMusicState(musicEnabledMain);
 		}
 
 	}

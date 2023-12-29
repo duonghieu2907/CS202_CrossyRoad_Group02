@@ -19,9 +19,9 @@ private:
     void initSaveButton();
     void initMusicButton();
     void initControlsButton();
-    void toggleMusic();
+    void stopAllSounds();
     void toggleControls();
-    void saveSettings();
+    void toggleMusicState();
 
 private:
     sf::Texture settingScreen1Tex;
@@ -52,6 +52,7 @@ private:
     sf::Text HeaderControlsText;
 
     bool musicEnabled;
+    bool musicEnabledMain;
     bool useWASDControls;
 
 };
