@@ -1,6 +1,7 @@
 #include "SettingScreen.h"
 #include "MainScreen.h"
 #include "Button.h"
+#include "Character.h"
 
 
 SettingScreen::SettingScreen(sf::RenderWindow& window) :
@@ -13,7 +14,7 @@ SettingScreen::SettingScreen(sf::RenderWindow& window) :
 	controlsOffButton("", { 178, 55 }, 25, sf::Color::Transparent, sf::Color::Transparent, & controlsOffButtonTex1),
 	musicEnabled(true),
 	musicEnabledMain(true),
-	useWASDControls(false)
+	useWASDControls(true)
 
 {
 	initBackground(window);
@@ -59,7 +60,7 @@ void SettingScreen::initBackground(sf::RenderWindow& window)
 	HeaderControlsText.setCharacterSize(40);
 	HeaderControlsText.setFillColor(sf::Color::Black);
 	HeaderControlsText.setPosition(400, 400);
-	HeaderControlsText.setString("Arrow keys");
+	HeaderControlsText.setString("Use WASD control");
 	HeaderControlsText.setFont(font);
 
 
@@ -88,15 +89,15 @@ void SettingScreen::initBackground(sf::RenderWindow& window)
 	musicOffButtonTex2.setSmooth(true);
 
 	//constrols on button
-	if (!controlsOnButtonTex1.loadFromFile("Material/Buttons/On.png") ||
-		!controlsOnButtonTex2.loadFromFile("Material/Buttons/On_clicked.png"))
+	if (!controlsOnButtonTex1.loadFromFile("Material/Buttons/On_clicked.png") ||
+		!controlsOnButtonTex2.loadFromFile("Material/Buttons/On.png"))
 		std::cout << "Failed to load on button textures!\n";
 	controlsOnButtonTex1.setSmooth(true);
 	controlsOnButtonTex2.setSmooth(true);
 
 	//controls off button
-	if (!controlsOffButtonTex1.loadFromFile("Material/Buttons/Off_clicked.png") ||
-		!controlsOffButtonTex2.loadFromFile("Material/Buttons/Off.png"))
+	if (!controlsOffButtonTex1.loadFromFile("Material/Buttons/Off.png") ||
+		!controlsOffButtonTex2.loadFromFile("Material/Buttons/Off_clicked.png"))
 		std::cout << "Failed to load off button textures!\n";
 	controlsOffButtonTex1.setSmooth(true);
 	controlsOffButtonTex2.setSmooth(true);
@@ -208,14 +209,14 @@ void SettingScreen::handleEvent(sf::Event event, sf::RenderWindow& window, Scree
 		}
 		else if ((controlsOnButton.isMouseOver(window))/* && (useWASDControls == false)*/)
 		{
-			controlsOnButton.setBackgroundAnimation(&controlsOnButtonTex2);
-			controlsOffButton.setBackgroundAnimation(&controlsOffButtonTex2);
+			controlsOnButton.setBackgroundAnimation(&controlsOnButtonTex1);
+			controlsOffButton.setBackgroundAnimation(&controlsOffButtonTex1);
 			useWASDControls = true;  // turn on button controls
 		}
 		else if ((controlsOffButton.isMouseOver(window))/* && (useWASDControls == true)*/)
 		{
-			controlsOnButton.setBackgroundAnimation(&controlsOnButtonTex1);
-			controlsOffButton.setBackgroundAnimation(&controlsOffButtonTex1);
+			controlsOnButton.setBackgroundAnimation(&controlsOnButtonTex2);
+			controlsOffButton.setBackgroundAnimation(&controlsOffButtonTex2);
 			useWASDControls = false;  // turn off button controls
 		}
 		else
@@ -224,6 +225,7 @@ void SettingScreen::handleEvent(sf::Event event, sf::RenderWindow& window, Scree
 			endScreen = true;
 			isEndScreen = endScreen;
 			MainScreen::setMusicState(musicEnabledMain);
+			Character::setControlsState(useWASDControls);
 		}
 
 	}
