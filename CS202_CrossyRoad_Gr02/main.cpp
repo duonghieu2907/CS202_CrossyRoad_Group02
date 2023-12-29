@@ -6,6 +6,7 @@ Application::Application() :
 	videoMode(SCREEN_WIDTH, SCREEN_HEIGHT),
 	window(videoMode, "Crossy Road", sf::Style::Close), //don't clear the close style!!
 	screenCtrl(window),
+	customCursor(),
 	curScreenState(ScreenState::MainScreen)
 {
 	initWindow();
@@ -40,10 +41,14 @@ void Application::run()
 	window.draw(loadingScreen);
 	window.display();
 
+	// hide cursor 
+	window.setMouseCursorVisible(false);
+
 	while (window.isOpen())
 	{
 		handleEvent();
 		update();
+		updateCursor();
 		render();
 	}
 }
@@ -73,6 +78,13 @@ void Application::handleEvent()
 	}
 }
 
+void Application::updateCursor()
+{
+	customCursor.update(window);
+	customCursor.setCustomCursorVisible(window,false); 
+	customCursor.setCustomCursorScale(window,0.3f, 0.3f);
+}
+
 
 
 void Application::update()
@@ -92,5 +104,8 @@ void Application::update()
 void Application::render()
 {
 	curScreen->render(window);
+	customCursor.render(window);
 	window.display();
 }
+
+

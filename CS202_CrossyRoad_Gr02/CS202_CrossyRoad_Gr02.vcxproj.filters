@@ -74,6 +74,9 @@
     <ClCompile Include="InstructtionScreen.cpp">
       <Filter>Source\Pop Menu</Filter>
     </ClCompile>
+    <ClCompile Include="Cursor.cpp">
+      <Filter>Source\Material</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -154,6 +157,24 @@
     <ClInclude Include="InstructtionScreen.h">
       <Filter>Header\Screen</Filter>
     </ClInclude>
+<<<<<<< Updated upstream
+=======
+    <ClInclude Include="ContinuePopMenu.h">
+      <Filter>Header\Pop Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="EndGamePopMenu.h">
+      <Filter>Header\Pop Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="InfoPopMenu.h">
+      <Filter>Header\Pop Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticObstacles.h">
+      <Filter>Header\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Cursor.h">
+      <Filter>Header\Material</Filter>
+    </ClInclude>
+>>>>>>> Stashed changes
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header">
