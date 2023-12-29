@@ -7,6 +7,8 @@
 #include "Screen.h"
 #include "Character.h"
 #include "obstacle.h"
+#include "Cursor.h"
+
 
 static const unsigned int SCREEN_HEIGHT = 810;
 static const unsigned int SCREEN_WIDTH = 1440;
@@ -21,6 +23,7 @@ public:
     void handleEvent();
     void update();
     void render();
+    void updateCursor();
 
 private:
     void initWindow();
@@ -39,7 +42,7 @@ private:
     ScreenControl screenCtrl;
     Screen* curScreen;
 
-   
+    Cursor customCursor;
 };
 
 #endif

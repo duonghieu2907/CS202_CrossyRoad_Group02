@@ -1,6 +1,7 @@
 #ifndef MAINSCREEN_H
 #define MAINSCREEN_H
 
+#include "Cursor.h"
 #include "Screen.h"
 #include<SFML/Audio.hpp>
 
@@ -46,7 +47,6 @@ private:
     static sf::SoundBuffer introBuff;
     static bool musicEnabledMain;
     bool introSoundPlayed;
-
 };
 
 
