@@ -1,5 +1,9 @@
 #include "MainScreen.h"
 
+sf::Sound MainScreen::introSound;
+sf::SoundBuffer MainScreen::introBuff;
+
+
 MainScreen::MainScreen(sf::RenderWindow& window) :
 	Screen(window),
 	playButton("", { 180, 55 }, 25, sf::Color::Transparent, sf::Color::Transparent, & playButtonTex),
@@ -12,6 +16,8 @@ MainScreen::MainScreen(sf::RenderWindow& window) :
 	initInstructionButton();
 	initSettingButton();
 	initExitButton();
+	initIntroSound();
+	introSoundPlayed = false;
 }
 
 void MainScreen::initBackground(sf::RenderWindow& window)
@@ -87,6 +93,17 @@ void MainScreen::initExitButton()
 	exitButton.setBackgroundAnimation(&exitButtonTex);
 }
 
+void MainScreen::initIntroSound()
+{
+	if (!introSound.getBuffer())
+	{
+		if (!introBuff.loadFromFile("Sound/Intro.wav"))
+			std::cout << "intro.wav not found!\n";
+		introSound.setBuffer(introBuff);
+	}
+}
+
+
 void MainScreen::handleEvent(sf::Event event, sf::RenderWindow& window, ScreenState& currentScreen, bool& endScreen)
 {
 	if (event.type == sf::Event::MouseButtonReleased)
@@ -123,7 +140,21 @@ void MainScreen::update(sf::RenderWindow& window)
 		playButton.update(window);
 		instructionButton.update(window);
 		settingButton.update(window);
+		if (!introSoundPlayed)
+		{
+			introSound.play();
+			introSoundPlayed = true;  
+		}
+		if (introSound.getStatus() == sf::Sound::Stopped)
+		{
+			introSound.play();
+		}
 		exitButton.update(window);
+	}
+	else
+	{
+		introSoundPlayed = false;
+
 	}
 }
 

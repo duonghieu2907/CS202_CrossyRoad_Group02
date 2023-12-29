@@ -2,6 +2,7 @@
 #define MAINSCREEN_H
 
 #include "Screen.h"
+#include<SFML/Audio.hpp>
 
 class MainScreen : public Screen {
 public:
@@ -12,12 +13,17 @@ public:
     void update(sf::RenderWindow& window) override;
     void render(sf::RenderWindow& window) override;
 
+protected:
+    static sf::Sound introSound;
+
 private:
     void initBackground(sf::RenderWindow& window) override;
     void initPlayButton();
     void initInstructionButton();
     void initSettingButton();
     void initExitButton();
+    void initIntroSound();
+    bool introSoundPlayed;
 
 private:
     sf::Texture mainScreen1Tex;
@@ -35,6 +41,9 @@ private:
 
     sf::Texture exitButtonTex;
     ButtonCustom exitButton;
+
+    static sf::SoundBuffer introBuff;
+
 };
 
 

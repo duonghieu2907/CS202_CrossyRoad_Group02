@@ -84,7 +84,7 @@ void SettingScreen::initBackground(sf::RenderWindow& window)
 
 	//constrols on button
 	if (!controlsOnButtonTex1.loadFromFile("Material/Buttons/On.png") ||
-		!controlsOnButtonTex1.loadFromFile("Material/Buttons/On_clicked.png"))
+		!controlsOnButtonTex2.loadFromFile("Material/Buttons/On_clicked.png"))
 		std::cout << "Failed to load on button textures!\n";
 	controlsOnButtonTex1.setSmooth(true);
 	controlsOnButtonTex2.setSmooth(true);
@@ -177,37 +177,38 @@ void SettingScreen::handleEvent(sf::Event event, sf::RenderWindow& window, Scree
 			endScreen = true;
 			isEndScreen = endScreen;
 		}
-		else if ((musicOnButton.isMouseOver(window)) && (musicEnabled == false))
+		else if ((musicOnButton.isMouseOver(window)) /*&& (musicEnabled == false)*/)
 		{
+			musicOffButton.setBackgroundAnimation(&musicOffButtonTex2);
+			musicOnButton.setBackgroundAnimation(&musicOnButtonTex2);
 			musicEnabled = true;  // turn on button music
-			musicOnButton.setBackgroundAnimation(&musicOnButtonTex2);  
-			musicOffButton.setBackgroundAnimation(&musicOffButtonTex1); 
 		}
-		else if ((musicOffButton.isMouseOver(window)) && (musicEnabled == true))
+		else if ((musicOffButton.isMouseOver(window)) /*&& (musicEnabled == true)*/)
 		{
-			musicEnabled = false;  // turn off button music
-			musicOnButton.setBackgroundAnimation(&musicOnButtonTex1);  
-			musicOffButton.setBackgroundAnimation(&musicOffButtonTex2);  
+			musicOnButton.setBackgroundAnimation(&musicOnButtonTex1);
+			musicOffButton.setBackgroundAnimation(&musicOffButtonTex1);
+			musicEnabled = false;  // turn off button music 
 		}
 		else if ((controlsOnButton.isMouseOver(window))/* && (useWASDControls == false)*/)
 		{
-			useWASDControls = true;  // turn on button controls
 			controlsOnButton.setBackgroundAnimation(&controlsOnButtonTex2);
-			controlsOffButton.setBackgroundAnimation(&controlsOffButtonTex1);
+			controlsOffButton.setBackgroundAnimation(&controlsOffButtonTex2);
+			useWASDControls = true;  // turn on button controls
 		}
 		else if ((controlsOffButton.isMouseOver(window))/* && (useWASDControls == true)*/)
 		{
-			useWASDControls = false;  // turn off button controls
 			controlsOnButton.setBackgroundAnimation(&controlsOnButtonTex1);
-			controlsOffButton.setBackgroundAnimation(&controlsOffButtonTex2);
+			controlsOffButton.setBackgroundAnimation(&controlsOffButtonTex1);
+			useWASDControls = false;  // turn off button controls
 		}
 		else
 		{
-			saveSettings();
+			/*saveSettings();
 			currentScreen = ScreenState::MainScreen;
 			endScreen = true;
-			isEndScreen = endScreen;
+			isEndScreen = endScreen;*/
 		}
+
 	}
 }
 
