@@ -4,8 +4,4 @@ REPUTATION 2611 61
 RED 2012 20
 FEARLESS 2008 37
 SPEAK_NOW 2009 22
-<<<<<<< Updated upstream
-UYEN 84 8
-=======
-UYEN 87 17
->>>>>>> Stashed changes
+<<<<<<< 0 0

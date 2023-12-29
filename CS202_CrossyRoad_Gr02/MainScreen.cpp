@@ -2,7 +2,10 @@
 
 sf::Sound MainScreen::introSound;
 sf::SoundBuffer MainScreen::introBuff;
-
+sf::Sound& MainScreen::getIntroSound() {
+	return introSound;
+}
+bool MainScreen::musicEnabledMain = true;
 
 MainScreen::MainScreen(sf::RenderWindow& window) :
 	Screen(window),
@@ -103,6 +106,17 @@ void MainScreen::initIntroSound()
 	}
 }
 
+void MainScreen::setMusicState(bool musicState) {
+	musicEnabledMain = musicState;
+
+	// Stop or play music based on the state
+	if (musicEnabledMain) {
+		getIntroSound().play();
+	}
+	else {
+		getIntroSound().stop();
+	}
+}
 
 void MainScreen::handleEvent(sf::Event event, sf::RenderWindow& window, ScreenState& currentScreen, bool& endScreen)
 {
@@ -140,7 +154,7 @@ void MainScreen::update(sf::RenderWindow& window)
 		playButton.update(window);
 		instructionButton.update(window);
 		settingButton.update(window);
-		if (!introSoundPlayed)
+		/*if (!introSoundPlayed)
 		{
 			introSound.play();
 			introSoundPlayed = true;  
@@ -148,12 +162,12 @@ void MainScreen::update(sf::RenderWindow& window)
 		if (introSound.getStatus() == sf::Sound::Stopped)
 		{
 			introSound.play();
-		}
+		}*/
 		exitButton.update(window);
 	}
 	else
 	{
-		introSoundPlayed = false;
+		//introSoundPlayed = false;
 
 	}
 }

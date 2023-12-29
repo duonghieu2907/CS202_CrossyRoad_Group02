@@ -43,6 +43,9 @@ public:
 
 	void adjustSizeToContainText();
 
+	static sf::Sound& getButtonSound();
+
+
 protected:
 	int btnWidth;
 	int btnHeight;

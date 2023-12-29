@@ -12,6 +12,8 @@ public:
     void handleEvent(sf::Event event, sf::RenderWindow& window, ScreenState& currentScreen, bool& endScreen) override;
     void update(sf::RenderWindow& window) override;
     void render(sf::RenderWindow& window) override;
+    static sf::Sound& getIntroSound();
+    static void setMusicState(bool musicState);
 
 protected:
     static sf::Sound introSound;
@@ -23,7 +25,6 @@ private:
     void initSettingButton();
     void initExitButton();
     void initIntroSound();
-    bool introSoundPlayed;
 
 private:
     sf::Texture mainScreen1Tex;
@@ -43,6 +44,8 @@ private:
     ButtonCustom exitButton;
 
     static sf::SoundBuffer introBuff;
+    static bool musicEnabledMain;
+    bool introSoundPlayed;
 
 };
 

@@ -4,6 +4,10 @@ sf::Sound Button::buttonSound;
 
 sf::SoundBuffer Button::buttonBuff;
 
+sf::Sound& Button::getButtonSound() {
+    return buttonSound;
+}
+
 Button::Button(std::string btnText, sf::Vector2f buttonSize, int charSize, sf::Color bgColor, sf::Color textColor) 
 {
     button.setSize(buttonSize);
