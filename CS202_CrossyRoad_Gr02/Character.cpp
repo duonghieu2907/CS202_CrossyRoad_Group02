@@ -3,6 +3,8 @@
 Character::Character() : animation()
 {}
 
+bool Character::controlsStateMain = true;
+
 Character::Character(sf::Texture* texture, sf::Vector2u imgCount, float switchTime, float speed) :
 	animation(texture, imgCount, switchTime),
 	speed(speed),
@@ -84,6 +86,10 @@ sf::Vector2f Character::getSize()
 	return body.getSize();
 }
 
+void Character::setControlsState(bool controlsState)
+{
+	controlsStateMain = controlsState;
+}
 
 void Character::update(float deltaTime, std::vector <obstacle*> listObstacle)
 {
@@ -107,74 +113,149 @@ void Character::update(float deltaTime, std::vector <obstacle*> listObstacle)
 
 	if (this->stamina > 0)
 	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+		if (controlsStateMain)
 		{
-			movement.x -= speed * deltaTime * 2;
-			checkMove = 1;
-		}
-
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-		{
-			movement.x += speed * deltaTime * 2;
-			checkMove = 1;
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-			if (inside)
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 			{
-				if (body.getPosition().y - inside->getPosition().y > 34)
-				{
-					//std::cout << "Jump previous\n";
-					if (index - 1 >= 0)
-						body.setPosition(body.getPosition().x, listObstacle[index - 1]->getPosition().y + speed * deltaTime * 2 - 70);
-				}
-				else movement.y += speed * deltaTime * 2;
+				movement.x -= speed * deltaTime * 2;
+				checkMove = 1;
 			}
-			else
-				movement.y += speed * deltaTime * 2;
-			checkMove = 1;
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-		{
-			if (inside)
-			{
-				if (inside->getPosition().y - body.getPosition().y > 34)
-				{
-					//std::cout << "Jump next\n";
-					if (index + 1 < listObstacle.size() && body.getPosition().y >= 45)
-					{
-						body.setPosition(body.getPosition().x,
-							listObstacle[index + 1]->getPosition().y - speed * deltaTime * 2 + 70);
-						moveToOther = 1;
-					}
-					else  movement.y -= speed * deltaTime * 2;
-				}
-				else movement.y -= speed * deltaTime * 2;
-			}
-			else
-				movement.y -= speed * deltaTime * 2;
-			checkMove = 1;
-		}
 
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-		{
-			if (inside)
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 			{
-				//std::cout << "MOVE BACK\n";
-				if (body.getPosition().y - inside->getPosition().y > 34)
+				movement.x += speed * deltaTime * 2;
+				checkMove = 1;
+			}
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+				if (inside)
 				{
-					//std::cout << "Jump previous\n";
-					if (index - 1 >= 0)
+					if (body.getPosition().y - inside->getPosition().y > 34)
 					{
-						body.setPosition(body.getPosition().x, listObstacle[index - 1]->getPosition().y + speed * deltaTime * 2 - 70);
-						moveToOther = 1;
+						//std::cout << "Jump previous\n";
+						if (index - 1 >= 0)
+							body.setPosition(body.getPosition().x, listObstacle[index - 1]->getPosition().y + speed * deltaTime * 2 - 70);
 					}
 					else movement.y += speed * deltaTime * 2;
 				}
-				else movement.y += speed * deltaTime * 2;
+				else
+					movement.y += speed * deltaTime * 2;
+				checkMove = 1;
 			}
-			else
-				movement.y += speed * deltaTime * 2;
-			checkMove = 1;
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+			{
+				if (inside)
+				{
+					if (inside->getPosition().y - body.getPosition().y > 34)
+					{
+						//std::cout << "Jump next\n";
+						if (index + 1 < listObstacle.size() && body.getPosition().y >= 45)
+						{
+							body.setPosition(body.getPosition().x,
+								listObstacle[index + 1]->getPosition().y - speed * deltaTime * 2 + 70);
+							moveToOther = 1;
+						}
+						else  movement.y -= speed * deltaTime * 2;
+					}
+					else movement.y -= speed * deltaTime * 2;
+				}
+				else
+					movement.y -= speed * deltaTime * 2;
+				checkMove = 1;
+			}
+
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+			{
+				if (inside)
+				{
+					//std::cout << "MOVE BACK\n";
+					if (body.getPosition().y - inside->getPosition().y > 34)
+					{
+						//std::cout << "Jump previous\n";
+						if (index - 1 >= 0)
+						{
+							body.setPosition(body.getPosition().x, listObstacle[index - 1]->getPosition().y + speed * deltaTime * 2 - 70);
+							moveToOther = 1;
+						}
+						else movement.y += speed * deltaTime * 2;
+					}
+					else movement.y += speed * deltaTime * 2;
+				}
+				else
+					movement.y += speed * deltaTime * 2;
+				checkMove = 1;
+			}
+		}
+		else
+		{
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+			{
+				movement.x -= speed * deltaTime * 2;
+				checkMove = 1;
+			}
+
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+			{
+				movement.x += speed * deltaTime * 2;
+				checkMove = 1;
+			}
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+				if (inside)
+				{
+					if (body.getPosition().y - inside->getPosition().y > 34)
+					{
+						//std::cout << "Jump previous\n";
+						if (index - 1 >= 0)
+							body.setPosition(body.getPosition().x, listObstacle[index - 1]->getPosition().y + speed * deltaTime * 2 - 70);
+					}
+					else movement.y += speed * deltaTime * 2;
+				}
+				else
+					movement.y += speed * deltaTime * 2;
+				checkMove = 1;
+			}
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+			{
+				if (inside)
+				{
+					if (inside->getPosition().y - body.getPosition().y > 34)
+					{
+						//std::cout << "Jump next\n";
+						if (index + 1 < listObstacle.size() && body.getPosition().y >= 45)
+						{
+							body.setPosition(body.getPosition().x,
+								listObstacle[index + 1]->getPosition().y - speed * deltaTime * 2 + 70);
+							moveToOther = 1;
+						}
+						else  movement.y -= speed * deltaTime * 2;
+					}
+					else movement.y -= speed * deltaTime * 2;
+				}
+				else
+					movement.y -= speed * deltaTime * 2;
+				checkMove = 1;
+			}
+
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+			{
+				if (inside)
+				{
+					//std::cout << "MOVE BACK\n";
+					if (body.getPosition().y - inside->getPosition().y > 34)
+					{
+						//std::cout << "Jump previous\n";
+						if (index - 1 >= 0)
+						{
+							body.setPosition(body.getPosition().x, listObstacle[index - 1]->getPosition().y + speed * deltaTime * 2 - 70);
+							moveToOther = 1;
+						}
+						else movement.y += speed * deltaTime * 2;
+					}
+					else movement.y += speed * deltaTime * 2;
+				}
+				else
+					movement.y += speed * deltaTime * 2;
+				checkMove = 1;
+			}
 		}
 	}
 

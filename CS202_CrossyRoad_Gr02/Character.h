@@ -45,6 +45,8 @@ public:
 	int getPoint();
 
 	void incHp(int n);
+	static void setControlsState(bool controlsState);
+
 private:
 	//sf::Texture texture;
 	sf::RectangleShape body;
@@ -70,5 +72,8 @@ private:
 	int staminaMax;
 
 	unsigned point;
+
+	static bool controlsStateMain;
+
 };
 #endif
