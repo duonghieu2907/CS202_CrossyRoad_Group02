@@ -30,7 +30,7 @@ void EndGamePopMenu::initTitle()
 	title.setFont(font);
 	title.setCharacterSize(80);
 	title.setFillColor(sf::Color::Black);
-	title.setString("> > PAUSED < <");
+	title.setString("> > TRY AGAIN < <");
 	title.setPosition({ 720.f - title.getGlobalBounds().width / 2.f, 405.f - title.getGlobalBounds().height * 4.5f });
 }
 
@@ -40,7 +40,7 @@ void EndGamePopMenu::initRestartButton()
 		std::cout << "Restart not found!\n";
 	restartButtonTex.setSmooth(true);
 
-	restartButton.setPosition({ 580, 450 });
+	restartButton.setPosition({ 580, 370 });
 	restartButton.setOutlineThickness(2);
 	restartButton.setBackgroundAnimation(&restartButtonTex);
 }
@@ -51,7 +51,7 @@ void EndGamePopMenu::initQuitButton()
 		std::cout << "Quit not found!\n";
 	quitButtonTex.setSmooth(true);
 
-	quitButton.setPosition({ 505, 550 });
+	quitButton.setPosition({ 505, 470 });
 	quitButton.setOutlineThickness(2);
 	quitButton.setBackgroundAnimation(&quitButtonTex);
 }

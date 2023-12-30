@@ -37,13 +37,15 @@ void PopMenu::initBackground(sf::RenderWindow& window)
 
 void PopMenu::initContainer(sf::RenderWindow& window)
 {
+	if (!containerTex.loadFromFile("Material/Backgrounds/PopScreen.png"))
+		std::cout << "PopScreen not found!\n";
 	container.setSize(
 		sf::Vector2f(
 			static_cast<float>(window.getSize().x) / 1.5f,
 			static_cast<float>(window.getSize().y) / 1.5f
 		)
 	);
-	container.setFillColor(sf::Color::Yellow);
+	container.setTexture(&containerTex);
 	container.setPosition(
 		sf::Vector2f(
 			static_cast<float>(window.getSize().x) / 2.f - container.getSize().x / 2.f,
