@@ -44,7 +44,7 @@ void PausePopMenu::initResumeButton()
 		std::cout << "Resume not found!\n";
 	resumeButtonTex.setSmooth(true);
 
-	resumeButton.setPosition({ 595, 350 });
+	resumeButton.setPosition({ 595, 330 });
 	resumeButton.setOutlineThickness(2);
 	resumeButton.setBackgroundAnimation(&resumeButtonTex);
 }
@@ -55,7 +55,7 @@ void PausePopMenu::initRestartButton()
 		std::cout << "Restart not found!\n";
 	restartButtonTex.setSmooth(true);
 
-	restartButton.setPosition({ 580, 450 });
+	restartButton.setPosition({ 580, 430 });
 	restartButton.setOutlineThickness(2);
 	restartButton.setBackgroundAnimation(&restartButtonTex);
 }
@@ -66,7 +66,7 @@ void PausePopMenu::initQuitButton()
 		std::cout << "Quit not found!\n";
 	quitButtonTex.setSmooth(true);
 
-	quitButton.setPosition({ 505, 550 });
+	quitButton.setPosition({ 505, 530 });
 	quitButton.setOutlineThickness(2);
 	quitButton.setBackgroundAnimation(&quitButtonTex);
 }

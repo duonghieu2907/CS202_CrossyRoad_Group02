@@ -145,7 +145,6 @@ void GamePlayScreen::handleEvent(sf::Event event, sf::RenderWindow& window, Scre
 				if (dataCtrl.tmp.getTime() > dataCtrl.data->getTime())
 					dataCtrl.data->setTime(dataCtrl.tmp.getTime());
 				dataCtrl.data->setStar(dataCtrl.data->getStar() + dataCtrl.tmp.getStar());
-				std::cout << "Update: " << dataCtrl.data->getName() << " " << dataCtrl.data->getStar() << "\n";
 				isContinue = false;
 				setRestart(true);
 			}
