@@ -18,6 +18,8 @@ public:
 
 	std::vector<Item> gift;
 
+	std::vector<sf::RectangleShape> bridge;
+
 public:
 
 	bool ghost = false;
@@ -32,6 +34,8 @@ public:
 
 	void addGift(Item tmp, sf::Vector2f pos);
 
+	void addBridge(sf::RectangleShape tmp, sf::Vector2f pos);
+
 
 	void setPosition(sf::Vector2f pos) override;
 	bool isCollision(Character& player);
@@ -39,6 +43,8 @@ public:
 	void ObjCollision(Character& player);
 
 	void GiftCollision(Character& player);
+
+	void RiverCollision(Character& player);
 
 	bool isGhostCollision();
 

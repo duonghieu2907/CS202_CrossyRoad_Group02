@@ -3,13 +3,13 @@
 void ghost::initText()
 {
 	sf::Texture* tmp1 = new sf::Texture();
-	if (!tmp1->loadFromFile("Material/Animations/ghost flight.png")) {
+	if (!tmp1->loadFromFile("Material/Animations/Entity/ghost flight.png")) {
 		std::cout << "ERROR::LOADING ghost flight\n";
 	}
 	flight = tmp1;
 
 	sf::Texture* tmp2 = new sf::Texture();
-	if (!tmp2->loadFromFile("Material/Animations/ghost dead.png")) {
+	if (!tmp2->loadFromFile("Material/Animations/Entity/ghost dead.png")) {
 		std::cout << "ERROR::LOADING ghost dead\n";
 	}
 	death = tmp2;

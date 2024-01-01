@@ -21,6 +21,8 @@ public:
     virtual void GiftCollision(Character& player){}
     virtual bool isGhostCollision() { return false; }
 
+    virtual void RiverCollision(Character& player) {}
+
     sf::Vector2f getPosition();
     virtual void setPosition(sf::Vector2f pos);
     void setSpeed(sf::Vector2f v);

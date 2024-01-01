@@ -40,6 +40,13 @@ void Road::addGift(Item tmp, sf::Vector2f pos)
 	tmp.setPosition(pos);
 	gift.push_back(tmp);
 }
+
+void Road::addBridge(sf::RectangleShape tmp, sf::Vector2f pos)
+{
+	tmp.setPosition(pos);
+	bridge.push_back(tmp);
+}
+
 void Road::setPosition(sf::Vector2f pos)
 {
 	sf::Vector2f distance = pos - getShape().getPosition();
@@ -64,6 +71,11 @@ void Road::setPosition(sf::Vector2f pos)
 	// Gift
 	for (int i = 0;i < gift.size();i++) {
 		gift[i].getShape().move(distance);
+	}
+
+	// Bridge
+	for (int i = 0;i < bridge.size();i++) {
+		bridge[i].move(distance);
 	}
 }
 
@@ -152,6 +164,32 @@ void Road::GiftCollision(Character& player)
 	}
 }
 
+void Road::RiverCollision(Character& player)
+{
+	if (bridge.size() == 0) {
+		return;
+	}
+	else {
+		for (int i = 0;i < bridge.size();i++) {
+			sf::FloatRect curBridge = bridge[i].getGlobalBounds();
+			sf::FloatRect curPlayer = player.getBounds();
+			if ((curPlayer.left - curBridge.left) < -50.f && 
+				(curPlayer.top - curBridge.top) > 0.f &&
+				(curPlayer.top - curBridge.top - 110.f) < 0.f) {
+				player.setPosition(bridge[i].getPosition());
+				player.getDamage();
+				player.loadgetDamage();
+			} else if ((curPlayer.left - curBridge.left - curBridge.width) > -45.f &&
+				(curPlayer.top - curBridge.top) > 0.f &&
+				(curPlayer.top - curBridge.top - 110.f) < 0.f) {
+				player.setPosition(bridge[i].getPosition());
+				player.getDamage();
+				player.loadgetDamage();
+			}
+		}
+	}
+}
+
 bool Road::isGhostCollision()
 {
 	return ghost;
@@ -230,6 +268,10 @@ void Road::update()
 			gift[i].update();
 		}
 	}
+
+	for (int i = 0;i < bridge.size();i++) {
+		bridge[i].move(getSpeed());
+	}
 }
 
 void Road::beginUpdate()
@@ -285,6 +327,10 @@ void Road::drawTo(sf::RenderWindow& target)
 
 	for (int i = 0;i < obj.size();i++) {
 		target.draw(obj[i].getShape());
+	}
+
+	for (int i = 0;i < bridge.size();i++) {
+		target.draw(bridge[i]);
 	}
 }
 
