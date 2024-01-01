@@ -7,6 +7,8 @@ Cursor::Cursor() {
     }
 
     cursor.setTexture(cursorTex);
+    cursor.setOrigin(cursorTex.getSize().x / 2, cursorTex.getSize().y / 2);
+    cursor.setScale(0.5, 0.5);
 }
 
 void Cursor::update(sf::RenderWindow& window) {
@@ -15,7 +17,7 @@ void Cursor::update(sf::RenderWindow& window) {
 }
 
 void Cursor::render(sf::RenderWindow& window) {
-    window.draw(cursor);
+    if(visible) window.draw(cursor);
 }
 
 void Cursor::setCustomCursorVisible(sf::RenderWindow& window, bool visible) {
@@ -29,4 +31,9 @@ void Cursor::setCustomCursorVisible(sf::RenderWindow& window, bool visible) {
 
 void Cursor::setCustomCursorScale(sf::RenderWindow& window, float scaleX, float scaleY) {
     cursor.setScale(scaleX, scaleY);
+}
+
+void Cursor::setVisible(bool v)
+{
+    visible = v;
 }

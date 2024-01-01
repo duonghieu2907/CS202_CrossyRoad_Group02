@@ -687,6 +687,7 @@ void InGameScreen::handleEvent(sf::Event event, sf::RenderWindow& window, Screen
 			}
 			else if (pauseMenu.isMouseOverQuitButton(window)) // QUIT TO MENU
 			{
+			
 				dataCtrl.tmp.setStar(player.getPoint());
 				dataCtrl.tmp.setTime(elapsed);
 				pause = false;
@@ -694,6 +695,7 @@ void InGameScreen::handleEvent(sf::Event event, sf::RenderWindow& window, Screen
 				currentScreen = ScreenState::GamePlayScreen;
 				endScreen = true;
 				isEndScreen = endScreen;
+				
 				
 			}
 		}
@@ -717,6 +719,7 @@ void InGameScreen::handleEvent(sf::Event event, sf::RenderWindow& window, Screen
 			}
 			else if (endMenu.isMouseOverQuitButton(window)) // QUIT TO MENU
 			{
+				
 				GamePlayScreen::isContinue = false;
 				dataCtrl.data->setStar(dataCtrl.data->getStar() + player.getPoint());
 				if (elapsed > dataCtrl.data->getTime()) dataCtrl.data->setTime(elapsed);
@@ -757,9 +760,14 @@ void InGameScreen::handleEvent(sf::Event event, sf::RenderWindow& window, Screen
 
 void InGameScreen::update(sf::RenderWindow& window)
 {
-	if (playing == 0) TimeDisplay.restart();
+	if (playing == 0)
+	{
+		TimeDisplay.restart();
+		callDisVisibleCursor = 0;
+	}
 	if (pause)
 	{
+		callDisVisibleCursor = 0;
 		pauseMenu.update(window);
 		TimeDisplay.restart();
 	}
@@ -780,10 +788,13 @@ void InGameScreen::update(sf::RenderWindow& window)
 		int seconds = static_cast<int>(elapsed.asSeconds()) % 60;
 		text.setString("Time: " + std::to_string(minutes) + "m " + std::to_string(seconds) + "s");
 
-		deltaTime = clock.restart().asSeconds();
+		//deltaTime = clock.restart().asSeconds();
+		deltaTime = 0.008f;
+
 
 		if (playing == 0)
 		{
+			callDisVisibleCursor = 0;
 			player.update(deltaTime);
 			for (int i = 0; i < listObstacle.size(); i++)
 			{
@@ -792,6 +803,7 @@ void InGameScreen::update(sf::RenderWindow& window)
 		}
 		if (playing)
 		{
+			callDisVisibleCursor = 1;
 			for (int i = 0; i < listObstacle.size(); i++)
 			{
 				listObstacle[i]->update();

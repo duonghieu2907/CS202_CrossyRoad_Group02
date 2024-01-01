@@ -147,7 +147,9 @@ void GamePlayScreen::handleEvent(sf::Event event, sf::RenderWindow& window, Scre
 				dataCtrl.data->setStar(dataCtrl.data->getStar() + dataCtrl.tmp.getStar());
 				isContinue = false;
 				setRestart(true);
+				
 			}
+			setUpdateAccount(1);
 			currentScreen = ScreenState::LogInScreen;
 			endScreen = true;
 			isEndScreen = endScreen;
