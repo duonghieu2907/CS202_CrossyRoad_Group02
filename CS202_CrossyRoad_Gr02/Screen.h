@@ -34,6 +34,18 @@ public:
     {
         return callRestartGame;
     }
+    bool visibleCursor()
+    {
+        return !callDisVisibleCursor;
+    }
+    bool updateAccount()
+    {
+        return callUpdateAccount;
+    }
+    void setUpdateAccount(bool a)
+    {
+        callUpdateAccount = a;
+    }
     void setRestart(bool  x)
     {
         callRestartGame = x;
@@ -54,6 +66,8 @@ protected: // my set to protected if need
     bool isEndScreen;
 
     bool callRestartGame;
+    bool callDisVisibleCursor;
+    bool callUpdateAccount;
 };
 
 class ScreenControl {

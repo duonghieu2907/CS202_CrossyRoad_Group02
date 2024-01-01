@@ -17,8 +17,8 @@ public:
 	sf::Vector2f getSize();
 	void update(float deltaTime)
 	{
-		animation.update(0, deltaTime, faceRight);
 		body.setTextureRect(animation.uvRect);
+		animation.update(0, deltaTime, faceRight);
 	}
 	void update(float deltaTime, std::vector <obstacle*> listObstacle);
 	void drawTo(sf::RenderWindow& window);

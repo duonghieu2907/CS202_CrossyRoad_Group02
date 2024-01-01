@@ -44,6 +44,8 @@ void Application::run()
 	// hide cursor 
 	window.setMouseCursorVisible(false);
 
+
+
 	while (window.isOpen())
 	{
 		handleEvent();
@@ -97,6 +99,18 @@ void Application::update()
 		screenCtrl.addInGameScreen(window);
 		curScreen = screenCtrl.getScreen(ScreenState::InGameScreen);
 		curScreen->dataCtrl.data = tmp;
+	}
+	if (!curScreen->visibleCursor())
+	{
+		customCursor.setVisible(0);
+	}
+	else customCursor.setVisible(1);
+
+	if (screenCtrl.getScreen(ScreenState::GamePlayScreen)->updateAccount())
+	{
+		curScreen->setUpdateAccount(0);
+		screenCtrl.getScreen(ScreenState::LogInScreen)->setUpdateAccount(1);
+		screenCtrl.getScreen(ScreenState::GamePlayScreen)->setUpdateAccount(0);
 	}
 }
 

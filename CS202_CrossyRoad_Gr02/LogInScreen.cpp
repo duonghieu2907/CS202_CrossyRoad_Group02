@@ -126,6 +126,7 @@ void LogInScreen::initAccount()
 
 void LogInScreen::updateUI()
 {
+	
 	for (auto account : accounts)
 	{
 		AccountButton* tmp = accounts.back();
@@ -309,7 +310,12 @@ void LogInScreen::handleEvent(sf::Event event, sf::RenderWindow& window, ScreenS
 
 void LogInScreen::update(sf::RenderWindow& window)
 {
-	updateUI();
+	if (updateAccount())
+	{
+		updateUI();
+		//std::cout << "Update data\n";
+		setUpdateAccount(0);
+	}
 	if (!isEndScreen)
 	{
 		if (remove)

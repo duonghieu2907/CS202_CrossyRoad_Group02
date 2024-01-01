@@ -13,8 +13,10 @@ public:
     void render(sf::RenderWindow& window);
     void setCustomCursorVisible(sf::RenderWindow& window, bool visible);
     void setCustomCursorScale(sf::RenderWindow& window, float scaleX, float scaleY);
+    void setVisible(bool v);
 
 private:
+    bool visible;
     sf::Sprite cursor;
     sf::Texture cursorTex;
 };
