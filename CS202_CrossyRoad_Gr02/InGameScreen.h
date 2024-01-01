@@ -51,11 +51,15 @@ private:
     ghost devil;
     	 
     sf::Texture* road; // get the texture of road
+    sf::Texture* road1;
+    sf::Texture* road2;
+    sf::Texture* road3;
+
+    sf::Texture* bridge;
 
     sf::Texture* honda;
     sf::Texture* car;
     sf::Texture* xedo;
-    sf::Texture* road1;
     sf::Texture* xecuuthuong;
     sf::Texture* xebantai;
 

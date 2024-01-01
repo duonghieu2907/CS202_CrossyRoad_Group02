@@ -3,13 +3,13 @@
 void TrafficLight::initTexture()
 {
 	sf::Texture* tmp1 = new sf::Texture();
-	if (!tmp1->loadFromFile("Material/Animations/dendo.png")) {
+	if (!tmp1->loadFromFile("Material/Animations/Lane Object/dendo.png")) {
 		std::cout << "ERROR::LOADING TRAFFIC LIGHT\n";
 	}
 	Red = tmp1;
 
 	sf::Texture* tmp2 = new sf::Texture();
-	if (!tmp2->loadFromFile("Material/Animations/denxanh.png")) {
+	if (!tmp2->loadFromFile("Material/Animations/Lane Object/denxanh.png")) {
 		std::cout << "ERROR::LOADING TRAFFIC LIGHT\n";
 	}
 	Green = tmp2;
