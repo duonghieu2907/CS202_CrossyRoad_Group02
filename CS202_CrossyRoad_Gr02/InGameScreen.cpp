@@ -40,6 +40,11 @@ void InGameScreen::initTex()
 		std::cout << "Can not load road! \n";
 	}
 
+	sf::Texture* t4 = new sf::Texture;
+	if (!(t4->loadFromFile("Material/Animations/Lane/rail.png")))
+	{
+		std::cout << "Can not load road! \n";
+	}
 	//Lane object
 	sf::Texture* tbridge = new sf::Texture;
 	if (!(tbridge->loadFromFile("Material/Animations/Lane Object/bridge.png")))
@@ -78,6 +83,11 @@ void InGameScreen::initTex()
 		std::cout << "Can not load ban tai! \n";
 	}
 
+	sf::Texture* ttrain = new sf::Texture;
+	if (!(ttrain->loadFromFile("Material/Animations/Vehicles/tauhoa.png")))
+	{
+		std::cout << "Can not load tau hoa! \n";
+	}
 	// Load the animal 
 	sf::Texture* tcat = new sf::Texture;
 	if (!(tcat->loadFromFile("Material/Animations/Animals/cat sheet.png")))
@@ -226,11 +236,13 @@ void InGameScreen::initTex()
 	this->xedo = txedo;
 	this->xecuuthuong = txecuuthuong;
 	this->xebantai = txebantai;
+	this->tauhoa = ttrain;
 
 	this->road = t;
 	this->road1 = t1;
 	this->road2 = t2;
 	this->road3 = t3;
+	this->road4 = t4;
 	this->bridge = tbridge;
 
 	this->cat = tcat;
@@ -313,11 +325,13 @@ void InGameScreen::getRoadRan()
 	int j = static_cast<unsigned>(rand() % 3 + 1); // For number of vehicle in a road
 	int randItem = static_cast<unsigned>(rand() % 4 + 1); // 1,2,3. 4 for the star ( increase the rating of the star)
 	int itemRate = static_cast<unsigned>(rand() % 20 + 1); // this is how frequently the item appear
-	int randObs = static_cast<unsigned>(rand() % 25 + 1 ); // 1 , 7 -15 car ; 2-6 for animal ; >= 16 <=20 for static obstacle, 21 - 23 leaf, 24-25 river
+	int randObs = static_cast<unsigned>(rand() % 27 + 1 ); // 1 , 7 -15 car ; 2-6 for animal ; >= 16 <=20 for static obstacle, 21 - 23 leaf, 24-25 river, 26-27 train
 	int RandnumCar = static_cast<unsigned>(rand() % 5 + 1);
 	int RandnumAnimal = static_cast<unsigned>(rand() % 3 + 1);
 	int direct = static_cast<unsigned>(rand() % 2 + 1);
 	int RoadType = static_cast<unsigned>(rand() % 2 + 1);
+
+	//std::cout << randObs << std::endl;
 
 	Road* tmp = new Road(162.0f, sf::Vector2f(0, 1), this->road);
 
@@ -612,7 +626,7 @@ void InGameScreen::getRoadRan()
 	else if (randObs >= 21 && randObs <= 23) {
 		tmp->setTexture(road2);
 		}
-	else if (randObs >= 24){
+	else if (randObs >= 24 && randObs < 26){
 		sf::RectangleShape tmpBridge;
 		tmpBridge.setSize(sf::Vector2f(100.f,110.f));
 		tmpBridge.setOrigin(sf::Vector2f(tmpBridge.getGlobalBounds().width/2 , tmpBridge.getGlobalBounds().height / 2));
@@ -620,6 +634,24 @@ void InGameScreen::getRoadRan()
 
 		tmp->addBridge(tmpBridge, tmp->getPosition());
 		tmp->setTexture(road3);
+	}
+	else if (randObs >= 26)
+	{
+		
+		if (direct == 1) {
+			truck tmp1(sf::Vector2f(210.f, 173.f), this->tauhoa, sf::Vector2u(4, 1), 0.1f, 10.f, true);
+			tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x - 720 -i*10, tmp->getPosition().y));
+			
+		}
+		else {
+			truck tmp1(sf::Vector2f(192.f, 173.f), this->tauhoa, sf::Vector2u(4, 1), 0.1f, 10.f, false);
+			tmp->addCar(tmp1, sf::Vector2f(tmp->getPosition().x + 720 +i*10 , tmp->getPosition().y));
+			
+		}
+		//tmp->setTexture(0);
+		//tmp->getShape().setFillColor(sf::Color::Transparent);
+		tmp->setTexture(road4);
+
 	}
 
 	listObstacle.push_back(tmp);

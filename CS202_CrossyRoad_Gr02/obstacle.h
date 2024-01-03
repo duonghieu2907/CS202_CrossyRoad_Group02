@@ -33,7 +33,7 @@ public:
         rec.setTexture(t);
     }
     virtual void drawTo(sf::RenderWindow& window);
-    sf::RectangleShape getShape();
+    sf::RectangleShape& getShape();
     virtual void update();
     virtual void beginUpdate();
     virtual int getCarnum() { return 0; }
