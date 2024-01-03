@@ -54,6 +54,7 @@ private:
     sf::Texture* road1;
     sf::Texture* road2;
     sf::Texture* road3;
+    sf::Texture* road4;
 
     sf::Texture* bridge;
 
@@ -62,6 +63,7 @@ private:
     sf::Texture* xedo;
     sf::Texture* xecuuthuong;
     sf::Texture* xebantai;
+    sf::Texture* tauhoa;
 
     sf::Texture* cat;
     sf::Texture* chicken;

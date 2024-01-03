@@ -28,9 +28,20 @@ TrafficLight::TrafficLight(float timeRed, float timeGreen, bool right)
 	this->box.setOrigin(box.getSize().x / 2, box.getSize().y / 2);
 }
 
+
 TrafficLight::~TrafficLight()
 {
 	//delete Red and Green cause Bug?
+}
+
+void TrafficLight::setTextureRed(sf::Texture* t)
+{
+	Red = t;
+}
+
+void TrafficLight::setTextureGreen(sf::Texture* t)
+{
+	Green = t;
 }
 
 bool TrafficLight::getRight()

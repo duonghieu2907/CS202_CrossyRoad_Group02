@@ -18,7 +18,8 @@ public:
 	void initTexture();
 	TrafficLight(float timeRed, float timeGreen, bool right);
 	~TrafficLight();
-
+	void setTextureRed(sf::Texture* t);
+	void setTextureGreen(sf::Texture* t);
 	bool getRight();
 	bool canGo();
 	void setPosition(sf::Vector2f cur);

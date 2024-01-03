@@ -66,7 +66,7 @@ void obstacle::drawTo(sf::RenderWindow& window)
     window.draw(rec);
 }
 
-sf::RectangleShape obstacle::getShape()
+sf::RectangleShape& obstacle::getShape()
 {
     return this->rec;
 }
