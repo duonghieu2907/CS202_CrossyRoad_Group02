@@ -47,6 +47,10 @@ private:
     static sf::SoundBuffer introBuff;
     static bool musicEnabledMain;
     bool introSoundPlayed;
+
+    std::vector<sf::Texture> introTextures;
+    int introFrames;
+    int currentIntroImage;
 };
 
 

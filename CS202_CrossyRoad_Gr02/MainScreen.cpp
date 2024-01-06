@@ -12,7 +12,9 @@ MainScreen::MainScreen(sf::RenderWindow& window) :
 	playButton("", { 180, 55 }, 25, sf::Color::Transparent, sf::Color::Transparent, & playButtonTex),
 	instructionButton("", { 400, 55 }, 25, sf::Color::Transparent, sf::Color::Transparent, & intButtonTex),
 	settingButton("", { 300, 55 }, 25, sf::Color::Transparent, sf::Color::Transparent, & settingButtonTex),
-	exitButton("", { 140, 55 }, 25, sf::Color::Transparent, sf::Color::Transparent, & exitButtonTex)
+	exitButton("", { 140, 55 }, 25, sf::Color::Transparent, sf::Color::Transparent, & exitButtonTex),
+	introFrames(0),
+	currentIntroImage(0)
 {
 	initBackground(window);
 	initPlayButton();
@@ -21,6 +23,16 @@ MainScreen::MainScreen(sf::RenderWindow& window) :
 	initExitButton();
 	initIntroSound();
 	introSoundPlayed = false;
+
+	for (int i = 1; i < 46; ++i) {
+		sf::Texture introTexture;
+		if (introTexture.loadFromFile("Material/Backgrounds/IntroScreen/intro" + std::to_string(i) + ".png")) {
+			introTextures.push_back(introTexture);
+		}
+		else {
+			std::cout << "Intro" << i << ".png not found!\n";
+		}
+	}
 }
 
 void MainScreen::initBackground(sf::RenderWindow& window)
@@ -151,6 +163,30 @@ void MainScreen::update(sf::RenderWindow& window)
 {
 	if (!isEndScreen)
 	{
+		if (introFrames < 46 * 13)  // Assuming 8 seconds of intro with 60 frames per second
+		{
+			// Display intro images
+			window.clear();
+			sf::Sprite introSprite(introTextures[currentIntroImage]);
+			introSprite.setScale(window.getSize().x / introSprite.getLocalBounds().width,
+				window.getSize().y / introSprite.getLocalBounds().height);
+			window.draw(introSprite);
+			window.display();
+			sf::sleep(sf::milliseconds(16));
+			introFrames++;
+
+			// Move to the next intro image every 60 frames
+			if (introFrames % 13 == 0) {
+				currentIntroImage++;
+				if (currentIntroImage >= introTextures.size()) {
+					// Intro has finished, switch to the main menu
+					introFrames = 46 * 13;  
+				}
+			}
+
+			return;
+		}
+
 		playButton.update(window);
 		instructionButton.update(window);
 		settingButton.update(window);
