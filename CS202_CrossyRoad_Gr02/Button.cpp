@@ -42,12 +42,8 @@ void Button::setPosition(const sf::Vector2f &point)
 {
     button.setPosition(point);
 
-    // Center text on button:
-    //float xPos = (point.x + btnWidth / 2.0) - (text.getLocalBounds().width / 2);
-    //float yPos = (point.y + btnHeight / 2.5) - (text.getLocalBounds().height / 2);
-
-    float xPos = (point.x + btnWidth * 0.1f); // - (text.getLocalBounds().width / 2);
-    float yPos = (point.y + btnHeight * 0.28f); //- (text.getLocalBounds().height / 2);
+    float xPos = (point.x + btnWidth * 0.1f);
+    float yPos = (point.y + btnHeight * 0.28f);
     text.setPosition(xPos, yPos);
 }
 
@@ -81,7 +77,6 @@ const sf::Vector2f& Button::getSize()
 
 void Button::drawTo(sf::RenderWindow& window) 
 {
-    //window.draw(button);
     window.draw(text);
 }
 
@@ -101,22 +96,12 @@ bool Button::isMouseOver(sf::RenderWindow& window)
         return true;
     }
     return false;
-    // This is okay, but the convert from float to int may lead to some error
-    // The getPosition().x return float and then convert to int
-    
-    /* Change
-    if (this->button.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
-        return true;
-    }
-    return false;
-    */
 }
 
 void Button::update(sf::RenderWindow& window)
 {
     sf::Color grey(0, 0, 0, 120);
     if (isMouseOver(window)) {
-        //std::cout << 1;
 		button.setOutlineColor(grey);
 	}
     else {
@@ -177,7 +162,6 @@ void ButtonCustom::setPosition(const sf::Vector2f& point)
 
 void ButtonCustom::update(sf::RenderWindow& window)
 {
-    //Button::update(window);
     buttonImg.setTexture(*buttonTex);
     if (isMouseOver(window)) 
     {
@@ -202,7 +186,6 @@ void ButtonCustom::update(sf::RenderWindow& window)
 
 void ButtonCustom::drawTo(sf::RenderWindow& window) 
 {
-    //Button::drawTo(window);
     window.draw(buttonImg);
 }
 
@@ -306,7 +289,6 @@ bool AccountButton::isMouseOverRemove(sf::RenderWindow& window)
 
 void AccountButton::update(sf::RenderWindow& window)
 {
-    //Button::update(window);
     ButtonCustom::update(window);
 
     remove.update(window);
@@ -314,7 +296,6 @@ void AccountButton::update(sf::RenderWindow& window)
 
 void AccountButton::drawTo(sf::RenderWindow& window)
 {
-    //Button::drawTo(window);
     ButtonCustom::drawTo(window);
     Button::drawTo(window);
     remove.drawTo(window);

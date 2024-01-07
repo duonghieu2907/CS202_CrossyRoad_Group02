@@ -168,7 +168,6 @@ void GamePlayScreen::update(sf::RenderWindow& window)
 		}
 		else
 		{
-			//std::cout << "data is null\n";
 		}
 		if (isContinue)
 			continueButton.update(window);

@@ -22,8 +22,6 @@ enum class ScreenState {
     InGameScreen // 5
 };
 
-// struct DataControl dataCtrl;
-
 //ANY screen will be inheritance from this abstract base screen.
 class Screen {
 public:
