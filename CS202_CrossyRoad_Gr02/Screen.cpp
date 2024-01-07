@@ -75,7 +75,6 @@ void Screen::initFont()
 
 void Screen::initData()
 {
-	//dataCtrl.datas.clear();
 	if (dataCtrl.datas.empty())
 	{
 		std::ifstream fin("Data/Data.txt");
@@ -112,7 +111,7 @@ void Screen::saveData()
 	std::ofstream fout("Data/Data.txt");
 	if (!fout.is_open())
 	{
-		std::cout << "DataSave not found!\n";
+		std::cout << "Data not found!\n";
 		fout.close();
 	}
 	else

@@ -190,20 +190,10 @@ void MainScreen::update(sf::RenderWindow& window)
 		playButton.update(window);
 		instructionButton.update(window);
 		settingButton.update(window);
-		/*if (!introSoundPlayed)
-		{
-			introSound.play();
-			introSoundPlayed = true;  
-		}
-		if (introSound.getStatus() == sf::Sound::Stopped)
-		{
-			introSound.play();
-		}*/
 		exitButton.update(window);
 	}
 	else
 	{
-		//introSoundPlayed = false;
 
 	}
 }

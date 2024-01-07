@@ -330,19 +330,6 @@ void LogInScreen::update(sf::RenderWindow& window)
 		{
 			fullMenu.update(window);
 		}
-		/*else
-		{
-			for (auto account : accounts)
-			{
-				account->update(window);
-			}
-			newButton.update(window);
-			backButton.update(window);
-			if (left)
-				leftButton.update(window);
-			else if (over5Acc)
-				rightButton.update(window);
-		}*/
 		for (auto account : accounts)
 		{
 			account->update(window);
