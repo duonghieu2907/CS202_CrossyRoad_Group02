@@ -163,7 +163,7 @@ void MainScreen::update(sf::RenderWindow& window)
 {
 	if (!isEndScreen)
 	{
-		if (introFrames < 46 * 13)  // Assuming 8 seconds of intro with 60 frames per second
+		if (introFrames < 46 * 13)  // Assuming 8 seconds of intro with 60 frames per second //46 * 13
 		{
 			// Display intro images
 			window.clear();

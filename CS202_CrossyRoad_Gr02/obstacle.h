@@ -40,6 +40,7 @@ public:
     virtual void printCarpos(){}
     virtual void clear()
     {}
+    virtual void upSpeed();
 private:
     sf::RectangleShape rec;
 

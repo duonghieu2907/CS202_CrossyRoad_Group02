@@ -13,6 +13,7 @@ public:
 	sf::RectangleShape& getShape();
 	void setState(bool x);
 	bool getState();
+	void upSpeed();
 	void update(float deltaTime, bool faceRight);
 	void refelect()
 	{

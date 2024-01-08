@@ -22,6 +22,7 @@ public:
 
     void initTex();
     void initText();
+    void setRoadLevelUp();
     void getRoadRan();
     sf::Time getTime()
     {
@@ -45,6 +46,7 @@ private:
     sf::Time elapsed; //save time player have play
     sf::Time duration;
 
+    float level;
     rain myRain;
 
 

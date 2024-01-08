@@ -318,6 +318,14 @@ void InGameScreen::initText()
 	playerStarTexBox.setPosition(85.f,65.f);
 }
 
+void InGameScreen::setRoadLevelUp()
+{
+	for (int i = 0; i < listObstacle.size(); i++)
+	{
+		listObstacle[i]-> upSpeed();
+	}
+}
+
 void InGameScreen::getRoadRan()
 {
 
@@ -333,7 +341,7 @@ void InGameScreen::getRoadRan()
 
 	//std::cout << randObs << std::endl;
 
-	Road* tmp = new Road(162.0f, sf::Vector2f(0, 1), this->road);
+	Road* tmp = new Road(162.0f, sf::Vector2f(0, 1 * pow(1.1, level)), this->road);
 
 	// Random Item
 	float randCoor = 0.f;
@@ -669,7 +677,8 @@ InGameScreen::InGameScreen(sf::RenderWindow& window) :
 	pauseMenu(window),
 	endMenu(window),
 	continueMenu(window),
-	playing(false)
+	playing(false),
+	level(1)
 {
 	initText();
 
@@ -820,7 +829,6 @@ void InGameScreen::update(sf::RenderWindow& window)
 		int seconds = static_cast<int>(elapsed.asSeconds()) % 60;
 		text.setString("Time: " + std::to_string(minutes) + "m " + std::to_string(seconds) + "s");
 
-		//deltaTime = clock.restart().asSeconds();
 		deltaTime = 0.008f;
 
 
@@ -835,6 +843,13 @@ void InGameScreen::update(sf::RenderWindow& window)
 		}
 		if (playing)
 		{
+			
+			if (elapsed.asSeconds() >= level* 15 && elapsed.asSeconds() < level*15 + 0.1) // update speed (level) every 15s
+			{
+				player.setSpeed(player.getSpeed() * 1.1);
+				setRoadLevelUp();
+				level++;
+			}
 			callDisVisibleCursor = 1;
 			for (int i = 0; i < listObstacle.size(); i++)
 			{
