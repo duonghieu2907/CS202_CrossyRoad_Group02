@@ -177,23 +177,44 @@ void Road::RiverCollision(Character& player)
 	if (bridge.size() == 0) {
 		return;
 	}
-	else {
+	else 
+	{
+		bool in = 0;
 		for (int i = 0;i < bridge.size();i++) {
 			sf::FloatRect curBridge = bridge[i].getGlobalBounds();
 			sf::FloatRect curPlayer = player.getBounds();
-			if ((curPlayer.left - curBridge.left) < -50.f && 
+
+			/*if ((curPlayer.left - curBridge.left) < -50.f &&
 				(curPlayer.top - curBridge.top) > 0.f &&
 				(curPlayer.top - curBridge.top - 110.f) < 0.f) {
 				player.setPosition(bridge[i].getPosition());
-				player.getDamage();
 				player.loadgetDamage();
 			} else if ((curPlayer.left - curBridge.left - curBridge.width) > -45.f &&
 				(curPlayer.top - curBridge.top) > 0.f &&
 				(curPlayer.top - curBridge.top - 110.f) < 0.f) {
 				player.setPosition(bridge[i].getPosition());
-				player.getDamage();
 				player.loadgetDamage();
+			}*/
+			if ((curPlayer.left - curBridge.left) < -50.f &&
+				(curPlayer.top - curBridge.top) > 0.f &&
+				(curPlayer.top - curBridge.top - 110.f) < 0.f)
+			{
+
 			}
+			else if ((curPlayer.left - curBridge.left - curBridge.width) > -45.f &&
+				(curPlayer.top - curBridge.top) > 0.f &&
+				(curPlayer.top - curBridge.top - 110.f) < 0.f) {
+			}
+			else
+			{
+				in = 1;
+				break;
+			}
+		}
+		if (in == 0)
+		{
+			player.setPosition(bridge[0].getPosition());
+			player.loadgetDamage();
 		}
 	}
 }
