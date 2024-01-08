@@ -183,7 +183,6 @@ void MainScreen::update(sf::RenderWindow& window)
 					introFrames = 46 * 13;  
 				}
 			}
-
 			return;
 		}
 

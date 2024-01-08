@@ -390,7 +390,7 @@ void InGameScreen::getRoadRan()
 		}
 		
 		if (giftRand == 1) { // add gift
-			int giftTypeRand = static_cast<unsigned>(rand() % 8 + 1);
+			int giftTypeRand = static_cast<unsigned>(rand() % 3 + 1);
 			if (giftTypeRand == 1) {
 				Item tmp0(sf::Vector2f(100.f, 50.f), this->banhmi, sf::Vector2u(3, 1), 0.1, 4);
 				tmp->addGift(tmp0, tmp->getPosition() + sf::Vector2f(randCoor, 0));
@@ -641,6 +641,8 @@ void InGameScreen::getRoadRan()
 		tmpBridge.setTexture(bridge);
 
 		tmp->addBridge(tmpBridge, tmp->getPosition());
+		tmp->addBridge(tmpBridge, sf::Vector2f(tmp->getPosition().x + 400, tmp->getPosition().y));
+		tmp->addBridge(tmpBridge, sf::Vector2f(tmp->getPosition().x - 400, tmp->getPosition().y));
 		tmp->setTexture(road3);
 	}
 	else if (randObs >= 26)
