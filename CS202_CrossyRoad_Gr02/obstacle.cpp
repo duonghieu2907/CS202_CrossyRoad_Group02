@@ -66,6 +66,11 @@ void obstacle::drawTo(sf::RenderWindow& window)
     window.draw(rec);
 }
 
+void obstacle::upSpeed()
+{
+    speed.y *= 1.1;
+}
+
 sf::RectangleShape& obstacle::getShape()
 {
     return this->rec;

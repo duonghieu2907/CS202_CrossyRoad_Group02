@@ -10,6 +10,14 @@ Road::~Road()
 {
 }
 
+void Road::upSpeed()
+{
+	obstacle::upSpeed();
+	for (int i = 0; i < car.size(); i++)
+	{
+		car[i].upSpeed();
+	}
+}
 void Road::addCar(truck tmp, sf::Vector2f pos)
 {
 	tmp.setPosition(pos);

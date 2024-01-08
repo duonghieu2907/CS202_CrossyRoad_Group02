@@ -63,5 +63,6 @@ public:
 	void update() override;
 	void beginUpdate() override;
 	void drawTo(sf::RenderWindow& target) override;
+	void upSpeed() override;
 };
 

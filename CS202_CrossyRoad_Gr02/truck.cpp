@@ -32,6 +32,11 @@ bool truck::getState()
 {
 	return isGo;
 }
+
+void truck::upSpeed()
+{
+	carSpeed *= 1.1;
+}
 void truck::update(float deltaTime, bool faceRight)
 {
 	if (getShape().getGlobalBounds().top + 90.f >=0) { // at the close enough the screen, the car now move
